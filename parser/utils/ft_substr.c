@@ -6,11 +6,11 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 23:46:17 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/01/28 14:30:34 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:30:29 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 static	char	*ft_strncpy(char *dest, char *src, size_t n)
 {
