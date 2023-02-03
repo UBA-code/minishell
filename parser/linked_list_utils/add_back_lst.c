@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:00:39 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/01/31 18:01:44 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/02 22:08:09 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	add_back_lst(t_cmd_node **head, t_cmd_node *node)
 		while (current->next)
 			current = current->next;
 		current->next = node;
-		node->next = 0;
 	}
+	node->next = 0;
 }

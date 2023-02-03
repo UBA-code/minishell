@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/01 13:44:52 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/02 22:04:36 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,20 @@
 
 #define	CURRENT_CONDITION str[i] == '"' || str[i] == '\'' \
 			|| str[i] == '<' || str[i] == '>' \
-			|| str[i] == ' '
+			|| str[i] == ' ' || str[i] == ')' || str[i] == '('
 
 #define NEXT_CONDITIN str[i + 1] == '"' || str[i + 1] == '\'' \
 			|| str[i + 1] == '<' || str[i + 1] == '>'\
-			|| str[i + 1] == ' '
+			|| str[i + 1] == ' ' || str[i + 1] == ')' || str[i + 1] == '('
 
 #define LEFT_REDIRECT ">"
 #define RIGHT_REDIRECT "<"
 #define DOUBLE_QUOTES "\""
 #define SINGLE_QUOTES "'"
+#define LEFT_GROUP "("
+#define RIGHT_GROUP ")"
 #define SPACE " "
+#define DOLAR "$"
 
 typedef struct lexer_s
 {
@@ -65,5 +68,7 @@ void		lst_clear(t_cmd_node **head);
 t_cmd_node	*create_node(t_cmd_node **head);
 int			ft_strcmp(char *s1, char *s2);
 void		init_lexer_node(t_cmd_node **head, char *line, char **env);
+int			ft_error(char *str, int error);
+int			check_quotes(char *str);
 
 #endif
