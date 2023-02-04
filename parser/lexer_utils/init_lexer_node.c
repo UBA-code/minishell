@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:15:37 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/02 22:06:25 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:32:47 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,12 @@ char	get_type(char *content)
 	return ('w');
 }
 
-void	init_lexer_node(t_cmd_node **head, char *line, char **env)
+void	init_lexer_node(t_lexer_node **head, char *line, char **env)
 {
 	int			i;
 	t_lexer		*lexer;
 	int			j;
-	t_cmd_node	*node;
+	t_lexer_node	*node;
 
 	// printf("%d\n", get_token_len(line));
 	lexer = malloc(sizeof(t_lexer) * get_token_len(line));
@@ -109,7 +109,7 @@ void	init_lexer_node(t_cmd_node **head, char *line, char **env)
 		lexer[j].type = get_type(lexer[j].content);
 		j++;
 	}
-	node = create_node(head);
+	node = lexer_create_node(head);
 	node->lexer = lexer;
 	node->lexer_size = get_token_len(line);
 	node->env = env;                                                                                                                              

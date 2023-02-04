@@ -1287,11 +1287,11 @@
             "parentId": "page",
             "childIndex": 12,
             "point": [
-              248.01,
+              254.51,
               812.19
             ],
             "rotation": 0,
-            "text": " cat /dev/random > file1 | head -c 100 | wc -c >> file2",
+            "text": "cat /dev/random > file1 | head -c 100 | wc -c >> file2",
             "style": {
               "color": "black",
               "size": "small",

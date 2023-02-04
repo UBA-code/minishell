@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_clear.c                                        :+:      :+:    :+:   */
+/*   files_create_node.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 13:28:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/03 20:19:55 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/04 16:25:06 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/02/04 19:56:14 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	lst_clear(t_lexer_node **head)
+void	files_add_back_lst(t_files	*head, t_files *node)
 {
-	t_lexer_node	*current;
-	int			i;
-	t_lexer_node	*temp;
+	while (head->next)
+		head = head->next;
+	head->next = node;
+}
 
-	i = 0;
-	current = *head;
-	while (current)
-	{
-		i = -1;
-		while (++i < current->lexer_size)
-			free(current->lexer[i].content);
-		temp = current;
-		current = current->next;
-		free(temp->lexer);
-		free(temp);
-	}
+t_files	*files_create_node(t_files **head, char *file, char type)
+{
+	t_files	*node;
+
+	node = malloc(sizeof(t_files));
+	if (!*head)
+		*head = node;
+	else
+		files_add_back_lst(*head, node);
+	node->file = file;
+	node->type = type;
+	node->next = 0;
+	return (node);
 }

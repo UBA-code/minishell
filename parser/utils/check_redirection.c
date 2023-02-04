@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_clear.c                                        :+:      :+:    :+:   */
+/*   check_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 13:28:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/03 20:19:55 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/03 12:50:56 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/02/03 15:25:39 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	lst_clear(t_lexer_node **head)
+int	check_redirection(char *line)
 {
-	t_lexer_node	*current;
-	int			i;
-	t_lexer_node	*temp;
+	int	i;
 
 	i = 0;
-	current = *head;
-	while (current)
+	while (line[i])
 	{
-		i = -1;
-		while (++i < current->lexer_size)
-			free(current->lexer[i].content);
-		temp = current;
-		current = current->next;
-		free(temp->lexer);
-		free(temp);
+		
 	}
 }

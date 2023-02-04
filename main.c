@@ -6,15 +6,15 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/03 12:29:43 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:52:14 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-void	ft_print_lst(t_cmd_node *head)
+void ft_print_lst(t_lexer_node *head)
 {
-	int	i;
+	int i;
 
 	while (head)
 	{
@@ -29,20 +29,20 @@ void	ft_print_lst(t_cmd_node *head)
 	}
 }
 
-void	ft_putstr(char *str)
+void ft_putstr(char *str)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (str[++i])
 		write(1, &str[i], 1);
 }
 
-void	minishell(char *line, char **env)
+void minishell(char *line, char **env)
 {
-	char	**args;
-	int		i;
-	t_cmd_node	*head;
+	char **args;
+	int i;
+	t_lexer_node *head;
 
 	head = 0;
 	i = 0;
@@ -53,19 +53,38 @@ void	minishell(char *line, char **env)
 		free(args[i]);
 		i++;
 	}
+	parser_utils(&head);
 	free(args);
-	ft_print_lst(head);
 	lst_clear(&head);
 }
 
-int	main(int ac, char **av, char **env)
+char *get_path(char **env)
 {
-	char		*line;
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], "PWD", 3))
+			return (get_substring(env[i] + 4, ft_strlen(env[i] + 4)));
+		i++;
+	}
+	return (0);
+}
+
+int main(int ac, char **av, char **env)
+{
+	char	*line;
+	char	*path;
+	char	*final_path;
 
 	while (1)
 	{
-		// line = readline("\e[32m1337@UBA-shell~> ");
-		line = readline("1337@UBA-shell~> ");
+		// line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
+		path = get_path(env);
+		printf("\e[1;32m");
+		final_path = ft_strjoin(path, "/$\e[0m ");
+		line = readline(final_path);
 		if (ft_strlen(line) && check_quotes(line))
 			minishell(line, env);
 	}
