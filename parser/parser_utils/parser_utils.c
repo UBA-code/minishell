@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/04 20:56:10 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/05 22:33:57 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int	parser_get_size(t_lexer_node *node)
 	while (i < node->lexer_size)
 	{
 		if (node->lexer[i].type == '>' || node->lexer[i].type == '<')
+		{
+			i += 2;
 			break;
+		}
 		if (node->lexer[i].type == 'w')
 			size++;
 		i++;
@@ -41,7 +44,7 @@ int	loop_get_file(t_lexer_node *node, int i)
 	return (0);
 }
 
-void	redirection_work(t_lexer_node *node)
+void	redirection_work(t_lexer_node *node, int *nb)
 {
 	int	i;
 
@@ -50,26 +53,47 @@ void	redirection_work(t_lexer_node *node)
 	{
 		if (node->lexer[i].type == '>' && node->lexer[i + 1].type != '>')
 		{
-			i = loop_get_file(node, i);			//need Check here if i == 0 means error no file
+			i = loop_get_file(node, i);	
+			if (i == 0)
+			{
+				ft_error("Error, no output file\n", 2);	//need Check here if i == 0 means error no file
+				return ;
+			}
 			files_create_node(&(node->cmd_struct.files_head), node->lexer[i].content, 'O');
 		}
 		else if (node->lexer[i].type == '>' && node->lexer[i + 1].type == '>')
 		{
 			i = loop_get_file(node, i);			//need Check here if i == 0 means error no file
+			if (i == 0)
+			{
+				ft_error("Error, no output file\n", 2);	//need Check here if i == 0 means error no file
+				return ;
+			}
 			files_create_node(&(node->cmd_struct.files_head), node->lexer[i].content, 'A');
 		}
 		else if (node->lexer[i].type == '<' && node->lexer[i + 1].type != '<')
 		{
 			i = loop_get_file(node, i);			//need Check here if i == 0 means error no file
+			if (i == 0)
+			{
+				ft_error("Error, no output file\n", 2);	//need Check here if i == 0 means error no file
+				return ;
+			}
 			files_create_node(&(node->cmd_struct.files_head), node->lexer[i].content, 'I');
 		}
 		else if (node->lexer[i].type == '<' && node->lexer[i + 1].type == '<')
 		{
 			i = loop_get_file(node, i);			//need Check here if i == 0 means error no file
+			if (i == 0)
+			{
+				ft_error("Error, no output file\n", 2);	//need Check here if i == 0 means error no file
+				return ;
+			}
 			files_create_node(&(node->cmd_struct.files_head), node->lexer[i].content, 'H');
 		}
 		i++;
 	}
+	++*nb;
 }
 
 void	parser_work(t_lexer_node *node)
@@ -84,13 +108,13 @@ void	parser_work(t_lexer_node *node)
 	while (i < node->lexer_size)
 	{
 		if (node->lexer[i].type == '<' || node->lexer[i].type == '>')
-			i = loop_get_file(node, i) + 1;
+			redirection_work(node, &i);
 		if (node->lexer[i].type == 'w')
 			node->cmd_struct.cmd[j++] = node->lexer[i].content;
 		i++;
 	}
 	node->cmd_struct.cmd[j] = 0;
-	redirection_work(node);
+	// redirection_work(node);
 }
 
 void	parser_utils(t_lexer_node **lexer_head)
@@ -103,11 +127,22 @@ void	parser_utils(t_lexer_node **lexer_head)
 		parser_work(current);
 		current = current->next;
 	}
+
+
+// ------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+	// print
 	
 	current = *lexer_head;
-
 	t_files *files;
-
 	files = (*lexer_head)->cmd_struct.files_head;
 	int	i;
 	while (current)
