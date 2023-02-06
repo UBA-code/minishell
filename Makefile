@@ -18,6 +18,7 @@ SRCS = main.c parser/get_next_line/get_next_line.c \
 OBG = $(SRCS:.c=.o)
 # BONUS_OBG = $(BONUS_SRCS:.c=.o)
 # CFLAGS = -Wall -Werror -Wextra
+# CFLAGS = -fsanitize=address -g3
 NAME = minishell
 # BONUS = checker
 

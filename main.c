@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/04 21:52:14 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/06 16:53:13 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void minishell(char *line, char **env)
 	while (args[i])
 	{
 		init_lexer_node(&head, args[i], env);
-		free(args[i]);
+		// free(args[i]);
 		i++;
 	}
 	parser_utils(&head);
-	free(args);
+	// free(args);
 	lst_clear(&head);
 }
 
@@ -75,16 +75,16 @@ char *get_path(char **env)
 int main(int ac, char **av, char **env)
 {
 	char	*line;
-	char	*path;
-	char	*final_path;
+	// char	*path;
+	// char	*final_path;
 
 	while (1)
 	{
-		// line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
-		path = get_path(env);
-		printf("\e[1;32m");
-		final_path = ft_strjoin(path, "/$\e[0m ");
-		line = readline(final_path);
+		line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
+		// path = get_path(env);
+		// printf("\e[1;32m");
+		// final_path = ft_strjoin(path, "/$\e[0m ");
+		// line = readline(final_path);
 		if (ft_strlen(line) && check_quotes(line))
 			minishell(line, env);
 	}

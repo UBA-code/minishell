@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:28:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/03 20:19:55 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:38:30 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	lst_clear(t_lexer_node **head)
 {
 	t_lexer_node	*current;
-	int			i;
+	int				i;
 	t_lexer_node	*temp;
 
 	i = 0;

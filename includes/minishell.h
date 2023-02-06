@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/05 19:49:40 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:53:02 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct s_lexer_node
 	size_t				lexer_size;
 	t_cmd				cmd_struct;
 	char				**env;
+	char				*pipe;
+	int					loop;
 	struct s_lexer_node *next;
 }	t_lexer_node;
 

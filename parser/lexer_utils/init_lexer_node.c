@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:15:37 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/03 20:32:47 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:37:29 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	get_type(char *content)
 		return ('$');
 	if (ft_strcmp(content, SPACE))
 		return ('S');
-	return ('w');
+	return ('W');
 }
 
 void	init_lexer_node(t_lexer_node **head, char *line, char **env)
@@ -111,6 +111,8 @@ void	init_lexer_node(t_lexer_node **head, char *line, char **env)
 	}
 	node = lexer_create_node(head);
 	node->lexer = lexer;
+	node->pipe = line;
+	node->loop = 0;
 	node->lexer_size = get_token_len(line);
 	node->env = env;                                                                                                                              
 }

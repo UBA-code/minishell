@@ -6,11 +6,22 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/05 22:33:57 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/06 16:47:24 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+
+void	skip_files(t_lexer_node *node, int *i)
+{
+	while (*i < node->lexer_size)
+	{
+		if (node->lexer[*i].type == 'W')
+			break ;
+		++(*i);
+	}
+}
 
 int	parser_get_size(t_lexer_node *node)
 {
@@ -22,81 +33,46 @@ int	parser_get_size(t_lexer_node *node)
 	while (i < node->lexer_size)
 	{
 		if (node->lexer[i].type == '>' || node->lexer[i].type == '<')
-		{
-			i += 2;
-			break;
-		}
-		if (node->lexer[i].type == 'w')
+			skip_files(node, &i);
+		else if (node->lexer[i].type == 'W')
 			size++;
 		i++;
 	}
 	return (size);
 }
 
-int	loop_get_file(t_lexer_node *node, int i)
+char	get_file_type(t_lexer_node *node, int i)
 {
+	if (i + 1 < node->lexer_size && node->lexer[i].type == '>' && node->lexer[i + 1].type != '>')
+		return ('O');
+	if (i + 1 < node->lexer_size && node->lexer[i].type == '>' && node->lexer[i + 1].type == '>')
+		return ('A');
+	if (i + 1 < node->lexer_size && node->lexer[i].type == '<' && node->lexer[i + 1].type != '<')
+		return ('I');
+	if (i + 1 < node->lexer_size && node->lexer[i].type == '<' && node->lexer[i + 1].type == '<')
+		return ('H');
+	return (0);
+}
+
+int	get_after_file(t_lexer_node *node, int i)
+{
+	char	type;
+
+	type = get_file_type(node, i);
 	while (i < node->lexer_size)
 	{
-		if (node->lexer[i].type == 'w')
+		if (node->lexer[i].type == 'W')
+		{
+			files_create_node(&(node->cmd_struct.files_head), node->lexer[i].content,
+			type);
 			return (i);
+		}
 		i++;
 	}
 	return (0);
 }
 
-void	redirection_work(t_lexer_node *node, int *nb)
-{
-	int	i;
-
-	i = 0;
-	while (i < node->lexer_size)
-	{
-		if (node->lexer[i].type == '>' && node->lexer[i + 1].type != '>')
-		{
-			i = loop_get_file(node, i);	
-			if (i == 0)
-			{
-				ft_error("Error, no output file\n", 2);	//need Check here if i == 0 means error no file
-				return ;
-			}
-			files_create_node(&(node->cmd_struct.files_head), node->lexer[i].content, 'O');
-		}
-		else if (node->lexer[i].type == '>' && node->lexer[i + 1].type == '>')
-		{
-			i = loop_get_file(node, i);			//need Check here if i == 0 means error no file
-			if (i == 0)
-			{
-				ft_error("Error, no output file\n", 2);	//need Check here if i == 0 means error no file
-				return ;
-			}
-			files_create_node(&(node->cmd_struct.files_head), node->lexer[i].content, 'A');
-		}
-		else if (node->lexer[i].type == '<' && node->lexer[i + 1].type != '<')
-		{
-			i = loop_get_file(node, i);			//need Check here if i == 0 means error no file
-			if (i == 0)
-			{
-				ft_error("Error, no output file\n", 2);	//need Check here if i == 0 means error no file
-				return ;
-			}
-			files_create_node(&(node->cmd_struct.files_head), node->lexer[i].content, 'I');
-		}
-		else if (node->lexer[i].type == '<' && node->lexer[i + 1].type == '<')
-		{
-			i = loop_get_file(node, i);			//need Check here if i == 0 means error no file
-			if (i == 0)
-			{
-				ft_error("Error, no output file\n", 2);	//need Check here if i == 0 means error no file
-				return ;
-			}
-			files_create_node(&(node->cmd_struct.files_head), node->lexer[i].content, 'H');
-		}
-		i++;
-	}
-	++*nb;
-}
-
-void	parser_work(t_lexer_node *node)
+int	parser_work(t_lexer_node *node)
 {
 	int	i;
 	int	j;
@@ -108,13 +84,17 @@ void	parser_work(t_lexer_node *node)
 	while (i < node->lexer_size)
 	{
 		if (node->lexer[i].type == '<' || node->lexer[i].type == '>')
-			redirection_work(node, &i);
-		if (node->lexer[i].type == 'w')
+		{
+			i = get_after_file(node, i);
+			if (i == 0)
+				return (0);
+		}
+		else if (node->lexer[i].type == 'W')
 			node->cmd_struct.cmd[j++] = node->lexer[i].content;
 		i++;
 	}
 	node->cmd_struct.cmd[j] = 0;
-	// redirection_work(node);
+	return (1);
 }
 
 void	parser_utils(t_lexer_node **lexer_head)
@@ -124,7 +104,11 @@ void	parser_utils(t_lexer_node **lexer_head)
 	current = *lexer_head;
 	while (current)
 	{
-		parser_work(current);
+		if (!parser_work(current))
+		{
+			ft_error("Error, Parse Error\n", 2);
+			return ;
+		}
 		current = current->next;
 	}
 
