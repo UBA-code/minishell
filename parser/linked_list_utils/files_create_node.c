@@ -6,18 +6,11 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 16:25:06 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/04 19:56:14 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:55:44 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	files_add_back_lst(t_files	*head, t_files *node)
-{
-	while (head->next)
-		head = head->next;
-	head->next = node;
-}
 
 t_files	*files_create_node(t_files **head, char *file, char type)
 {

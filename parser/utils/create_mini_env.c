@@ -6,12 +6,11 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:57:42 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/07 17:44:35 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:51:10 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 int	ft_strchr(char *str, char c)
 {

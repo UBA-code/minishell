@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/06 16:53:13 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:48:25 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,16 @@ int main(int ac, char **av, char **env)
 	// char	*path;
 	// char	*final_path;
 
+	global.env_head = 0;
+	create_env(&(global.env_head), env);
+	t_mini_env *current;
+
+	current = global.env_head;
+	while (current)
+	{
+		printf("%s=%s\n", current->name, current->value);
+		current = current->next;
+	}
 	while (1)
 	{
 		line = readline("\e[1;32m1337@UBA-shell~> \e[0m");

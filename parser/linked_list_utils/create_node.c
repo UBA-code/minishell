@@ -19,7 +19,7 @@ t_lexer_node	*lexer_create_node(t_lexer_node **head)
 	node = malloc(sizeof(t_lexer_node));
 	add_back_lst(head, node);
 	return (node);
-}env
+}
 
 t_files	*files_create_node(t_files **head, char *file, char type)
 {
