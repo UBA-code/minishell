@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   files_create_node.c                                :+:      :+:    :+:   */
+/*   create_mini_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 16:25:06 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/08 10:55:44 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/07 16:57:42 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/02/08 10:51:10 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_files	*files_create_node(t_files **head, char *file, char type)
+int	ft_strchr(char *str, char c)
 {
-	t_files	*node;
+	int	i;
 
-	node = malloc(sizeof(t_files));
-	if (!*head)
-		*head = node;
-	else
-		files_add_back_lst(*head, node);
-	node->file = file;
-	node->type = type;
-	node->next = 0;
-	return (node);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+void	create_env(t_mini_env **head, char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		env_create_node(head, ft_substr(env[i], 0, ft_strchr(env[i], '=')),
+			ft_substr(env[i], (ft_strchr(env[i], '=') + 1), ft_strlen(env[i])));
+		i++;
+	}
 }

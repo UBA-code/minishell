@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   files_create_node.c                                :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 16:25:06 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/08 10:55:44 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/07 19:57:56 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/02/07 22:07:39 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_files	*files_create_node(t_files **head, char *file, char type)
+void	echo(char *msg, int option)
 {
-	t_files	*node;
-
-	node = malloc(sizeof(t_files));
-	if (!*head)
-		*head = node;
+	if (option)
+		printf("%s", msg);
 	else
-		files_add_back_lst(*head, node);
-	node->file = file;
-	node->type = type;
-	node->next = 0;
-	return (node);
+		printf("%s\n", msg);
+}
+
+char	*get_variable(char *variable)
+{
+	t_mini_env	*current;
+
+	current = global.env_head;
+	while (current)
+	{
+		if (ft_strcmp(current->name, variable))
+			retuurn (current->value);
+		current = current->next;
+	}
+	return (0);
 }
