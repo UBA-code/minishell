@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/06 10:53:02 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:50:37 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,28 @@ typedef struct s_cmd
 	t_files *files_head;
 }	t_cmd;
 
+typedef	struct s_mini_env
+{
+	char				*name;
+	char				*value;
+	struct s_mini_env	*next;
+}	t_mini_env;
+
 typedef struct s_lexer_node
 {
 	t_lexer				*lexer;
 	size_t				lexer_size;
 	t_cmd				cmd_struct;
 	char				**env;
-	char				*pipe;
-	int					loop;
 	struct s_lexer_node *next;
 }	t_lexer_node;
 
+typedef struct s_global
+{
+	t_mini_env	*env_head;
+}	t_global;
+
+t_global	global;
 
 void			*ft_memset(void *b, int c, size_t len);
 void			*ft_calloc(size_t count, size_t size);
@@ -83,5 +94,10 @@ void 			init_lexer_node(t_lexer_node **head, char *line, char **env);
 int 			ft_error(char *str, int error);
 int 			check_quotes(char *str);
 void			parser_utils(t_lexer_node **lexer_head);
+void			files_add_back_lst(t_files	*head, t_files *node);
+t_lexer_node	*lexer_create_node(t_lexer_node **head);
+void			env_add_back_lst(t_mini_env	*head, t_mini_env *node);
+t_mini_env		*env_create_node(t_mini_env **head, char *name, char *value);
+void			create_env(t_mini_env **head, char **env);
 
 #endif
