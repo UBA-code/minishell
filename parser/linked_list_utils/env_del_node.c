@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   files_create_node.c                                :+:      :+:    :+:   */
+/*   env_del_node.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 16:25:06 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/08 10:55:44 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/08 19:41:54 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/02/09 15:45:26 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_files	*files_create_node(t_files **head, char *file, char type)
+void	env_del_node(t_mini_env **head, char *variable)
 {
-	t_files	*node;
+	t_mini_env	*current;
+	t_mini_env	*temp;
 
-	node = malloc(sizeof(t_files));
-	if (!*head)
-		*head = node;
-	else
-		files_add_back_lst(*head, node);
-	node->file = file;
-	node->type = type;
-	node->next = 0;
-	return (node);
+	current = *head;
+	while (current)
+	{
+		if (ft_strcmp(current->name, variable))
+		{
+			temp = current;
+			current->previous->next = current->next;
+			free(temp->name);
+			free(temp->value);
+			free(temp);
+			return ;
+		}
+		current = current->next;
+	}
+}
+
+void	exit_cmd(int error_code)
+{
+	exit(error_code);
 }

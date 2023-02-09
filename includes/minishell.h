@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/08 10:50:37 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:59:43 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include "stdlib.h"
 # include "unistd.h"
 
-# define CURRENT_CONDITION str[i] == '"' || str[i] == '\'' || str[i] == '<' || str[i] == '>' || str[i] == ' ' || str[i] == ')' || str[i] == '('
+# define CURRENT_CONDITION str[i] == '"' || str[i] == '\'' || str[i] == '<' || str[i] == '>' || str[i] == ' ' || str[i] == ')' || str[i] == '(' || str[i] == '='
 
-# define NEXT_CONDITIN str[i + 1] == '"' || str[i + 1] == '\'' || str[i + 1] == '<' || str[i + 1] == '>' || str[i + 1] == ' ' || str[i + 1] == ')' || str[i + 1] == '('
+# define NEXT_CONDITIN str[i + 1] == '"' || str[i + 1] == '\'' || str[i + 1] == '<' || str[i + 1] == '>' || str[i + 1] == ' ' || str[i + 1] == ')' || str[i + 1] == '(' || str[i + 1] == '='
 
 # define LEFT_REDIRECT ">"
 # define RIGHT_REDIRECT "<"
@@ -32,6 +32,7 @@
 # define RIGHT_GROUP ")"
 # define SPACE " "
 # define DOLAR "$"
+# define equal "="
 
 typedef struct lexer_s
 {
@@ -57,6 +58,7 @@ typedef	struct s_mini_env
 	char				*name;
 	char				*value;
 	struct s_mini_env	*next;
+	struct s_mini_env	*previous;
 }	t_mini_env;
 
 typedef struct s_lexer_node
@@ -99,5 +101,12 @@ t_lexer_node	*lexer_create_node(t_lexer_node **head);
 void			env_add_back_lst(t_mini_env	*head, t_mini_env *node);
 t_mini_env		*env_create_node(t_mini_env **head, char *name, char *value);
 void			create_env(t_mini_env **head, char **env);
+char			*get_variable(char *variable);
+void			env_del_node(t_mini_env **head, char *variable);
+void			echo_cmd(char *msg, int option);
+char			*get_variable_cmd(char *variable);
+t_mini_env		*export_cmd(t_mini_env **head, char *name, char *value);
+void			unset_cmd(t_mini_env **head, char *variable);
+void			env_cmd(t_mini_env *head);
 
 #endif

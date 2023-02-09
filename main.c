@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/08 10:48:25 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:51:58 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,18 @@ int main(int ac, char **av, char **env)
 
 	global.env_head = 0;
 	create_env(&(global.env_head), env);
-	t_mini_env *current;
-
-	current = global.env_head;
-	while (current)
-	{
-		printf("%s=%s\n", current->name, current->value);
-		current = current->next;
-	}
-	while (1)
-	{
-		line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
-		// path = get_path(env);
-		// printf("\e[1;32m");
-		// final_path = ft_strjoin(path, "/$\e[0m ");
-		// line = readline(final_path);
-		if (ft_strlen(line) && check_quotes(line))
-			minishell(line, env);
-	}
-	// while (1);
+	env_del_node(&(global.env_head), "SHELL");
+	env_cmd(global.env_head);
+	// while (1)
+	// {
+	// 	line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
+	// 	// path = get_path(env);
+	// 	// printf("\e[1;32m");
+	// 	// final_path = ft_strjoin(path, "/$\e[0m ");
+	// 	// line = readline(final_path);
+	// 	if (ft_strlen(line) && check_quotes(line))
+	// 		minishell(line, env);
+	// }
+	while (1);
 	return 0;
 }

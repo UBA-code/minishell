@@ -9,7 +9,9 @@ SRCS = main.c parser/get_next_line/get_next_line.c \
 		./parser/lexer_utils/init_lexer_node.c \
 		./parser/utils/utils.c \
 		./parser/parser_utils/parser_utils.c \
-		./parser/utils/create_mini_env.c
+		./parser/utils/create_mini_env.c \
+		./parser/builtins/builtins.c \
+		./parser/linked_list_utils/env_del_node.c
 # BONUS_SRCS = actions.c actions_2.c cases.c check_utils.c create_stack.c ft_calloc.c \
 # 	ft_split.c ft_strdup.c ft_substr.c push_swap_bonus.c sort_three.c utils.c utils_2.c utils_3.c \
 # 	sort_five.c last_sort.c utils_4.c \

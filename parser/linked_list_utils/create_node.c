@@ -42,7 +42,10 @@ t_mini_env	*env_create_node(t_mini_env **head, char *name, char *value)
 
 	node = malloc(sizeof(t_mini_env));
 	if (!*head)
+	{
 		*head = node;
+		node->previous = 0;
+	}
 	else
 		env_add_back_lst(*head, node);
 	node->name = name;

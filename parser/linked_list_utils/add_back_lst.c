@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:00:39 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/08 10:56:25 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:27:13 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void	env_add_back_lst(t_mini_env	*head, t_mini_env *node)
 	while (head->next)
 		head = head->next;
 	head->next = node;
+	node->previous = head;
 	node->next = 0;
 }
