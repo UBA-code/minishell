@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:57:42 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/08 10:51:10 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:42:22 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,23 @@ int	ft_strchr(char *str, char c)
 			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
 void	create_env(t_mini_env **head, char **env)
 {
 	int	i;
+	char *value;
 
 	i = 0;
 	while (env[i])
 	{
+		if (ft_strchr(env[i], '=') == -1)
+			value = 0;
+		else
+			value = ft_substr(env[i], (ft_strchr(env[i], '=') + 1), ft_strlen(env[i]));
 		env_create_node(head, ft_substr(env[i], 0, ft_strchr(env[i], '=')),
-			ft_substr(env[i], (ft_strchr(env[i], '=') + 1), ft_strlen(env[i])));
+			value);
 		i++;
 	}
 }

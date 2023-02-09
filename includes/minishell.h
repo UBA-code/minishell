@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/09 14:59:43 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/09 21:56:48 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_lexer_node
 typedef struct s_global
 {
 	t_mini_env	*env_head;
+	int			error;
 }	t_global;
 
 t_global	global;
@@ -101,12 +102,15 @@ t_lexer_node	*lexer_create_node(t_lexer_node **head);
 void			env_add_back_lst(t_mini_env	*head, t_mini_env *node);
 t_mini_env		*env_create_node(t_mini_env **head, char *name, char *value);
 void			create_env(t_mini_env **head, char **env);
-char			*get_variable(char *variable);
+char			*get_variable_cmd(char *variable);
 void			env_del_node(t_mini_env **head, char *variable);
 void			echo_cmd(char *msg, int option);
 char			*get_variable_cmd(char *variable);
-t_mini_env		*export_cmd(t_mini_env **head, char *name, char *value);
+void			export_cmd(t_mini_env **head, char *str);
 void			unset_cmd(t_mini_env **head, char *variable);
-void			env_cmd(t_mini_env *head);
+void			env_cmd(char c);
+void			pwd_cmd(t_mini_env *head);
+void			ft_putstr(char *str, int fd);
+int				ft_strchr(char *str, char c);
 
 #endif

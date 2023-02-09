@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/09 15:51:58 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/09 21:51:37 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void ft_print_lst(t_lexer_node *head)
 	}
 }
 
-void ft_putstr(char *str)
+void ft_putstr(char *str, int fd)
 {
 	int i;
 
 	i = -1;
 	while (str[++i])
-		write(1, &str[i], 1);
+		write(fd, &str[i], 1);
 }
 
 void minishell(char *line, char **env)
@@ -80,8 +80,12 @@ int main(int ac, char **av, char **env)
 
 	global.env_head = 0;
 	create_env(&(global.env_head), env);
-	env_del_node(&(global.env_head), "SHELL");
-	env_cmd(global.env_head);
+	// env_cmd(global.env_head);
+	// printf("--------------------------------------------\n");
+	export_cmd(&(global.env_head), "name=\"\"");
+	env_cmd('x');
+	// export_cmd(&(global.env_head), 0);
+	// env_cmd(global.env_head);
 	// while (1)
 	// {
 	// 	line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
@@ -92,6 +96,6 @@ int main(int ac, char **av, char **env)
 	// 	if (ft_strlen(line) && check_quotes(line))
 	// 		minishell(line, env);
 	// }
-	while (1);
+	// while (1);
 	return 0;
 }
