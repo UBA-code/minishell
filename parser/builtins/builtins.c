@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 19:57:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/09 22:11:21 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/10 21:22:54 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_variable_cmd(char *variable)
 {
 	t_mini_env	*current;
 
-	current = global.env_head;
+	current = g_global.env_head;
 	while (current)
 	{
 		if (ft_strcmp(current->name, variable))
@@ -38,7 +38,7 @@ void	env_cmd(char c)
 {
 	t_mini_env	*current;
 
-	current = global.env_head;
+	current = g_global.env_head;
 	if (c == 'x')
 	{
 		while (current)
@@ -112,5 +112,34 @@ void	pwd_cmd(t_mini_env *head)
 			return ;
 		}
 		head = head->next;
+	}
+}
+
+void	cd_cmd(char *dir)
+{
+	int		folder;
+	char	*oldpwd;
+
+	if (!dir)
+		chdir("/Users/ybel-hac");
+	else if (ft_strcmp(dir, "-"))
+	{
+		if (!get_variable_cmd("OLDPWD"))
+			ft_error("bash: cd: OLDPWD not set\n", 0); // error need to check
+		else
+			chdir(get_variable_cmd("OLDPWD"));
+	}
+	else
+	{
+		folder = chdir(dir);
+		if (folder)
+		{
+			ft_error("bash: ", 0); //need to check error
+			ft_error(dir, 0); //need to check error
+			ft_error(": No such directory\n", 0); //need to check error
+			return ;
+		}
+		modifie_variable("OLDPWD", get_variable_cmd("PWD"));
+		modifie_variable("PWD", getcwd(0, 0));
 	}
 }

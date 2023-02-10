@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/09 21:51:37 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:23:44 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,47 +55,27 @@ void minishell(char *line, char **env)
 	}
 	parser_utils(&head);
 	// free(args);
+	env_cmd('e');
 	lst_clear(&head);
-}
-
-char *get_path(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "PWD", 3))
-			return (get_substring(env[i] + 4, ft_strlen(env[i] + 4)));
-		i++;
-	}
-	return (0);
 }
 
 int main(int ac, char **av, char **env)
 {
 	char	*line;
-	// char	*path;
-	// char	*final_path;
 
-	global.env_head = 0;
-	create_env(&(global.env_head), env);
-	// env_cmd(global.env_head);
+	g_global.env_head = 0;
+	create_env(&(g_global.env_head), env);
 	// printf("--------------------------------------------\n");
-	export_cmd(&(global.env_head), "name=\"\"");
-	env_cmd('x');
-	// export_cmd(&(global.env_head), 0);
-	// env_cmd(global.env_head);
-	// while (1)
-	// {
-	// 	line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
-	// 	// path = get_path(env);
-	// 	// printf("\e[1;32m");
-	// 	// final_path = ft_strjoin(path, "/$\e[0m ");
-	// 	// line = readline(final_path);
-	// 	if (ft_strlen(line) && check_quotes(line))
-	// 		minishell(line, env);
-	// }
+	// export_cmd(&(g_global.env_head), "name=\"\"");
+	// export_cmd(&(g_global.env_head), 0);
+	// env_cmd(g_global.env_head);
+	while (1)
+	{
+		line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
+		cd_cmd(line);
+		if (ft_strlen(line) && check_quotes(line))
+			minishell(line, env);
+	}
 	// while (1);
 	return 0;
 }

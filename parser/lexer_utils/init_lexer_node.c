@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:15:37 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/08 10:52:45 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:58:28 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	get_next_word(char *str, int i)
 // get how mush tokens
 int	get_token_len(char *str)
 {
-int	i;
+	int	i;
 	int	len;
 
 	len = 0;
