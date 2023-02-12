@@ -6,18 +6,91 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/06 16:47:24 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/12 17:32:05 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 
+void	free_parser(t_lexer_node *head)
+{
+	int	i;
+
+	while (head)
+	{
+		i = 0;
+		while (head->cmd_struct.cmd[i])
+		{
+			free();
+			
+		}
+	}
+}
+
+int	get_last_of_var(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!((str[i] >= 'a' && str[i] <= 'z')
+			|| (str[i] >= 'A' && str[i] <= 'Z')
+			|| (str[i] >= '0' && str[i] <= '9')
+			|| str[i] == '_'))
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
+char	*smart_get_variable(char *str)
+{
+	char	*variable;
+	char	*temp;
+
+	temp = get_substring(str, get_last_of_var(str));
+	variable = get_variable_cmd(temp);
+	free(temp);
+	if (!variable)
+		return (0);
+	variable = ft_strjoin(variable, str + get_last_of_var(str));
+	return (variable);
+}
+
+char	*join_string_double(t_lexer_node *node, int *nb)
+{
+	char	*final;
+	int		i;
+	char	*temp;
+	i = *nb + 1;
+	final = 0;
+	while (i < node->lexer_size && node->lexer[i].type != '"')
+	{
+		if (node->lexer[i].type == '$')
+		{
+			temp = smart_get_variable(node->lexer[i].content + 1);
+			if (temp)
+			{
+				final = ft_strjoin(final, temp);
+				free(temp);
+			}
+		}
+		else
+			final = ft_strjoin(final, node->lexer[i].content);
+		i++;
+	}
+	*nb = i;
+	return (final);
+}
+
 void	skip_files(t_lexer_node *node, int *i)
 {
 	while (*i < node->lexer_size)
 	{
-		if (node->lexer[*i].type == 'W')
+		if (node->lexer[*i].type == '\'' || node->lexer[*i].type == '"'
+			|| node->lexer[*i].type == 'W')
 			break ;
 		++(*i);
 	}
@@ -34,7 +107,8 @@ int	parser_get_size(t_lexer_node *node)
 	{
 		if (node->lexer[i].type == '>' || node->lexer[i].type == '<')
 			skip_files(node, &i);
-		else if (node->lexer[i].type == 'W')
+		else if ((node->lexer[i].type == '\'' || node->lexer[i].type == '"'
+			|| node->lexer[i].type == 'W'))
 			size++;
 		i++;
 	}
@@ -43,13 +117,17 @@ int	parser_get_size(t_lexer_node *node)
 
 char	get_file_type(t_lexer_node *node, int i)
 {
-	if (i + 1 < node->lexer_size && node->lexer[i].type == '>' && node->lexer[i + 1].type != '>')
+	if (i + 1 < node->lexer_size && node->lexer[i].type == '>'
+		&& node->lexer[i + 1].type != '>')
 		return ('O');
-	if (i + 1 < node->lexer_size && node->lexer[i].type == '>' && node->lexer[i + 1].type == '>')
+	if (i + 1 < node->lexer_size && node->lexer[i].type == '>'
+		&& node->lexer[i + 1].type == '>')
 		return ('A');
-	if (i + 1 < node->lexer_size && node->lexer[i].type == '<' && node->lexer[i + 1].type != '<')
+	if (i + 1 < node->lexer_size && node->lexer[i].type == '<'
+		&& node->lexer[i + 1].type != '<')
 		return ('I');
-	if (i + 1 < node->lexer_size && node->lexer[i].type == '<' && node->lexer[i + 1].type == '<')
+	if (i + 1 < node->lexer_size && node->lexer[i].type == '<'
+		&& node->lexer[i + 1].type == '<')
 		return ('H');
 	return (0);
 }
@@ -61,10 +139,11 @@ int	get_after_file(t_lexer_node *node, int i)
 	type = get_file_type(node, i);
 	while (i < node->lexer_size)
 	{
-		if (node->lexer[i].type == 'W')
+		if ((node->lexer[i].type == '\'' || node->lexer[i].type == '"'
+			|| node->lexer[i].type == 'W'))
 		{
-			files_create_node(&(node->cmd_struct.files_head), node->lexer[i].content,
-			type);
+			files_create_node(&(node->cmd_struct.files_head),
+				node->lexer[i].content, type);
 			return (i);
 		}
 		i++;
@@ -89,6 +168,8 @@ int	parser_work(t_lexer_node *node)
 			if (i == 0)
 				return (0);
 		}
+		else if (node->lexer[i].type == '\'' || node->lexer[i].type == '"')
+			node->cmd_struct.cmd[j++] = join_string_double(node, &i);
 		else if (node->lexer[i].type == 'W')
 			node->cmd_struct.cmd[j++] = node->lexer[i].content;
 		i++;

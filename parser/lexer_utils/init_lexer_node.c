@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:15:37 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/10 13:58:28 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:13:00 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	get_token_len(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!(CURRENT_CONDITION) && NEXT_CONDITIN)
+		if (!(CURRENT_CONDITION) && (NEXT_CONDITIN || str[i + 1] == '$'))
 			len++;
 		else if (CURRENT_CONDITION)
 			len++;
@@ -55,7 +55,7 @@ int	get_token_size(char *str, int *num)
 	i = 0;
 	while (str[i])
 	{
-		if (!(CURRENT_CONDITION) && NEXT_CONDITIN)
+		if (!(CURRENT_CONDITION) && (NEXT_CONDITIN || str[i + 1] == '$'))
 		{
 			++(*num);
 			return (++i);
@@ -77,19 +77,20 @@ char	get_type(char *content)
 		return ('>');
 	if (ft_strcmp(content, RIGHT_REDIRECT))
 		return ('<');
-	if (ft_strcmp(content, DOUBLE_QUOTES))
+	if (ft_strcmp(&(content[0]), DOUBLE_QUOTES))
 		return ('"');
-	if (ft_strcmp(content, SINGLE_QUOTES))
+	if (ft_strcmp(&(content[0]), SINGLE_QUOTES))
 		return ('\'');
 	if (ft_strcmp(content, LEFT_GROUP))
 		return ('(');
 	if (ft_strcmp(content, RIGHT_GROUP))
 		return (')');
-	if (ft_strcmp(content, DOLAR))
+	if (content[0] == '$')
 		return ('$');
 	if (ft_strcmp(content, SPACE))
 		return ('S');
-	return ('W');
+	else
+		return ('W');
 }
 
 void	init_lexer_node(t_lexer_node **head, char *line, char **env)
@@ -100,7 +101,7 @@ void	init_lexer_node(t_lexer_node **head, char *line, char **env)
 	t_lexer_node	*node;
 
 	// printf("%d\n", get_token_len(line));
-	lexer = malloc(sizeof(t_lexer) * get_token_len(line));
+	lexer = malloc(sizeof(t_lexer) * (get_token_len(line) + 1));
 	i = 0;
 	j = 0;
 	while (line[i])
@@ -109,8 +110,9 @@ void	init_lexer_node(t_lexer_node **head, char *line, char **env)
 		lexer[j].type = get_type(lexer[j].content);
 		j++;
 	}
+	lexer[j].content = 0;
 	node = lexer_create_node(head);
 	node->lexer = lexer;
 	node->lexer_size = get_token_len(line);
-	node->env = env;                                                                                                                              
+	node->env = env;                                                                                                                   
 }

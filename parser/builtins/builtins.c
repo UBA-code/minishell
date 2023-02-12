@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 19:57:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/10 21:22:54 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/12 15:20:53 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_variable_cmd(char *variable)
 	while (current)
 	{
 		if (ft_strcmp(current->name, variable))
-			return (current->value);
+			return (ft_strdup(current->value));
 		current = current->next;
 	}
 	return (0);
@@ -76,6 +76,7 @@ void	export_cmd(t_mini_env **head, char *str)
 	while (str[++i] != '=')
 	{
 		if (!((str[i] >= 'a' && str[i] <= 'z')
+			|| (str[i] >= 'A' && str[i] <= 'Z')
 			|| (str[i] >= '0' && str[i] <= '9')
 			|| (str[i] == '_') || str[i] == '='))
 		{

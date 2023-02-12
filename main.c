@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/10 16:23:44 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/12 17:02:38 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,18 @@ void minishell(char *line, char **env)
 	while (args[i])
 	{
 		init_lexer_node(&head, args[i], env);
-		// free(args[i]);
+		free(args[i]);
 		i++;
 	}
+	// i = 0;
+	// while (i < head->lexer_size)
+	// {
+	// 	printf("%s %c\n", head->lexer[i].content, head->lexer[i].type);
+	// 	i++;
+	// }
 	parser_utils(&head);
-	// free(args);
-	env_cmd('e');
+	free(args);
+	free_parser(head);
 	lst_clear(&head);
 }
 
@@ -69,13 +75,13 @@ int main(int ac, char **av, char **env)
 	// export_cmd(&(g_global.env_head), "name=\"\"");
 	// export_cmd(&(g_global.env_head), 0);
 	// env_cmd(g_global.env_head);
-	while (1)
-	{
+	// while (1)
+	// {
 		line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
-		cd_cmd(line);
 		if (ft_strlen(line) && check_quotes(line))
 			minishell(line, env);
-	}
+	// }
+			system("leaks minishell");
 	// while (1);
 	return 0;
 }
