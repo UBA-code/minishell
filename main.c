@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/12 17:02:38 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:08:43 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void minishell(char *line, char **env)
 	// 	printf("%s %c\n", head->lexer[i].content, head->lexer[i].type);
 	// 	i++;
 	// }
-	parser_utils(&head);
 	free(args);
+	parser_utils(&head);
 	free_parser(head);
 	lst_clear(&head);
 }
@@ -75,13 +75,14 @@ int main(int ac, char **av, char **env)
 	// export_cmd(&(g_global.env_head), "name=\"\"");
 	// export_cmd(&(g_global.env_head), 0);
 	// env_cmd(g_global.env_head);
-	// while (1)
-	// {
+	while (1)
+	{
 		line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
 		if (ft_strlen(line) && check_quotes(line))
 			minishell(line, env);
-	// }
-			system("leaks minishell");
+		free(line);
+		system("leaks minishell");
+	}
 	// while (1);
 	return 0;
 }

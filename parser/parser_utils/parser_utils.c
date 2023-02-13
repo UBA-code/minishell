@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/12 17:32:05 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:13:04 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,67 +22,12 @@ void	free_parser(t_lexer_node *head)
 		i = 0;
 		while (head->cmd_struct.cmd[i])
 		{
-			free();
-			
+			free(head->cmd_struct.cmd[i]);
+			i++;
 		}
+		free(head->cmd_struct.cmd);
+		head = head->next;
 	}
-}
-
-int	get_last_of_var(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!((str[i] >= 'a' && str[i] <= 'z')
-			|| (str[i] >= 'A' && str[i] <= 'Z')
-			|| (str[i] >= '0' && str[i] <= '9')
-			|| str[i] == '_'))
-			return (i);
-		i++;
-	}
-	return (i);
-}
-
-char	*smart_get_variable(char *str)
-{
-	char	*variable;
-	char	*temp;
-
-	temp = get_substring(str, get_last_of_var(str));
-	variable = get_variable_cmd(temp);
-	free(temp);
-	if (!variable)
-		return (0);
-	variable = ft_strjoin(variable, str + get_last_of_var(str));
-	return (variable);
-}
-
-char	*join_string_double(t_lexer_node *node, int *nb)
-{
-	char	*final;
-	int		i;
-	char	*temp;
-	i = *nb + 1;
-	final = 0;
-	while (i < node->lexer_size && node->lexer[i].type != '"')
-	{
-		if (node->lexer[i].type == '$')
-		{
-			temp = smart_get_variable(node->lexer[i].content + 1);
-			if (temp)
-			{
-				final = ft_strjoin(final, temp);
-				free(temp);
-			}
-		}
-		else
-			final = ft_strjoin(final, node->lexer[i].content);
-		i++;
-	}
-	*nb = i;
-	return (final);
 }
 
 void	skip_files(t_lexer_node *node, int *i)
@@ -169,9 +114,11 @@ int	parser_work(t_lexer_node *node)
 				return (0);
 		}
 		else if (node->lexer[i].type == '\'' || node->lexer[i].type == '"')
-			node->cmd_struct.cmd[j++] = join_string_double(node, &i);
+			node->cmd_struct.cmd[j++] = join_string(node, &i);
 		else if (node->lexer[i].type == 'W')
-			node->cmd_struct.cmd[j++] = node->lexer[i].content;
+			node->cmd_struct.cmd[j++] = ft_strdup(node->lexer[i].content);
+		else if (node->lexer[i].type == '$')
+			node->cmd_struct.cmd[j++] = ft_strdup(node->lexer[i].content);
 		i++;
 	}
 	node->cmd_struct.cmd[j] = 0;

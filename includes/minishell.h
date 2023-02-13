@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/12 11:56:15 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:12:47 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,9 @@ void			ft_putstr(char *str, int fd);
 int				ft_strchr(char *str, char c);
 void			cd_cmd(char *dir);
 void			modifie_variable(char *variable, char *new_value);
+void			free_parser(t_lexer_node *head);
+int				get_last_of_var(char *str);
+char			*smart_get_variable(char *str);
+char			*join_string(t_lexer_node *node, int *nb);
 
 #endif
