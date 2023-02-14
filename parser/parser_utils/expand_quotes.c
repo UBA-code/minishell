@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 10:37:08 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/13 12:12:43 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:01:45 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,26 @@ int	get_last_of_var(char *str)
 	return (i);
 }
 
+// get the variable and join only and spicial characters at end
 char	*smart_get_variable(char *str)
 {
 	char	*variable;
 	char	*temp;
+	char	*final;
+	int		i;
 
-	temp = get_substring(str, get_last_of_var(str));
-	variable = get_variable_cmd(temp);
-	free(temp);
-	if (!variable)
-		return (0);
-	variable = ft_strjoin(variable, str + get_last_of_var(str));
+	i = 0;
+	final = 0;
+	while (str[i])
+	{
+		temp = get_substring(str, get_last_of_var(str));
+		variable = get_variable_cmd(temp);
+		if (!variable)
+			return (0);
+		variable = ft_strjoin(variable, str + get_last_of_var(str));
+		free(temp);
+		i++;
+	}
 	return (variable);
 }
 
@@ -80,4 +89,3 @@ char	*join_string(t_lexer_node *node, int *nb)
 	}
 	return (final);
 }
-

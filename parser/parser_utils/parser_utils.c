@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/13 12:13:04 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:26:33 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	parser_get_size(t_lexer_node *node)
 		if (node->lexer[i].type == '>' || node->lexer[i].type == '<')
 			skip_files(node, &i);
 		else if ((node->lexer[i].type == '\'' || node->lexer[i].type == '"'
-			|| node->lexer[i].type == 'W'))
+			|| node->lexer[i].type == 'W') || node->lexer[i].type == '$')
 			size++;
 		i++;
 	}
@@ -118,7 +118,9 @@ int	parser_work(t_lexer_node *node)
 		else if (node->lexer[i].type == 'W')
 			node->cmd_struct.cmd[j++] = ft_strdup(node->lexer[i].content);
 		else if (node->lexer[i].type == '$')
-			node->cmd_struct.cmd[j++] = ft_strdup(node->lexer[i].content);
+			node->cmd_struct.cmd[j++] = smart_get_variable(node->lexer[i].content + 1);
+		if (!(node->cmd_struct.cmd[j - 1]))
+			j--;
 		i++;
 	}
 	node->cmd_struct.cmd[j] = 0;
@@ -162,7 +164,7 @@ void	parser_utils(t_lexer_node **lexer_head)
 		i = 0;
 		while (current->cmd_struct.cmd[i])
 		{
-			printf("%s\n", current->cmd_struct.cmd[i]);
+			printf("|%s|\n", current->cmd_struct.cmd[i]);
 			i++;
 		}
 		files = current->cmd_struct.files_head;
