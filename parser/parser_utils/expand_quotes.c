@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 10:37:08 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/15 11:02:40 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:14:05 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ char	*smart_get_variable(char *str)
 			if (!variable)
 				continue;
 			final = ft_strjoin(final, variable);
-			free(variable);
 		}
 		else
 			final = strjoin_small(final, str[i]);
@@ -132,8 +131,11 @@ char	*join_string(t_lexer_node *node, int *nb)
 			temp = double_expand(node, nb);
 		else
 			temp = smart_get_variable(node->lexer[*nb].content);
-		final = ft_strjoin(final, temp);
-		free(temp);
+		if (temp)
+		{
+			final = ft_strjoin(final, temp);
+			free(temp);
+		}
 		++*nb;
 	}
 	return (final);

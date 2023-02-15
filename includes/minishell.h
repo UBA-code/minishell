@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/14 10:39:47 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:52:52 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 #include "dirent.h"
 
 #define CURRENT_CONDITION str[i] == '\'' || str[i] == '"' || str[i] == '<' || str[i] == '>' \
-			|| str[i] == ' ' || str[i] == ')' || str[i] == '(' || str[i] == '='
+			|| str[i] == ' ' || str[i] == ')' || str[i] == '('
 
 #define NEXT_CONDITIN str[i + 1] == '\'' || str[i + 1] == '"' || str[i + 1] == '<' || str[i + 1] == '>' \
-			|| str[i + 1] == ' ' || str[i + 1] == ')' || str[i + 1] == '(' || str[i + 1] == '='
+			|| str[i + 1] == ' ' || str[i + 1] == ')' || str[i + 1] == '('
 
 #define LEFT_REDIRECT ">"
 #define RIGHT_REDIRECT "<"
@@ -35,7 +35,7 @@
 #define RIGHT_GROUP ")"
 #define SPACE " "
 #define DOLAR "$"
-#define equal "="
+// #define equal "="
 
 typedef struct lexer_s
 {
@@ -109,15 +109,15 @@ t_mini_env		*env_create_node(t_mini_env **head, char *name, char *value);
 void			create_env(t_mini_env **head, char **env);
 char			*get_variable_cmd(char *variable);
 void			env_del_node(t_mini_env **head, char *variable);
-void			echo_cmd(char *msg, int option);
+void			echo_cmd(char **args);
 char			*get_variable_cmd(char *variable);
 void			export_cmd(t_mini_env **head, char *str);
-void			unset_cmd(t_mini_env **head, char *variable);
+void			unset_cmd(char **args);
 void			env_cmd(char c);
-void			pwd_cmd(t_mini_env *head);
+void			pwd_cmd(void);
 void			ft_putstr(char *str, int fd);
 int				ft_strchr(char *str, char c);
-void			cd_cmd(char *dir);
+void			cd_cmd(char **args);
 void			modifie_variable(char *variable, char *new_value);
 void			free_parser(t_lexer_node *head);
 int				get_last_of_var(char *str);
