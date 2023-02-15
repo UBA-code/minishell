@@ -30,7 +30,7 @@ t_files	*files_create_node(t_files **head, char *file, char type)
 		*head = node;
 	else
 		files_add_back_lst(*head, node);
-	node->file = file;
+	node->file = ft_strdup(file);
 	node->type = type;
 	node->next = 0;
 	return (node);
