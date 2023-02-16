@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/15 18:36:04 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:52:00 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,26 @@ void minishell(char *line, char **env)
 	lst_clear(&head);
 }
 
+void	str_start()
+{
+	ft_putstr("\n\e[1;32m\
+███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     \n\
+████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     \n\
+██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     \n\
+██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     \n\
+██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n\
+╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\
+                                                                   \n\
+", 1);
+}
+
 int main(int ac, char **av, char **env)
 {
 	char	*line;
 
 	g_global.env_head = 0;
 	create_env(env);
-	// printf("--------------------------------------------\n");
-	// export_cmd(&(g_global.env_head), "name=\"\"");
-	// export_cmd(&(g_global.env_head), 0);
-	// env_cmd(g_global.env_head);
+	str_start();
 	while (1)
 	{
 		line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
@@ -79,7 +89,7 @@ int main(int ac, char **av, char **env)
 		if (ft_strlen(line) && check_quotes(line))
 			minishell(line, env);
 		free(line);
-		// system("leaks minishell");
+		system("leaks minishell");
 	}
 	// while (1);
 	return 0;

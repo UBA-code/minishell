@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 19:57:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/15 20:24:58 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:27:19 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,20 @@ char	*get_variable_cmd(char *variable)
 	return (0);
 }
 
+int	env_search(char *variable)
+{
+	t_mini_env *current;
+
+	current = g_global.env_head;
+	while (current)
+	{
+		if (ft_strcmp(current->name, variable))
+			return (1);
+		current = current->next;
+	}
+	return (0);
+}
+
 void	env_cmd(char c)
 {
 	t_mini_env	*current;
@@ -72,35 +86,59 @@ void	env_cmd(char c)
 	}
 }
 
+void	export_errors(char *name)
+{
+	ft_putstr("bash: export: ", STDERR_FILENO);
+	ft_putstr(name, STDERR_FILENO);
+	free(name);
+	ft_putstr(": not a valid identifier\n", STDERR_FILENO);
+}
+
+
+void	loop_export(char *arg)
+{
+	int			len;
+	char		*name;
+	char		*value;
+
+	len = ft_strchr(arg, '=');
+	if (len == -1)
+		len = ft_strlen(arg);
+	if (arg[0] == '=')
+		return (ft_error("bash: export: `=': not a valid identifier", 0));
+	name = get_substring(arg, len);
+	if (!check_export_syntax(name))
+		return (export_errors(name));
+	value = 0;
+	if (arg[len])
+		value = get_substring(arg + len + 1, ft_strlen(arg + len + 1));
+	if (env_search(name))
+	{
+		modifie_variable(name, value);
+		free(name);
+		return (free(value));
+	}
+	env_create_node(name, value);
+}
+
 void	export_cmd(char **args)
 {
-	int			i;
 	char		*name;
 	char		*value;
 	int			len;
+	int			i;
 
-	i = -1;
 	if (!args[1])
 	{
 		env_cmd('x');
 		return ;
 	}
-	len = ft_strchr(args[1], '=');
-	if (len == -1)
-		len = ft_strlen(args[1]);
-	name = get_substring(args[1], len);
-	if (!check_export_syntax(name))
+	i = 1;
+	while (args[i])
 	{
-		ft_putstr("bash: export: ", STDERR_FILENO);
-		ft_putstr(name, STDERR_FILENO);
-		ft_putstr(": not a valid identifier\n", STDERR_FILENO);
-		return ; // need to check error code
+		loop_export(args[i]);
+		i++;
 	}
-	printf("ff\n");
-	value = 0;
-	if (args[1][len])
-		value = get_substring(args[1] + len + 1, ft_strlen(args[1] + len + 1));
-	env_create_node(name, value);
 }
 
 void	unset_cmd(char **args)
