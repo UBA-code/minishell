@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/08 10:48:25 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:36:04 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void ft_print_lst(t_lexer_node *head)
 	}
 }
 
-void ft_putstr(char *str)
+void ft_putstr(char *str, int fd)
 {
 	int i;
 
 	i = -1;
 	while (str[++i])
-		write(1, &str[i], 1);
+		write(fd, &str[i], 1);
 }
 
 void minishell(char *line, char **env)
@@ -50,53 +50,36 @@ void minishell(char *line, char **env)
 	while (args[i])
 	{
 		init_lexer_node(&head, args[i], env);
-		// free(args[i]);
+		free(args[i]);
 		i++;
 	}
+	free(args);
 	parser_utils(&head);
-	// free(args);
+	export_cmd(head->cmd_struct.cmd);
+	env_cmd('e');
+	// echo_cmd(head->cmd_struct.cmd);
+	free_parser(head);
 	lst_clear(&head);
-}
-
-char *get_path(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "PWD", 3))
-			return (get_substring(env[i] + 4, ft_strlen(env[i] + 4)));
-		i++;
-	}
-	return (0);
 }
 
 int main(int ac, char **av, char **env)
 {
 	char	*line;
-	// char	*path;
-	// char	*final_path;
 
-	global.env_head = 0;
-	create_env(&(global.env_head), env);
-	t_mini_env *current;
-
-	current = global.env_head;
-	while (current)
-	{
-		printf("%s=%s\n", current->name, current->value);
-		current = current->next;
-	}
+	g_global.env_head = 0;
+	create_env(env);
+	// printf("--------------------------------------------\n");
+	// export_cmd(&(g_global.env_head), "name=\"\"");
+	// export_cmd(&(g_global.env_head), 0);
+	// env_cmd(g_global.env_head);
 	while (1)
 	{
 		line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
-		// path = get_path(env);
-		// printf("\e[1;32m");
-		// final_path = ft_strjoin(path, "/$\e[0m ");
-		// line = readline(final_path);
+		add_history(line);
 		if (ft_strlen(line) && check_quotes(line))
 			minishell(line, env);
+		free(line);
+		// system("leaks minishell");
 	}
 	// while (1);
 	return 0;

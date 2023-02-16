@@ -30,21 +30,24 @@ t_files	*files_create_node(t_files **head, char *file, char type)
 		*head = node;
 	else
 		files_add_back_lst(*head, node);
-	node->file = file;
+	node->file = ft_strdup(file);
 	node->type = type;
 	node->next = 0;
 	return (node);
 }
 
-t_mini_env	*env_create_node(t_mini_env **head, char *name, char *value)
+t_mini_env	*env_create_node(char *name, char *value)
 {
 	t_mini_env	*node;
 
 	node = malloc(sizeof(t_mini_env));
-	if (!*head)
-		*head = node;
+	if (!g_global.env_head)
+	{
+		g_global.env_head = node;
+		node->previous = 0;
+	}
 	else
-		env_add_back_lst(*head, node);
+		env_add_back_lst(g_global.env_head, node);
 	node->name = name;
 	node->value = value;
 	node->next = 0;
