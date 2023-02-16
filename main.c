@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/15 17:43:39 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:36:04 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void minishell(char *line, char **env)
 	}
 	free(args);
 	parser_utils(&head);
-	echo_cmd(head->cmd_struct.cmd);
+	export_cmd(head->cmd_struct.cmd);
+	env_cmd('e');
+	// echo_cmd(head->cmd_struct.cmd);
 	free_parser(head);
 	lst_clear(&head);
 }
@@ -65,7 +67,7 @@ int main(int ac, char **av, char **env)
 	char	*line;
 
 	g_global.env_head = 0;
-	create_env(&(g_global.env_head), env);
+	create_env(env);
 	// printf("--------------------------------------------\n");
 	// export_cmd(&(g_global.env_head), "name=\"\"");
 	// export_cmd(&(g_global.env_head), 0);

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 19:57:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/15 17:53:19 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:24:58 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	echo_cmd(char **args)
 	i = 1;
 	if (ft_strcmp(args[1], "-n"))
 		i = 2;
-	while (args[i])
+	while (args[i] && !ft_strcmp(args[i], "-n"))
 	{
 		if (args[i + 1])
 			printf("%s ", args[i]);
@@ -72,42 +72,41 @@ void	env_cmd(char c)
 	}
 }
 
-void	export_cmd(t_mini_env **head, char *str)
+void	export_cmd(char **args)
 {
 	int			i;
 	char		*name;
 	char		*value;
+	int			len;
 
 	i = -1;
-	if (!str)
+	if (!args[1])
 	{
 		env_cmd('x');
 		return ;
 	}
-	while (str[++i] != '=')
+	len = ft_strchr(args[1], '=');
+	if (len == -1)
+		len = ft_strlen(args[1]);
+	name = get_substring(args[1], len);
+	if (!check_export_syntax(name))
 	{
-		if (!((str[i] >= 'a' && str[i] <= 'z')
-			|| (str[i] >= 'A' && str[i] <= 'Z')
-			|| (str[i] >= '0' && str[i] <= '9')
-			|| (str[i] == '_') || str[i] == '='))
-		{
-			ft_putstr("bash: export: ", STDERR_FILENO);
-			ft_putstr(str, STDERR_FILENO);
-			ft_putstr(": not a valid identifier\n", STDERR_FILENO);
-			return ; // need to check error code
-		}
+		ft_putstr("bash: export: ", STDERR_FILENO);
+		ft_putstr(name, STDERR_FILENO);
+		ft_putstr(": not a valid identifier\n", STDERR_FILENO);
+		return ; // need to check error code
 	}
-	name = get_substring(str, i);
+	printf("ff\n");
 	value = 0;
-	if (str[i] && !(++i))
-		value = get_substring(str + i, ft_strlen(str + i));
-	env_create_node(head, name, value);
+	if (args[1][len])
+		value = get_substring(args[1] + len + 1, ft_strlen(args[1] + len + 1));
+	env_create_node(name, value);
 }
 
 void	unset_cmd(char **args)
 {
 	if (args[1])
-		env_del_node(g_global.env_head, args[1]);
+		env_del_node(args[1]);
 }
 
 void	exit_cmd()

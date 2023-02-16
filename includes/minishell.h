@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/15 17:52:52 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:37:28 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ void			parser_utils(t_lexer_node **lexer_head);
 void			files_add_back_lst(t_files *head, t_files *node);
 t_lexer_node	*lexer_create_node(t_lexer_node **head);
 void			env_add_back_lst(t_mini_env *head, t_mini_env *node);
-t_mini_env		*env_create_node(t_mini_env **head, char *name, char *value);
-void			create_env(t_mini_env **head, char **env);
+t_mini_env		*env_create_node(char *name, char *value);
+void			create_env(char **env);
 char			*get_variable_cmd(char *variable);
-void			env_del_node(t_mini_env **head, char *variable);
+void			env_del_node(char *variable);
 void			echo_cmd(char **args);
 char			*get_variable_cmd(char *variable);
-void			export_cmd(t_mini_env **head, char *str);
+void			export_cmd(char **args);
 void			unset_cmd(char **args);
 void			env_cmd(char c);
 void			pwd_cmd(void);
@@ -123,5 +123,6 @@ void			free_parser(t_lexer_node *head);
 int				get_last_of_var(char *str);
 char			*join_string(t_lexer_node *node, int *nb);
 char			*smart_get_variable(char *str);
+int				check_export_syntax(char *str);
 
 #endif
