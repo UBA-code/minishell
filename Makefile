@@ -7,6 +7,8 @@ SRCS = main.c parser/get_next_line/get_next_line.c \
 		./parser/linked_list_utils/create_node.c \
 		./parser/linked_list_utils/lst_clear.c\
 		./parser/lexer_utils/init_lexer_node.c \
+		./parser/utils/ft_atoi.c \
+		./parser/utils/ft_itoa.c \
 		./parser/utils/utils.c \
 		./parser/parser_utils/parser_utils.c \
 		./parser/utils/create_mini_env.c \

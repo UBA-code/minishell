@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 20:59:09 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/16 18:02:22 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:46:33 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,5 @@ void	ft_error(char *str, int	error)
 		write(2, &str[i], 1);
 		i++;
 	}
+	g_global.error = error;
 }

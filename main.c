@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/16 15:52:00 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:07:31 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void minishell(char *line, char **env)
 	}
 	free(args);
 	parser_utils(&head);
-	export_cmd(head->cmd_struct.cmd);
-	env_cmd('e');
-	// echo_cmd(head->cmd_struct.cmd);
+	// export_cmd(head->cmd_struct.cmd);
+	// env_cmd('e');
+	echo_cmd(head->cmd_struct.cmd);
 	free_parser(head);
 	lst_clear(&head);
 }
@@ -71,7 +71,7 @@ void	str_start()
 ██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     \n\
 ██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n\
 ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\
-                                                                   \n\
+																	\n\
 ", 1);
 }
 
@@ -80,6 +80,7 @@ int main(int ac, char **av, char **env)
 	char	*line;
 
 	g_global.env_head = 0;
+	g_global.error = 0;
 	create_env(env);
 	str_start();
 	while (1)
@@ -89,7 +90,7 @@ int main(int ac, char **av, char **env)
 		if (ft_strlen(line) && check_quotes(line))
 			minishell(line, env);
 		free(line);
-		system("leaks minishell");
+		// system("leaks minishell");
 	}
 	// while (1);
 	return 0;

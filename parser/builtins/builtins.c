@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 19:57:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/16 18:27:19 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:13:33 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	loop_export(char *arg)
 	if (len == -1)
 		len = ft_strlen(arg);
 	if (arg[0] == '=')
-		return (ft_error("bash: export: `=': not a valid identifier", 0));
+		return (ft_error("bash: export: `=': not a valid identifier", 1));
 	name = get_substring(arg, len);
 	if (!check_export_syntax(name))
 		return (export_errors(name));
@@ -147,9 +147,14 @@ void	unset_cmd(char **args)
 		env_del_node(args[1]);
 }
 
-void	exit_cmd()
+void	exit_cmd(char **args)
 {
-	exit(EXIT_SUCCESS);
+	if (args[1] && !args[2])
+		exit(ft_atoi(args[1]));
+	else if (!args[1])
+		exit(0);
+	else
+		ft_error("exit: too many arguments", 1);
 }
 
 void	pwd_cmd(void)
@@ -167,7 +172,7 @@ void	cd_cmd(char **args)
 	else if (ft_strcmp(args[1], "-"))
 	{
 		if (!get_variable_cmd("OLDPWD"))
-			ft_error("bash: cd: OLDPWD not set\n", 0); // error need to check
+			ft_error("bash: cd: OLDPWD not set\n", 1); // error need to check
 		else
 			chdir(get_variable_cmd("OLDPWD"));
 	}
@@ -176,9 +181,9 @@ void	cd_cmd(char **args)
 		folder = chdir(args[1]);
 		if (folder)
 		{
-			ft_error("bash: ", 0); //need to check error
-			ft_error(args[1], 0); //need to check error
-			ft_error(": No such directory\n", 0); //need to check error
+			ft_error("bash: ", 1); //need to check error
+			ft_error(args[1], 1); //need to check error
+			ft_error(": No such directory\n", 1); //need to check error
 			return ;
 		}
 	}

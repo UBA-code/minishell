@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/16 18:02:40 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:13:27 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@
 #define SPACE " "
 #define DOLAR "$"
 // #define equal "="
+
+typedef struct s_get_variable_struct
+{
+	char	*variable;
+	char	*temp;
+	char	*final;
+	int		i;
+	char	*string;
+}	t_get_variable_struct;
 
 typedef struct lexer_s
 {
@@ -125,5 +134,7 @@ char			*join_string(t_lexer_node *node, int *nb);
 char			*smart_get_variable(char *str);
 int				check_export_syntax(char *str);
 int				env_search(char *variable);
+long long		ft_atoi(char *nb);
+char			*ft_itoa(int n);
 
 #endif

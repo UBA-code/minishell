@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/16 14:28:48 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:07:24 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	get_after_file(t_lexer_node *node, int i)
 			|| node->lexer[i].type == 'W'))
 		{
 			files_create_node(&(node->cmd_struct.files_head),
-				node->lexer[i].content, type);
+				join_string(node, &i), type);
 			return (i);
 		}
 		i++;
@@ -120,7 +120,7 @@ int	parser_work(t_lexer_node *node)
 	node->cmd_struct.files_head = 0;
 	j = 0;
 	i = 0;
-	node->cmd_struct.cmd = malloc(sizeof(char *) * parser_get_size(node) + 1);
+	node->cmd_struct.cmd = malloc(sizeof(char *) * (parser_get_size(node) + 1));
 	while (i < node->lexer_size)
 	{
 		if (node->lexer[i].type == '<' || node->lexer[i].type == '>')
@@ -132,12 +132,11 @@ int	parser_work(t_lexer_node *node)
 		else if (node->lexer[i].type == '\'' || node->lexer[i].type == '"'
 				|| node->lexer[i].type == 'W')
 			node->cmd_struct.cmd[j++] = join_string(node, &i);
-		if (!(node->cmd_struct.cmd[j - 1]))
+		if (j && !(node->cmd_struct.cmd[j - 1]))
 			j--;
 		node->cmd_struct.cmd[j] = 0;
 		i++;
 	}
-	node->cmd_struct.cmd[j] = 0;
 	return (1);
 }
 
@@ -150,7 +149,7 @@ void	parser_utils(t_lexer_node **lexer_head)
 	{
 		if (!parser_work(current))
 		{
-			ft_error("Error, Parse Error\n", 2);
+			ft_error("Error, Parse Error\n", 258);
 			return ;
 		}
 		current = current->next;
@@ -170,7 +169,7 @@ void	parser_utils(t_lexer_node **lexer_head)
 	
 	// current = *lexer_head;
 	// t_files *files;
-	// files = (*lexer_head)->cmd_struct.files_head;
+
 	// int	i;
 	// while (current)
 	// {
