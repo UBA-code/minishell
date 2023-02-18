@@ -39,6 +39,7 @@ all: $(NAME)
 $(NAME): $(OBG)
 	$(CC) $(CFLAGS) -lreadline $(OBG) -o $(NAME)
 	make clean
+	./minishell
 
 # bonus: $(BONUS)
 

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/17 18:07:31 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/18 16:14:01 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void minishell(char *line, char **env)
 	parser_utils(&head);
 	// export_cmd(head->cmd_struct.cmd);
 	// env_cmd('e');
-	echo_cmd(head->cmd_struct.cmd);
+	// echo_cmd(head->cmd_struct.cmd);
 	free_parser(head);
 	lst_clear(&head);
 }

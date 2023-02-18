@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/17 18:07:24 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/18 17:15:29 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,9 +140,39 @@ int	parser_work(t_lexer_node *node)
 	return (1);
 }
 
+char	*get_cmd_path(char *cmd)
+{
+	char	**paths;
+	int		i;
+	char	*final;
+
+	i = 0;
+	paths = ft_split(get_variable_cmd("PATH"), ":");
+	while (paths[i])
+	{
+		final = ft_strjoin(ft_strdup(paths[i]), "/");
+		final = ft_strjoin(final, cmd);
+		if (access(final, X_OK) == 0)
+		{
+			tab_free(paths);
+			free(cmd);
+			return (final);
+		}
+		free(final);
+		i++;
+	}
+	ft_error(cmd, 127);
+	ft_error(": command not found\n", 127);
+	free(cmd);
+	tab_free(paths);
+	return (0);
+}
+
 void	parser_utils(t_lexer_node **lexer_head)
 {
 	t_lexer_node	*current;
+	int				i;
+	int				j;
 
 	current = *lexer_head;
 	while (current)
@@ -154,7 +184,18 @@ void	parser_utils(t_lexer_node **lexer_head)
 		}
 		current = current->next;
 	}
+	i = 0;
+	current = *lexer_head;
+	while (current)
+	{
+		current->cmd_struct.cmd[0] = get_cmd_path(current->cmd_struct.cmd[0]);
+		current = current->next;
+	}
 
+	// TODO! fix variable start with numbers
+
+
+	
 // ------------------------------------------------------------------------
 
 

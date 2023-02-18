@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/17 14:13:27 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:29:33 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,6 @@ int				check_export_syntax(char *str);
 int				env_search(char *variable);
 long long		ft_atoi(char *nb);
 char			*ft_itoa(int n);
+void			tab_free(char **tab);
 
 #endif
