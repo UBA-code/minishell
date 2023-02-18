@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 10:37:08 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/17 19:30:18 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:40:31 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	get_last_of_var(char *str)
 	int	i;
 
 	i = 0;
+	if (str[0] >= '0' && str[0] <= '9')
+		return (1);
 	while (str[i])
 	{
 		if (!((str[i] >= 'a' && str[i] <= 'z')
@@ -77,6 +79,14 @@ int	dolar_work(t_get_variable_struct *utils)
 	return (1);
 }
 
+int	speciale_check(char c, int *i)
+{
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+		|| (c >= '0' && c <= '9') || c == '_')
+		return (1);
+	return (0);
+}
+
 // get the variable and join only and spicial characters at end
 char	*smart_get_variable(char *str)
 {
@@ -95,7 +105,7 @@ char	*smart_get_variable(char *str)
 			free(error_num);
 			utils.i += 2;
 		}
-		if (str[utils.i] == '$')
+		if (str[utils.i] == '$' && speciale_check(str[utils.i + 1], &(utils.i)))
 		{
 			if (dolar_work(&utils))
 				continue ;

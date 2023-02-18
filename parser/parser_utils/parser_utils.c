@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/18 17:15:29 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:22:08 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,6 @@ void	parser_utils(t_lexer_node **lexer_head)
 	// current = *lexer_head;
 	// t_files *files;
 
-	// int	i;
 	// while (current)
 	// {
 	// 	i = 0;
