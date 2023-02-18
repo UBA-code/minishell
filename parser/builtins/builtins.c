@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 19:57:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/17 18:13:33 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:47:02 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,23 @@
 void	echo_cmd(char **args)
 {
 	int	i;
+	int	j;
 
 	i = 1;
-	if (ft_strcmp(args[1], "-n"))
-		i = 2;
-	while (args[i] && !ft_strcmp(args[i], "-n"))
+	while (args[i])
+	{
+		j = 0;
+		if (args[i][j] == '-')
+		{
+			while (args[i][++j] == 'n');
+			if (args[i][j])
+				break ;
+		}
+		else
+			break ;
+		i++;
+	}
+	while (args[i])
 	{
 		if (args[i + 1])
 			printf("%s ", args[i]);
@@ -27,8 +39,6 @@ void	echo_cmd(char **args)
 			printf("%s", args[i]);
 		i++;
 	}
-	if (!ft_strcmp(args[1], "-n"))
-		printf("\n");
 }
 
 char	*get_variable_cmd(char *variable)
