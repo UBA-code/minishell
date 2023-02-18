@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/15 17:19:56 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/18 17:15:29 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	get_after_file(t_lexer_node *node, int i)
 			|| node->lexer[i].type == 'W'))
 		{
 			files_create_node(&(node->cmd_struct.files_head),
-				node->lexer[i].content, type);
+				join_string(node, &i), type);
 			return (i);
 		}
 		i++;
@@ -120,7 +120,7 @@ int	parser_work(t_lexer_node *node)
 	node->cmd_struct.files_head = 0;
 	j = 0;
 	i = 0;
-	node->cmd_struct.cmd = malloc(sizeof(char *) * parser_get_size(node) + 1);
+	node->cmd_struct.cmd = malloc(sizeof(char *) * (parser_get_size(node) + 1));
 	while (i < node->lexer_size)
 	{
 		if (node->lexer[i].type == '<' || node->lexer[i].type == '>')
@@ -132,30 +132,70 @@ int	parser_work(t_lexer_node *node)
 		else if (node->lexer[i].type == '\'' || node->lexer[i].type == '"'
 				|| node->lexer[i].type == 'W')
 			node->cmd_struct.cmd[j++] = join_string(node, &i);
-		if (!(node->cmd_struct.cmd[j - 1]))
+		if (j && !(node->cmd_struct.cmd[j - 1]))
 			j--;
 		node->cmd_struct.cmd[j] = 0;
 		i++;
 	}
-	node->cmd_struct.cmd[j] = 0;
 	return (1);
+}
+
+char	*get_cmd_path(char *cmd)
+{
+	char	**paths;
+	int		i;
+	char	*final;
+
+	i = 0;
+	paths = ft_split(get_variable_cmd("PATH"), ":");
+	while (paths[i])
+	{
+		final = ft_strjoin(ft_strdup(paths[i]), "/");
+		final = ft_strjoin(final, cmd);
+		if (access(final, X_OK) == 0)
+		{
+			tab_free(paths);
+			free(cmd);
+			return (final);
+		}
+		free(final);
+		i++;
+	}
+	ft_error(cmd, 127);
+	ft_error(": command not found\n", 127);
+	free(cmd);
+	tab_free(paths);
+	return (0);
 }
 
 void	parser_utils(t_lexer_node **lexer_head)
 {
 	t_lexer_node	*current;
+	int				i;
+	int				j;
 
 	current = *lexer_head;
 	while (current)
 	{
 		if (!parser_work(current))
 		{
-			ft_error("Error, Parse Error\n", 2);
+			ft_error("Error, Parse Error\n", 258);
 			return ;
 		}
 		current = current->next;
 	}
+	i = 0;
+	current = *lexer_head;
+	while (current)
+	{
+		current->cmd_struct.cmd[0] = get_cmd_path(current->cmd_struct.cmd[0]);
+		current = current->next;
+	}
 
+	// TODO! fix variable start with numbers
+
+
+	
 // ------------------------------------------------------------------------
 
 
@@ -170,7 +210,7 @@ void	parser_utils(t_lexer_node **lexer_head)
 	
 	// current = *lexer_head;
 	// t_files *files;
-	// files = (*lexer_head)->cmd_struct.files_head;
+
 	// int	i;
 	// while (current)
 	// {

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:48:43 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/01/29 16:30:21 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:58:03 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	substr_and_alloc_check(char **final_str, const char *s,
 	return (1);
 }
 
-static char	**free_tab(char **tab, int x)
+char	**free_tab(char **tab, int x)
 {
 	int	i;
 
@@ -89,7 +89,7 @@ char	**ft_split(char const *s, char *sep)
 	size_t	x;
 
 	i = 0;
-	final_str = calloc(sizeof(char *), calc_element(s, sep, &x, &j) + 1);
+	final_str = ft_calloc(sizeof(char *), calc_element(s, sep, &x, &j) + 1);
 	if (!final_str || !s)
 		return (0);
 	get_next_str(s, sep, &i, &j);

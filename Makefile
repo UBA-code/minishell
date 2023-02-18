@@ -7,13 +7,21 @@ SRCS = main.c parser/get_next_line/get_next_line.c \
 		./parser/linked_list_utils/create_node.c \
 		./parser/linked_list_utils/lst_clear.c\
 		./parser/lexer_utils/init_lexer_node.c \
+		./parser/utils/ft_atoi.c \
+		./parser/utils/ft_itoa.c \
 		./parser/utils/utils.c \
 		./parser/parser_utils/parser_utils.c \
 		./parser/utils/create_mini_env.c \
-		./parser/builtins/builtins.c \
 		./parser/linked_list_utils/env_del_node.c \
+		./parser/parser_utils/expand_quotes.c \
 		./parser/builtins/builtins_utils.c \
-		./parser/parser_utils/expand_quotes.c
+		./parser/builtins/cd.c  \
+		./parser/builtins/echo.c  \
+		./parser/builtins/env.c  \
+		./parser/builtins/exit.c  \
+		./parser/builtins/export.c  \
+		./parser/builtins/pwd.c  \
+		./parser/builtins/unset.c 
 # BONUS_SRCS = actions.c actions_2.c cases.c check_utils.c create_stack.c ft_calloc.c \
 # 	ft_split.c ft_strdup.c ft_substr.c push_swap_bonus.c sort_three.c utils.c utils_2.c utils_3.c \
 # 	sort_five.c last_sort.c utils_4.c \
@@ -31,6 +39,7 @@ all: $(NAME)
 $(NAME): $(OBG)
 	$(CC) $(CFLAGS) -lreadline $(OBG) -o $(NAME)
 	make clean
+	./minishell
 
 # bonus: $(BONUS)
 

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/15 18:37:28 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:29:33 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@
 #define SPACE " "
 #define DOLAR "$"
 // #define equal "="
+
+typedef struct s_get_variable_struct
+{
+	char	*variable;
+	char	*temp;
+	char	*final;
+	int		i;
+	char	*string;
+}	t_get_variable_struct;
 
 typedef struct lexer_s
 {
@@ -99,7 +108,7 @@ t_lexer_node	*lexer_create_node(t_lexer_node **head);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_strncmp(char *s1, char *s2, int n);
 void			init_lexer_node(t_lexer_node **head, char *line, char **env);
-int				ft_error(char *str, int error);
+void			ft_error(char *str, int error);
 int				check_quotes(char *str);
 void			parser_utils(t_lexer_node **lexer_head);
 void			files_add_back_lst(t_files *head, t_files *node);
@@ -124,5 +133,9 @@ int				get_last_of_var(char *str);
 char			*join_string(t_lexer_node *node, int *nb);
 char			*smart_get_variable(char *str);
 int				check_export_syntax(char *str);
+int				env_search(char *variable);
+long long		ft_atoi(char *nb);
+char			*ft_itoa(int n);
+void			tab_free(char **tab);
 
 #endif

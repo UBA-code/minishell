@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 20:59:09 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/03 12:05:53 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:46:33 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	check_quotes(char *str)
 	return (1);
 }
 
-int	ft_error(char *str, int	error)
+void	ft_error(char *str, int	error)
 {
 	int	i;
 
@@ -83,5 +83,5 @@ int	ft_error(char *str, int	error)
 		write(2, &str[i], 1);
 		i++;
 	}
-	return (error);
+	g_global.error = error;
 }

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 10:37:08 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/15 18:26:12 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:30:18 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,32 +64,46 @@ char	*strjoin_small(char *s1, char c)
 	return (final_str);
 }
 
+int	dolar_work(t_get_variable_struct *utils)
+{
+	utils->temp = get_substring(utils->string + (utils->i + 1),
+		get_last_of_var(utils->string + (utils->i + 1)));
+	utils->variable = get_variable_cmd(utils->temp);
+	utils->i = utils->i + get_last_of_var(utils->string + (utils->i + 1));
+	free(utils->temp);
+	if (!utils->variable)
+		return (0);
+	utils->final = ft_strjoin(utils->final, utils->variable);
+	return (1);
+}
+
 // get the variable and join only and spicial characters at end
 char	*smart_get_variable(char *str)
 {
-	char	*variable;
-	char	*temp;
-	char	*final;
-	int		i;
+	t_get_variable_struct	utils;
+	char					*error_num;
 
-	i = -1;
-	final = 0;
-	while (str[++i])
+	utils.i = -1;
+	utils.final = 0;
+	utils.string = str;
+	while (str[++(utils.i)])
 	{
-		if (str[i] == '$')
+		if (str[utils.i] == '$' && str[utils.i + 1] == '?')
 		{
-			temp = get_substring(str + (i + 1), get_last_of_var(str + (i + 1)));
-			variable = get_variable_cmd(temp);
-			i = i + get_last_of_var(str + (i + 1));
-			free(temp);
-			if (!variable)
-				continue;
-			final = ft_strjoin(final, variable);
+			error_num = ft_itoa(g_global.error);
+			utils.final = ft_strjoin(utils.final, error_num);
+			free(error_num);
+			utils.i += 2;
+		}
+		if (str[utils.i] == '$')
+		{
+			if (dolar_work(&utils))
+				continue ;
 		}
 		else
-			final = strjoin_small(final, str[i]);
+			utils.final = strjoin_small(utils.final, str[utils.i]);
 	}
-	return (final);
+	return (utils.final);
 }
 
 char	*single_expand(t_lexer_node *node, int *nb)
@@ -151,7 +165,7 @@ int	check_export_syntax(char *str)
 		if (!((str[i] >= 'a' && str[i] <= 'z')
 			|| (str[i] >= 'A' && str[i] <= 'Z')
 			|| (str[i] >= '0' && str[i] <= '9')
-			|| (str[i] == '_') || str[i] == '='))
+			|| (str[i] == '_')))
 			return (0);
 		i++;
 	}
