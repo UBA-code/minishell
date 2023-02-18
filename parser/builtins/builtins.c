@@ -6,31 +6,17 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 19:57:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/18 10:47:02 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/18 11:31:19 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	echo_cmd(char **args)
+void	echo_utils(char **args, int new)
 {
 	int	i;
-	int	j;
 
-	i = 1;
-	while (args[i])
-	{
-		j = 0;
-		if (args[i][j] == '-')
-		{
-			while (args[i][++j] == 'n');
-			if (args[i][j])
-				break ;
-		}
-		else
-			break ;
-		i++;
-	}
+	i = 0;
 	while (args[i])
 	{
 		if (args[i + 1])
@@ -39,6 +25,32 @@ void	echo_cmd(char **args)
 			printf("%s", args[i]);
 		i++;
 	}
+	if (new == 0)
+		printf("\n");
+}
+
+void	echo_cmd(char **args)
+{
+	int	i;
+	int	j;
+	int	new;
+
+	new = 0;
+	i = 0;
+	while (args[++i])
+	{
+		j = 0;
+		if (args[i][j] == '-' && args[i][j + 1])
+		{
+			while (args[i][++j] == 'n');
+			if (args[i][j])
+				break;
+			new = 1;
+		}
+		else
+			break;
+	}
+	echo_utils(args + i, new);
 }
 
 char	*get_variable_cmd(char *variable)
