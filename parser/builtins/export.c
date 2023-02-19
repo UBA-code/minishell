@@ -6,11 +6,30 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:39:02 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/18 11:39:40 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 11:06:02 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	check_export_syntax(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[0] >= '0' && str[0] <= '9')
+		return (0);
+	while (str[i])
+	{
+		if (!((str[i] >= 'a' && str[i] <= 'z')
+			|| (str[i] >= 'A' && str[i] <= 'Z')
+			|| (str[i] >= '0' && str[i] <= '9')
+			|| (str[i] == '_')))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 void	export_errors(char *name)
 {

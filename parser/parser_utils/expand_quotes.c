@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 10:37:08 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/18 18:40:31 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:51:54 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	dolar_work(t_get_variable_struct *utils)
 	return (1);
 }
 
-int	speciale_check(char c, int *i)
+int	speciale_check(char c)
 {
 	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
 		|| (c >= '0' && c <= '9') || c == '_')
@@ -105,7 +105,7 @@ char	*smart_get_variable(char *str)
 			free(error_num);
 			utils.i += 2;
 		}
-		if (str[utils.i] == '$' && speciale_check(str[utils.i + 1], &(utils.i)))
+		if (str[utils.i] == '$' && speciale_check(str[utils.i + 1]))
 		{
 			if (dolar_work(&utils))
 				continue ;
@@ -163,21 +163,4 @@ char	*join_string(t_lexer_node *node, int *nb)
 		++*nb;
 	}
 	return (final);
-}
-
-int	check_export_syntax(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!((str[i] >= 'a' && str[i] <= 'z')
-			|| (str[i] >= 'A' && str[i] <= 'Z')
-			|| (str[i] >= '0' && str[i] <= '9')
-			|| (str[i] == '_')))
-			return (0);
-		i++;
-	}
-	return (1);
 }
