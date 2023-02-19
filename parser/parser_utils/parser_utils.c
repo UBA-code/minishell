@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/19 11:39:44 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:00:25 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,23 +208,23 @@ void	parser_utils(t_lexer_node **lexer_head)
 
 	// print
 	
-	current = *lexer_head;
-	t_files *files;
+	// current = *lexer_head;
+	// t_files *files;
 
-	while (current)
-	{
-		i = 0;
-		while (current->cmd_struct.cmd[i])
-		{
-			printf("%d|%s|\n", i + 1, current->cmd_struct.cmd[i]);
-			i++;
-		}
-		files = current->cmd_struct.files_head;
-		while (files)
-		{
-			printf("file : %s \ttype : %c\n", files->file, files->type);
-			files = files->next;
-		}
-		current = current->next;
-	}
+	// while (current)
+	// {
+	// 	i = 0;
+	// 	while (current->cmd_struct.cmd[i])
+	// 	{
+	// 		printf("%d|%s|\n", i + 1, current->cmd_struct.cmd[i]);
+	// 		i++;
+	// 	}
+	// 	files = current->cmd_struct.files_head;
+	// 	while (files)
+	// 	{
+	// 		printf("file : %s \ttype : %c\n", files->file, files->type);
+	// 		files = files->next;
+	// 	}
+	// 	current = current->next;
+	// }
 }

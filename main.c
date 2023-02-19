@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/19 11:39:19 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 12:03:43 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ void minishell(char *line, char **env)
 	}
 	free(args);
 	parser_utils(&head);
-	// export_cmd(head->cmd_struct.cmd);
-	// env_cmd('e');
-	// export_cmd(head->cmd_struct.cmd);
-	// env_cmd('e');
+	exec_fun(head);
 	free_parser(head);
 	lst_clear(&head);
 }
@@ -83,7 +80,7 @@ int main(int ac, char **av, char **env)
 	g_global.env_head = 0;
 	g_global.error = 0;
 	create_env(env);
-	// str_start();
+	str_start();
 	while (1)
 	{
 		line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
@@ -91,6 +88,8 @@ int main(int ac, char **av, char **env)
 		if (ft_strlen(line) && check_quotes(line))
 			minishell(line, env);
 		free(line);
+		// system("leaks minishell");
 	}
+	// while (1);
 	return 0;
 }

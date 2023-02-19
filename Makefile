@@ -21,7 +21,8 @@ SRCS = main.c parser/get_next_line/get_next_line.c \
 		./parser/builtins/exit.c  \
 		./parser/builtins/export.c  \
 		./parser/builtins/pwd.c  \
-		./parser/builtins/unset.c 
+		./parser/builtins/unset.c \
+		./execution/exec.c
 # BONUS_SRCS = actions.c actions_2.c cases.c check_utils.c create_stack.c ft_calloc.c \
 # 	ft_split.c ft_strdup.c ft_substr.c push_swap_bonus.c sort_three.c utils.c utils_2.c utils_3.c \
 # 	sort_five.c last_sort.c utils_4.c \

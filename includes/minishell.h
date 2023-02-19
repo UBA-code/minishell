@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/19 13:42:30 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:00:05 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,6 @@ int				env_search(char *variable);
 long long		ft_atoi(char *nb);
 char			*ft_itoa(int n);
 void			tab_free(char **tab);
+int 			exec_fun(t_lexer_node *head);
 
 #endif
