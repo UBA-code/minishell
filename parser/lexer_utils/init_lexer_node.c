@@ -6,17 +6,26 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:15:37 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/17 17:53:13 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:42:09 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+
+int	lexer_check(char c)
+{
+	if (c == '\'' || c == '"' || c == '<' || c == '>'
+		|| c == ' ' || c == ')' || c == '(')
+		return (1);
+	return (0);
+}
+
 int	get_next_word(char *str, int i)
 {
 	while (str[i])
 	{
-		if (CURRENT_CONDITION)
+		if (lexer_check(str[i]))
 			return (i);
 		++i;
 	}
@@ -33,15 +42,14 @@ int	get_token_len(char *str)
 	i = 0;
 	while (str[i])
 	{
-		// if (!(CURRENT_CONDITION) && (NEXT_CONDITIN || str[i + 1] == '$'))
-		if (!(CURRENT_CONDITION) && NEXT_CONDITIN)
+		if (!(lexer_check(str[i])) && lexer_check(str[i + 1]))
 			len++;
-		else if (CURRENT_CONDITION)
+		else if (lexer_check(str[i]))
 			len++;
 		i++;
 	}
 	i--;
-	if (CURRENT_CONDITION)
+	if (lexer_check(str[i]))
 		return (len);
 	return (++len);
 }
@@ -56,13 +64,12 @@ int	get_token_size(char *str, int *num)
 	i = 0;
 	while (str[i])
 	{
-		// if (!(CURRENT_CONDITION) && (NEXT_CONDITIN || str[i + 1] == '$'))
-		if (!(CURRENT_CONDITION) && NEXT_CONDITIN)
+		if (!(lexer_check(str[i])) && lexer_check(str[i + 1]))
 		{
 			++(*num);
 			return (++i);
 		}
-		else if (CURRENT_CONDITION)
+		else if (lexer_check(str[i]))
 		{
 			++(*num);
 			return (1);

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/18 15:29:33 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:42:30 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@
 #include "stdlib.h"
 #include "unistd.h"
 #include "dirent.h"
-
-#define CURRENT_CONDITION str[i] == '\'' || str[i] == '"' || str[i] == '<' || str[i] == '>' \
-			|| str[i] == ' ' || str[i] == ')' || str[i] == '('
-
-#define NEXT_CONDITIN str[i + 1] == '\'' || str[i + 1] == '"' || str[i + 1] == '<' || str[i + 1] == '>' \
-			|| str[i + 1] == ' ' || str[i + 1] == ')' || str[i + 1] == '('
 
 #define LEFT_REDIRECT ">"
 #define RIGHT_REDIRECT "<"
