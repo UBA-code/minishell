@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/19 12:04:21 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/19 14:04:08 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@
 #include "stdlib.h"
 #include "unistd.h"
 #include "dirent.h"
-
-#define CURRENT_CONDITION str[i] == '\'' || str[i] == '"' || str[i] == '<' || str[i] == '>' \
-			|| str[i] == ' ' || str[i] == ')' || str[i] == '('
-
-#define NEXT_CONDITIN str[i + 1] == '\'' || str[i + 1] == '"' || str[i + 1] == '<' || str[i + 1] == '>' \
-			|| str[i + 1] == ' ' || str[i + 1] == ')' || str[i + 1] == '('
 
 #define LEFT_REDIRECT ">"
 #define RIGHT_REDIRECT "<"
@@ -137,8 +131,7 @@ int				env_search(char *variable);
 long long		ft_atoi(char *nb);
 char			*ft_itoa(int n);
 void			tab_free(char **tab);
-
-///
-int exec_fun(t_lexer_node *head);
+// !execution
+int 			exec_fun(t_lexer_node *head);
 
 #endif
