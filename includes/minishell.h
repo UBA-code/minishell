@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/18 15:29:33 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 12:04:21 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,8 @@ int				env_search(char *variable);
 long long		ft_atoi(char *nb);
 char			*ft_itoa(int n);
 void			tab_free(char **tab);
+
+///
+int exec_fun(t_lexer_node *head);
 
 #endif

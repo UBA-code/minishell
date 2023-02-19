@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/18 18:21:41 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 12:03:43 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ void minishell(char *line, char **env)
 	}
 	free(args);
 	parser_utils(&head);
-	// export_cmd(head->cmd_struct.cmd);
-	// env_cmd('e');
-	echo_cmd(head->cmd_struct.cmd);
+	exec_fun(head);
 	free_parser(head);
 	lst_clear(&head);
 }
