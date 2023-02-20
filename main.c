@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/19 12:03:43 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/19 19:48:42 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,33 @@ void minishell(char *line, char **env)
 	}
 	free(args);
 	parser_utils(&head);
-	exec_fun(head);
+	// env_cmd('x');
+	// exec_fun(head);
 	free_parser(head);
 	lst_clear(&head);
 }
 
-void	str_start()
+// void	str_start()
+// {
+// 	ft_putstr("\n\e[1;32m\
+// ███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     \n\
+// ████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     \n\
+// ██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     \n\
+// ██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     \n\
+// ██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n\
+// ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\
+// 																	\n\
+// ", 1);
+// }
+void sig_handler(void)
 {
-	ft_putstr("\n\e[1;32m\
-███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     \n\
-████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     \n\
-██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     \n\
-██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     \n\
-██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n\
-╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\
-																	\n\
-", 1);
+	// if (here_doc_is_closed == 1)
+	{
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
 int main(int ac, char **av, char **env)
@@ -80,10 +91,14 @@ int main(int ac, char **av, char **env)
 	g_global.env_head = 0;
 	g_global.error = 0;
 	create_env(env);
-	str_start();
+	// str_start();
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, (void *)sig_handler);
 		line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
+		if (!line)
+			break;
 		add_history(line);
 		if (ft_strlen(line) && check_quotes(line))
 			minishell(line, env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/19 14:04:08 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 19:37:02 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,8 @@ char			*ft_itoa(int n);
 void			tab_free(char **tab);
 // !execution
 int 			exec_fun(t_lexer_node *head);
+
+
+void rl_replace_line (const char *str, int i);
 
 #endif

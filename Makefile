@@ -38,12 +38,9 @@ NAME = minishell
 all: $(NAME)
 
 $(NAME): $(OBG)
-	$(CC) $(CFLAGS) -lreadline $(OBG) -o $(NAME)
+	$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/goinfre/homebrew/opt/readline/lib -o $(NAME)
 	make clean
-	./minishell
-
 # bonus: $(BONUS)
-
 # $(BONUS): $(BONUS_OBG)
 # 	$(CC) $(CFLAGS) $(BONUS_OBG) -o checker
 
