@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/19 12:03:43 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/20 16:23:28 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-void ft_print_lst(t_lexer_node *head)
+void	ft_print_lst(t_lexer_node *head)
 {
-	int i;
+	int	i;
 
 	while (head)
 	{
@@ -29,20 +29,20 @@ void ft_print_lst(t_lexer_node *head)
 	}
 }
 
-void ft_putstr(char *str, int fd)
+void	ft_putstr(char *str, int fd)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i])
 		write(fd, &str[i], 1);
 }
 
-void minishell(char *line, char **env)
+void	minishell(char *line, char **env)
 {
-	char **args;
-	int i;
-	t_lexer_node *head;
+	char			**args;
+	int				i;
+	t_lexer_node	*head;
 
 	head = 0;
 	i = 0;
@@ -54,13 +54,15 @@ void minishell(char *line, char **env)
 		i++;
 	}
 	free(args);
-	parser_utils(&head);
-	exec_fun(head);
-	free_parser(head);
-	lst_clear(&head);
+	if (parser_utils(&head))
+	{
+	// exec_fun(head);
+		free_parser(head);
+		lst_clear(&head);
+	}
 }
 
-void	str_start()
+void	str_start(void)
 {
 	ft_putstr("\n\e[1;32m\
 ███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     \n\
@@ -73,14 +75,13 @@ void	str_start()
 ", 1);
 }
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	char	*line;
 
 	g_global.env_head = 0;
 	g_global.error = 0;
 	create_env(env);
-	str_start();
 	while (1)
 	{
 		line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
@@ -88,8 +89,6 @@ int main(int ac, char **av, char **env)
 		if (ft_strlen(line) && check_quotes(line))
 			minishell(line, env);
 		free(line);
-		// system("leaks minishell");
 	}
-	// while (1);
-	return 0;
+	return (0);
 }

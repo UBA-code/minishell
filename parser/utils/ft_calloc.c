@@ -6,12 +6,11 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 14:41:53 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/18 15:43:03 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 17:25:38 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 void	*ft_memset(void *b, int c, size_t len)
 {
