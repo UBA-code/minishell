@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:49:25 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/20 16:23:11 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:28:38 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	free_parser(t_lexer_node *head)
 	t_files	*files_head;
 	t_files	*temp;
 
-	files_head = head->cmd_struct.files_head;
 	while (head)
 	{
 		i = 0;
@@ -28,6 +27,7 @@ void	free_parser(t_lexer_node *head)
 			i++;
 		}
 		free(head->cmd_struct.cmd);
+		files_head = head->cmd_struct.files_head;
 		while (files_head)
 		{
 			free(files_head->file);
