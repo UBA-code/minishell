@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/20 18:25:55 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/21 14:13:20 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	parser_work(t_lexer_node *node)
 	node->cmd_struct.files_head = 0;
 	j = 0;
 	i = 0;
-	node->cmd_struct.cmd = malloc(sizeof(char *) * (parser_get_size(node) + 1));
+	node->cmd_struct.cmd = malloc(sizeof(char *) *
+			(parser_get_size(node) + 1));
 	while (i < node->lexer_size)
 	{
 		if (node->lexer[i].type == '<' || node->lexer[i].type == '>')
@@ -66,7 +67,7 @@ char	*get_cmd_path(char *cmd)
 	ft_error(": command not found\n", 127);
 	free(cmd);
 	tab_free(paths);
-	return (0);
+	return (ft_strdup(""));
 }
 
 int	parser_utils(t_lexer_node **lexer_head)
@@ -82,16 +83,13 @@ int	parser_utils(t_lexer_node **lexer_head)
 			return (parse_error_free(*lexer_head), 0);
 		current = current->next;
 	}
-	i = 0;
+	i = -1;
 	current = *lexer_head;
 	while (current)
 	{
 		if (!(current->cmd_struct.cmd[0]))
 			current->cmd_struct.cmd[0] = ft_strdup("");
 		current->cmd_struct.cmd[0] = get_cmd_path(current->cmd_struct.cmd[0]);
-		if (!(current->cmd_struct.cmd[0]))
-			while (current->cmd_struct.cmd[++i])
-				free(current->cmd_struct.cmd[i]);
 		current = current->next;
 	}
 	
