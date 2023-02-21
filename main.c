@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/20 16:23:28 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 19:48:42 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-void	ft_print_lst(t_lexer_node *head)
+void ft_print_lst(t_lexer_node *head)
 {
-	int	i;
+	int i;
 
 	while (head)
 	{
@@ -29,20 +29,20 @@ void	ft_print_lst(t_lexer_node *head)
 	}
 }
 
-void	ft_putstr(char *str, int fd)
+void ft_putstr(char *str, int fd)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (str[++i])
 		write(fd, &str[i], 1);
 }
 
-void	minishell(char *line, char **env)
+void minishell(char *line, char **env)
 {
-	char			**args;
-	int				i;
-	t_lexer_node	*head;
+	char **args;
+	int i;
+	t_lexer_node *head;
 
 	head = 0;
 	i = 0;
@@ -54,41 +54,57 @@ void	minishell(char *line, char **env)
 		i++;
 	}
 	free(args);
-	if (parser_utils(&head))
-	{
+	parser_utils(&head);
+	// env_cmd('x');
 	// exec_fun(head);
-		free_parser(head);
-		lst_clear(&head);
+	free_parser(head);
+	lst_clear(&head);
+}
+
+// void	str_start()
+// {
+// 	ft_putstr("\n\e[1;32m\
+// ███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     \n\
+// ████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     \n\
+// ██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     \n\
+// ██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     \n\
+// ██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n\
+// ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\
+// 																	\n\
+// ", 1);
+// }
+void sig_handler(void)
+{
+	// if (here_doc_is_closed == 1)
+	{
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
 }
 
-void	str_start(void)
-{
-	ft_putstr("\n\e[1;32m\
-███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     \n\
-████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     \n\
-██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     \n\
-██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     \n\
-██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n\
-╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\
-																	\n\
-", 1);
-}
-
-int	main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
 	char	*line;
 
 	g_global.env_head = 0;
 	g_global.error = 0;
 	create_env(env);
+	// str_start();
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, (void *)sig_handler);
 		line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
+		if (!line)
+			break;
 		add_history(line);
 		if (ft_strlen(line) && check_quotes(line))
 			minishell(line, env);
 		free(line);
+		// system("leaks minishell");
 	}
-	return (0);
+	// while (1);
+	return 0;
 }

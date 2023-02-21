@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 20:59:09 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/19 17:24:17 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:46:33 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_dbquotes(char *str, int *i, int j)
 		if (str[j] == '\'')
 		{
 			*i = j;
-			break ;
+			break;
 		}
 		j++;
 	}
@@ -42,7 +42,7 @@ int	check_squotes(char *str, int *i, int j)
 		if (str[j] == '"')
 		{
 			*i = j;
-			break ;
+			break;
 		}
 		j++;
 	}
@@ -73,7 +73,7 @@ int	check_quotes(char *str)
 	return (1);
 }
 
-void	ft_error(char *str, int error)
+void	ft_error(char *str, int	error)
 {
 	int	i;
 

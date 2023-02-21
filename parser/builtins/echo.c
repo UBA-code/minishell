@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:37:53 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/19 17:29:32 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/18 11:38:11 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,13 @@ void	echo_cmd(char **args)
 		j = 0;
 		if (args[i][j] == '-' && args[i][j + 1])
 		{
-			while (args[i][++j] == 'n')
-				continue ;
+			while (args[i][++j] == 'n');
 			if (args[i][j])
-				break ;
+				break;
 			new = 1;
 		}
 		else
-			break ;
+			break;
 	}
 	echo_utils(args + i, new);
 }

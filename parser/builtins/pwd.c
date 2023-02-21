@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:43:48 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/18 11:44:29 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 19:24:04 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,3 +17,5 @@ void	pwd_cmd(void)
 	if (env_search("PWD"))
 		printf("%s\n", get_variable_cmd("PWD"));
 }
+
+// getcwd();
