@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:38:39 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/19 16:43:47 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:07:27 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,39 @@ int	env_search(char *variable)
 	return (0);
 }
 
+void	sorted_print(t_mini_env *head)
+{
+	char		*alpha;
+	t_mini_env	*temp;
+	int			i;
+
+	i = 0;
+	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz";
+	while (alpha[i])
+	{
+		temp = head;
+		while (temp)
+		{
+			if (temp->name[0] == alpha[i])
+			{
+				if (temp->value == 0)
+					printf("declare -x %s\n", temp->name);
+				else
+					printf("declare -x %s=\"%s\"\n", temp->name, temp->value);
+			}
+			temp = temp->next;
+		}
+		i++;
+	}
+}
+
 void	env_cmd(char c)
 {
 	t_mini_env	*current;
 
 	current = g_global.env_head;
 	if (c == 'x')
-	{
-		while (current)
-		{
-			if (current->value == 0)
-				printf("declare -x %s\n", current->name);
-			else
-				printf("declare -x %s=\"%s\"\n", current->name, current->value);
-			current = current->next;
-		}
-	}
+		sorted_print(current);
 	else
 	{
 		while (current)
