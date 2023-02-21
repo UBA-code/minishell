@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/20 16:23:17 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:46:17 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void			export_cmd(char **args);
 void			unset_cmd(char **args);
 void			env_cmd(char c);
 void			pwd_cmd(void);
+void			exit_cmd(char **args);
 void			ft_putstr(char *str, int fd);
 int				ft_strchr(char *str, char c);
 void			cd_cmd(char **args);
