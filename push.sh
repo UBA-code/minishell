@@ -2,4 +2,4 @@
 
 git add . > /dev/null
 git commit -m "$1" > /dev/null
-git push > /dev/null 2>&1
+git push
