@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:43:19 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/21 15:45:35 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:52:28 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_exit(char *nb)
 		{
 			ft_error("bash: ", 255);
 			ft_error(nb, 255);
-			ft_error(": numeric argument required", 255);
+			ft_error(": numeric argument required\n", 255);
 			return (0);
 		}
 	}
@@ -31,7 +31,7 @@ int	check_exit(char *nb)
 	{
 		ft_error("bash: ", 255);
 		ft_error(nb, 255);
-		ft_error(": numeric argument required", 255);
+		ft_error(": numeric argument required\n", 255);
 		return (0);
 	}
 	return (1);
@@ -39,9 +39,18 @@ int	check_exit(char *nb)
 
 void	exit_cmd(char **args)
 {
-	if (args[1] && !args[2] && check_exit(args[1]))
+	if (args[1] && !check_exit(args[1]))
+		exit(255);
+	if (args[1] && !args[2])
+	{
+		printf("exit\n");
 		exit(ft_atoi(args[1]));
+	}
 	if (!args[1])
+	{
+		printf("exit\n");
 		exit(0);
-	ft_error("exit: too many arguments", 1);
+	}
+	else
+		ft_error("exit: too many arguments\n", 1);
 }
