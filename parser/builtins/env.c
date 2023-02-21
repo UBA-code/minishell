@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:38:39 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/18 11:40:04 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 16:43:47 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	env_search(char *variable)
 {
-	t_mini_env *current;
+	t_mini_env	*current;
 
 	current = g_global.env_head;
 	while (current)

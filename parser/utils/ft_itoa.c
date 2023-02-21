@@ -6,13 +6,13 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 19:05:08 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/17 13:28:03 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 17:25:26 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void 	ft_putnbr_itoa(int nbr, char *tab, int *i)
+void	ft_putnbr_itoa(int nbr, char *tab, int *i)
 {
 	if (nbr == -2147483648)
 	{
@@ -36,7 +36,7 @@ void 	ft_putnbr_itoa(int nbr, char *tab, int *i)
 
 char	*ft_itoa(int n)
 {
-	int	i;
+	int		i;
 	char	*tab;
 
 	i = -1;

@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_redirection.c                                :+:      :+:    :+:   */
+/*   parser_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 12:50:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/03 15:25:39 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/20 11:25:57 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/02/21 10:34:46 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	check_redirection(char *line)
+void	parse_error_free(t_lexer_node *lexer_head)
 {
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		
-	}
+	lst_clear(&lexer_head);
+	free(lexer_head->cmd_struct.cmd);
+	ft_error("Error, Parse Error\n", 258);
 }
