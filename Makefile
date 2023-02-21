@@ -43,7 +43,7 @@ NAME = minishell
 all: $(NAME)
 
 $(NAME): $(OBG)
-	$(CC) $(CFLAGS) -lreadline $(OBG) -o $(NAME)
+	$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/homebrew/Cellar/readline/8.2.1/lib -o $(NAME)
 #	make clean
 #	./minishell
 
