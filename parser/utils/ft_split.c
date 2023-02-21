@@ -6,22 +6,11 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:48:43 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/18 15:58:03 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 17:21:43 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	includes(char c, char *sep)
-{
-	int	i;
-
-	i = -1;
-	while (sep[++i])
-		if (sep[i] == c)
-			return (1);
-	return (0);
-}
 
 static	int	calc_element(const char *s, char *sep, size_t *x, size_t *j)
 {

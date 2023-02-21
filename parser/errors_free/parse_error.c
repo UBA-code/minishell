@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_clear.c                                        :+:      :+:    :+:   */
+/*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 13:28:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/20 17:01:08 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/20 11:25:57 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/02/20 18:24:32 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	lst_clear(t_lexer_node **head)
+void	parse_error_free(t_lexer_node *lexer_head)
 {
-	t_lexer_node	*current;
-	int				i;
-	t_lexer_node	*temp;
-
-	i = 0;
-	current = *head;
-	while (current)
-	{
-		i = -1;
-		while (++i < current->lexer_size)
-			free(current->lexer[i].content);
-		temp = current;
-		current = current->next;
-		free(temp->lexer);
-		free(temp);
-	}
+	lst_clear(&lexer_head);
+	free(lexer_head->cmd_struct.cmd);
+	ft_error("Error, Parse Error\n", 258);
 }
