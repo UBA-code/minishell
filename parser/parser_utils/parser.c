@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/21 14:13:20 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:12:46 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,18 @@ int	parser_work(t_lexer_node *node)
 	return (1);
 }
 
+int	check_env(char *cmd, char **paths)
+{
+	if (!paths)
+	{
+		ft_error(cmd, 127);
+		ft_error(": command not found\n", 127);
+		free(cmd);
+		return (0);
+	}
+	return (1);
+}
+
 char	*get_cmd_path(char *cmd)
 {
 	char	**paths;
@@ -51,6 +63,8 @@ char	*get_cmd_path(char *cmd)
 	if (access(cmd, X_OK) == 0 || ft_strlen(cmd) == 0)
 		return (cmd);
 	paths = ft_split(get_variable_cmd("PATH"), ":");
+	if (!check_env(cmd, paths))
+		return (ft_strdup(""));
 	while (paths[++i])
 	{
 		final = ft_strjoin(ft_strdup(paths[i]), "/");
@@ -58,16 +72,14 @@ char	*get_cmd_path(char *cmd)
 		if (access(final, X_OK) == 0)
 		{
 			tab_free(paths);
-			free(cmd);
-			return (final);
+			return (free(cmd), final);
 		}
 		free(final);
 	}
 	ft_error(cmd, 127);
 	ft_error(": command not found\n", 127);
 	free(cmd);
-	tab_free(paths);
-	return (ft_strdup(""));
+	return (tab_free(paths), ft_strdup(""));
 }
 
 int	parser_utils(t_lexer_node **lexer_head)
@@ -92,7 +104,6 @@ int	parser_utils(t_lexer_node **lexer_head)
 		current->cmd_struct.cmd[0] = get_cmd_path(current->cmd_struct.cmd[0]);
 		current = current->next;
 	}
-	
 	// TODO! fix variable start with numbers
 
 

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:48:43 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/19 17:21:43 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:37:22 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ char	**ft_split(char const *s, char *sep)
 	size_t	x;
 
 	i = 0;
-	final_str = ft_calloc(sizeof(char *), calc_element(s, sep, &x, &j) + 1);
-	if (!final_str || !s)
+	if (!s)
 		return (0);
+	final_str = ft_calloc(sizeof(char *), calc_element(s, sep, &x, &j) + 1);
 	get_next_str(s, sep, &i, &j);
 	if (i-- == ft_strlen(s))
 		return ((char *[1]){NULL});

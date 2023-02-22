@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/21 17:13:26 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:06:25 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,11 @@ void	minishell(char *line, char **env)
 	if (parser_utils(&head))
 	{
 	// exec_fun(head);
-		echo_cmd(head->cmd_struct.cmd);
+		// cd_cmd(head->cmd_struct.cmd);
+		// pwd_cmd();
 		free_parser(head);
 		lst_clear(&head);
 	}
-}
-
-void	str_start(void)
-{
-	ft_putstr("\n\e[1;32m\
-███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     \n\
-████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     \n\
-██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     \n\
-██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     \n\
-██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n\
-╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\
-																	\n\
-", 1);
 }
 
 int	main(int ac, char **av, char **env)
@@ -82,6 +70,7 @@ int	main(int ac, char **av, char **env)
 
 	g_global.env_head = 0;
 	g_global.error = 0;
+
 	create_env(env);
 	while (1)
 	{
