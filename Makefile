@@ -1,64 +1,73 @@
-SRCS = main.c parser/get_next_line/get_next_line.c \
-		parser/get_next_line/get_next_line_utils.c \
-		parser/utils/ft_calloc.c parser/utils/ft_split.c \
-		parser/utils/split_utils.c \
-		parser/utils/ft_strdup.c parser/utils/ft_substr.c \
-		parser/utils/ft_strcmp.c ./parser/linked_list_utils/add_back_lst.c \
-		./parser/linked_list_utils/add_front_lst.c \
-		./parser/linked_list_utils/create_node.c \
-		./parser/linked_list_utils/lst_clear.c\
-		./parser/lexer_utils/init_lexer_node.c \
-		./parser/lexer_utils/lexer_utils.c \
-		./parser/utils/ft_atoi.c \
-		./parser/utils/ft_itoa.c \
-		./parser/utils/utils.c \
-		./parser/parser_utils/parser_utils.c \
-		./parser/parser_utils/parser.c \
-		./parser/utils/create_mini_env.c \
-		./parser/linked_list_utils/env_del_node.c \
-		./parser/parser_utils/expand_quotes.c \
-		./parser/parser_utils/expand_quotes_utils.c \
-		./parser/builtins/builtins_utils.c \
-		./parser/builtins/cd.c  \
-		./parser/errors_free/parse_error.c \
-		./parser/builtins/echo.c  \
-		./parser/builtins/env.c  \
-		./parser/builtins/exit.c  \
-		./parser/builtins/export.c  \
-		./parser/builtins/pwd.c  \
-		./parser/builtins/unset.c \
-		./execution/exec.c
-# BONUS_SRCS = actions.c actions_2.c cases.c check_utils.c create_stack.c ft_calloc.c \
-# 	ft_split.c ft_strdup.c ft_substr.c push_swap_bonus.c sort_three.c utils.c utils_2.c utils_3.c \
-# 	sort_five.c last_sort.c utils_4.c \
-# 	get_next_line.c get_next_line_utils.c \
-# 	actions_2_bonus.c actions_bonus.c
-OBG = $(SRCS:.c=.o)
-# BONUS_OBG = $(BONUS_SRCS:.c=.o)
-# CFLAGS = -Wall -Werror -Wextra
-# CFLAGS = -fsanitize=address -g3
-NAME = minishell
-# BONUS = checker
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/22 20:45:41 by bahbibe           #+#    #+#              #
+#    Updated: 2023/02/23 00:54:58 by bahbibe          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-all: $(NAME)
+Off		=\033[0m
+Black	=\033[0;30m
+Red		=\033[0;31m
+Green	=\033[0;32m
+Yellow	=\033[0;33m
+Blue	=\033[0;34m
+Purple	=\033[0;35m
+Cyan	=\033[0;36m
+White	=\033[0;37m
 
-$(NAME): $(OBG)
-#	$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/goinfre/homebrew/opt/readline/lib -o $(NAME)
-	$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/homebrew/Cellar/readline/8.2.1/lib -o $(NAME)
-#	make clean
-#	./minishell
+CC		=	cc
+NAME	=	minishell
+FLAGS	=	-Wall -Wextra -Werror 
 
-# bonus: $(BONUS)
+SRCS	=	minishell.c \
+			src/parser/builtins/builtins_utils.c \
+			src/parser/builtins/cd.c \
+			src/parser/builtins/echo.c \
+			src/parser/builtins/env.c \
+			src/parser/builtins/exit.c \
+			src/parser/builtins/export.c \
+			src/parser/builtins/pwd.c \
+			src/parser/builtins/unset.c \
+			src/parser/errors_free/parse_error.c \
+			src/parser/lexer_utils/init_lexer_node.c \
+			src/parser/lexer_utils/lexer_utils.c \
+			src/parser/linked_list_utils/add_back_lst.c \
+			src/parser/linked_list_utils/add_front_lst.c \
+			src/parser/linked_list_utils/create_node.c \
+			src/parser/linked_list_utils/env_del_node.c \
+			src/parser/linked_list_utils/lst_clear.c \
+			src/parser/linked_list_utils/lst_size.c \
+			src/parser/parser_utils/expand_quotes_utils.c \
+			src/parser/parser_utils/expand_quotes.c \
+			src/parser/parser_utils/parser_utils.c \
+			src/parser/parser_utils/parser.c \
+			src/parser/utils/create_mini_env.c \
+			src/parser/utils/utils.c \
 
-# $(BONUS): $(BONUS_OBG)
-# 	$(CC) $(CFLAGS) $(BONUS_OBG) -o checker
+LIBS		=	libft gnl
 
+INCLUDES	=	$(LIBS:%=includes/$*/%.a)
+
+all: $(LIBS) $(NAME)
+	@:
+$(NAME): $(SRCS)
+	@$(CC) -I includes  $(FLAGS) $(SRCS) $(INCLUDES) -lreadline -L ~/homebrew/Cellar/readline/8.2.1/lib -o $(NAME)
+	@echo "$(Green)MINISHELL READY ✅$(Off)"
+libs: $(LIBS)
+$(LIBS):
+	@make -C includes/$@
+	@cp includes/$@/$@.a includes
 clean:
-	rm -rf $(OBG)
-
+	@make -C includes/libft clean
+	@make -C includes/gnl clean
 fclean: clean
-	rm -rf $(NAME)
-
+	@rm -rf $(NAME)
+	@rm -rf $(B_NAME)
+	@rm -rf $(INCLUDES)
 re: fclean all
-
-.PHONY: all clean fclean re
+.PHONY: all
