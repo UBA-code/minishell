@@ -1,41 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 15:31:14 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/19 17:25:08 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/16 18:57:06 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/02/16 19:09:32 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+static int	skip_sign(char *nb, int *i, int *sign)
 {
-	int	i;
+	int	j;
 
-	i = 0;
-	while (s1[i] || s2[i])
+	j = 0;
+	*sign = 1;
+	while (nb[*i] == '-' || nb[*i] == '+')
 	{
-		if (s1[i] != s2[i])
-			return (0);
-		i++;
+		if (nb[*i] == '-')
+			*sign = -1;
+		j++;
+		++*i;
 	}
+	if (j > 1)
+		return (0);
 	return (1);
 }
 
-int	ft_strncmp(char *s1, char *s2, int n)
+long long	ft_atoi(char *nb)
 {
-	int	i;
+	size_t		i;
+	int			sign;
+	long long	n;
 
 	i = 0;
-	while ((s1[i] || s2[i]) && i < n)
+	n = 0;
+	while ((nb[i] >= 9 && nb[i] <= 13) || nb[i] == ' ')
+		i++;
+	if (!skip_sign(nb, (int *)&i, &sign))
+		return (0);
+	while (nb[i] >= '0' && nb[i] <= '9')
 	{
-		if (s1[i] != s2[i])
-			return (0);
+		n *= 10;
+		n += (nb[i] - '0');
 		i++;
 	}
-	return (1);
+	return (n * sign);
 }

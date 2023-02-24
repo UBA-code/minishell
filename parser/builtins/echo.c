@@ -1,41 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 15:31:14 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/19 17:25:08 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/18 11:37:53 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/02/19 17:29:32 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	echo_utils(char **args, int new)
 {
 	int	i;
 
 	i = 0;
-	while (s1[i] || s2[i])
+	while (args[i])
 	{
-		if (s1[i] != s2[i])
-			return (0);
+		if (args[i + 1])
+			printf("%s ", args[i]);
+		else
+			printf("%s", args[i]);
 		i++;
 	}
-	return (1);
+	if (new == 0)
+		printf("\n");
 }
 
-int	ft_strncmp(char *s1, char *s2, int n)
+void	echo_cmd(char **args)
 {
 	int	i;
+	int	j;
+	int	new;
 
+	new = 0;
 	i = 0;
-	while ((s1[i] || s2[i]) && i < n)
+	while (args[++i])
 	{
-		if (s1[i] != s2[i])
-			return (0);
-		i++;
+		j = 0;
+		if (args[i][j] == '-' && args[i][j + 1])
+		{
+			while (args[i][++j] == 'n')
+				continue ;
+			if (args[i][j])
+				break ;
+			new = 1;
+		}
+		else
+			break ;
 	}
-	return (1);
+	echo_utils(args + i, new);
 }

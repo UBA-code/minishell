@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_del_node.c                                     :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 19:41:54 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/15 18:37:10 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
+/*   Updated: 2023/02/19 14:14:41 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-void	env_del_node(char *variable)
+int exec_fun(t_lexer_node *head)
 {
-	t_mini_env	*current;
-	t_mini_env	*temp;
+	char **env = head->env;
+	char **cmd = head->cmd_struct.cmd;
 
-	current = g_global.env_head;
-	while (current)
-	{
-		if (ft_strcmp(current->name, variable))
-		{
-			temp = current;
-			current->previous->next = current->next;
-			free(temp->name);
-			free(temp->value);
-			free(temp);
-			return ;
-		}
-		current = current->next;
-	}
+	execve(cmd[0], cmd, env);
 }

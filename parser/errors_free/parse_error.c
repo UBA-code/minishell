@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_del_node.c                                     :+:      :+:    :+:   */
+/*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 19:41:54 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/15 18:37:10 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/20 11:25:57 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/02/20 18:24:32 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	env_del_node(char *variable)
+void	parse_error_free(t_lexer_node *lexer_head)
 {
-	t_mini_env	*current;
-	t_mini_env	*temp;
-
-	current = g_global.env_head;
-	while (current)
-	{
-		if (ft_strcmp(current->name, variable))
-		{
-			temp = current;
-			current->previous->next = current->next;
-			free(temp->name);
-			free(temp->value);
-			free(temp);
-			return ;
-		}
-		current = current->next;
-	}
+	lst_clear(&lexer_head);
+	free(lexer_head->cmd_struct.cmd);
+	ft_error("Error, Parse Error\n", 258);
 }

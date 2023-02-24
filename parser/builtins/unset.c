@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_del_node.c                                     :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 19:41:54 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/15 18:37:10 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/18 11:40:40 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/02/18 11:43:01 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	env_del_node(char *variable)
+void	unset_cmd(char **args)
 {
-	t_mini_env	*current;
-	t_mini_env	*temp;
+	int	i;
 
-	current = g_global.env_head;
-	while (current)
+	i = 1;
+	while (args[i])
 	{
-		if (ft_strcmp(current->name, variable))
-		{
-			temp = current;
-			current->previous->next = current->next;
-			free(temp->name);
-			free(temp->value);
-			free(temp);
-			return ;
-		}
-		current = current->next;
+		if (env_search(args[i]))
+			env_del_node(args[i]);
+		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:57:42 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/10 15:58:57 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:08:27 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,25 @@ int	ft_strchr(char *str, char c)
 	return (-1);
 }
 
-void	create_env(t_mini_env **head, char **env)
+void	create_env(char **env)
 {
-	int	i;
-	char *value;
+	int		i;
+	char	*value;
 
 	i = 0;
-	while (env[i])
+	// if (!env || !env[0])
+	// {
+		// ft_error("bruh why u try to sigfault me :( please don't unset the env\n", 1);
+		// exit(EXIT_FAILURE);
+	// }
+	while (env && env[i])
 	{
 		if (ft_strchr(env[i], '=') == -1)
 			value = 0;
 		else
-			value = ft_substr(env[i], (ft_strchr(env[i], '=') + 1), ft_strlen(env[i]));
-		env_create_node(head, ft_substr(env[i], 0, ft_strchr(env[i], '=')),
+			value = ft_substr(env[i],
+					(ft_strchr(env[i], '=') + 1), ft_strlen(env[i]));
+		env_create_node(ft_substr(env[i], 0, ft_strchr(env[i], '=')),
 			value);
 		i++;
 	}

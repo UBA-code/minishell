@@ -6,17 +6,25 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:15:37 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/14 13:08:10 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/19 16:31:09 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	lexer_check(char c)
+{
+	if (c == '\'' || c == '"' || c == '<' || c == '>'
+		|| c == ' ' || c == ')' || c == '(')
+		return (1);
+	return (0);
+}
+
 int	get_next_word(char *str, int i)
 {
 	while (str[i])
 	{
-		if (CURRENT_CONDITION)
+		if (lexer_check(str[i]))
 			return (i);
 		++i;
 	}
@@ -33,14 +41,14 @@ int	get_token_len(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!(CURRENT_CONDITION) && (NEXT_CONDITIN || str[i + 1] == '$'))
+		if (!(lexer_check(str[i])) && lexer_check(str[i + 1]))
 			len++;
-		else if (CURRENT_CONDITION)
+		else if (lexer_check(str[i]))
 			len++;
 		i++;
 	}
 	i--;
-	if (CURRENT_CONDITION)
+	if (lexer_check(str[i]))
 		return (len);
 	return (++len);
 }
@@ -55,12 +63,12 @@ int	get_token_size(char *str, int *num)
 	i = 0;
 	while (str[i])
 	{
-		if (!(CURRENT_CONDITION) && (NEXT_CONDITIN || str[i + 1] == '$'))
+		if (!(lexer_check(str[i])) && lexer_check(str[i + 1]))
 		{
 			++(*num);
 			return (++i);
 		}
-		else if (CURRENT_CONDITION)
+		else if (lexer_check(str[i]))
 		{
 			++(*num);
 			return (1);
@@ -89,28 +97,4 @@ char	get_type(char *content)
 		return ('S');
 	else
 		return ('W');
-}
-
-void	init_lexer_node(t_lexer_node **head, char *line, char **env)
-{
-	int			i;
-	t_lexer		*lexer;
-	int			j;
-	t_lexer_node	*node;
-
-	// printf("%d\n", get_token_len(line));
-	lexer = malloc(sizeof(t_lexer) * (get_token_len(line) + 1));
-	i = 0;
-	j = 0;
-	while (line[i])
-	{
-		lexer[j].content = get_substring(line + i, get_token_size(line + i, &i));
-		lexer[j].type = get_type(lexer[j].content);
-		j++;
-	}
-	lexer[j].content = 0;
-	node = lexer_create_node(head);
-	node->lexer = lexer;
-	node->lexer_size = get_token_len(line);
-	node->env = env;                                                                                                                   
 }
