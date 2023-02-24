@@ -6,16 +6,24 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:44:52 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/21 17:54:04 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:52:06 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+
+void	cd_utils(char *str)
+{
+	ft_error("bash: ", 1);
+	ft_error(str, 1);
+	ft_error(": No such directory\n", 1);
+}
+
 void	cd_cmd(char **args)
 {
 	int		folder;
-	char	*oldpwd;
+	char	*temp;
 
 	if (!args[1])
 	{
@@ -33,13 +41,10 @@ void	cd_cmd(char **args)
 	{
 		folder = chdir(args[1]);
 		if (folder)
-		{
-			ft_error("bash: ", 1);
-			ft_error(args[1], 1);
-			ft_error(": No such directory\n", 1);
-			return ;
-		}
+			return (cd_utils(args[1]));
 	}
 	modifie_variable("OLDPWD", get_variable_cmd("PWD"));
-	modifie_variable("PWD", getcwd(0, 0));
+	temp = getcwd(0, 0);
+	modifie_variable("PWD", temp);
+	free(temp);
 }
