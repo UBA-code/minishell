@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_clear.c                                        :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 13:28:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/20 17:01:08 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
+/*   Updated: 2023/02/19 14:14:41 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-void	lst_clear(t_lexer_node **head)
+int exec_fun(t_lexer_node *head)
 {
-	t_lexer_node	*current;
-	int				i;
-	t_lexer_node	*temp;
+	char **env = head->env;
+	char **cmd = head->cmd_struct.cmd;
 
-	i = 0;
-	current = *head;
-	while (current)
-	{
-		i = -1;
-		while (++i < current->lexer_size)
-			free(current->lexer[i].content);
-		temp = current;
-		current = current->next;
-		free(temp->lexer);
-		free(temp);
-	}
+	execve(cmd[0], cmd, env);
 }

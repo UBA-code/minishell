@@ -6,22 +6,11 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:48:43 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/01/29 16:30:21 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:37:22 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	includes(char c, char *sep)
-{
-	int	i;
-
-	i = -1;
-	while (sep[++i])
-		if (sep[i] == c)
-			return (1);
-	return (0);
-}
 
 static	int	calc_element(const char *s, char *sep, size_t *x, size_t *j)
 {
@@ -68,7 +57,7 @@ static int	substr_and_alloc_check(char **final_str, const char *s,
 	return (1);
 }
 
-static char	**free_tab(char **tab, int x)
+char	**free_tab(char **tab, int x)
 {
 	int	i;
 
@@ -89,9 +78,9 @@ char	**ft_split(char const *s, char *sep)
 	size_t	x;
 
 	i = 0;
-	final_str = calloc(sizeof(char *), calc_element(s, sep, &x, &j) + 1);
-	if (!final_str || !s)
+	if (!s)
 		return (0);
+	final_str = ft_calloc(sizeof(char *), calc_element(s, sep, &x, &j) + 1);
 	get_next_str(s, sep, &i, &j);
 	if (i-- == ft_strlen(s))
 		return ((char *[1]){NULL});

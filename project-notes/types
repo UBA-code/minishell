@@ -1,0 +1,4 @@
+-- types
+- '\'' = word start with single quotes
+- '"'  = word start with double quotes
+- 'W'  = word start with alphabets

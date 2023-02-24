@@ -6,15 +6,15 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/06 16:53:13 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:06:25 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-void ft_print_lst(t_lexer_node *head)
+void	ft_print_lst(t_lexer_node *head)
 {
-	int i;
+	int	i;
 
 	while (head)
 	{
@@ -29,20 +29,20 @@ void ft_print_lst(t_lexer_node *head)
 	}
 }
 
-void ft_putstr(char *str)
+void	ft_putstr(char *str, int fd)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i])
-		write(1, &str[i], 1);
+		write(fd, &str[i], 1);
 }
 
-void minishell(char *line, char **env)
+void	minishell(char *line, char **env)
 {
-	char **args;
-	int i;
-	t_lexer_node *head;
+	char			**args;
+	int				i;
+	t_lexer_node	*head;
 
 	head = 0;
 	i = 0;
@@ -50,44 +50,35 @@ void minishell(char *line, char **env)
 	while (args[i])
 	{
 		init_lexer_node(&head, args[i], env);
-		// free(args[i]);
+		free(args[i]);
 		i++;
 	}
-	parser_utils(&head);
-	// free(args);
-	lst_clear(&head);
-}
-
-char *get_path(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
+	free(args);
+	if (parser_utils(&head))
 	{
-		if (ft_strncmp(env[i], "PWD", 3))
-			return (get_substring(env[i] + 4, ft_strlen(env[i] + 4)));
-		i++;
+	// exec_fun(head);
+		// cd_cmd(head->cmd_struct.cmd);
+		// pwd_cmd();
+		free_parser(head);
+		lst_clear(&head);
 	}
-	return (0);
 }
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	char	*line;
-	// char	*path;
-	// char	*final_path;
 
+	g_global.env_head = 0;
+	g_global.error = 0;
+
+	create_env(env);
 	while (1)
 	{
 		line = readline("\e[1;32m1337@UBA-shell~> \e[0m");
-		// path = get_path(env);
-		// printf("\e[1;32m");
-		// final_path = ft_strjoin(path, "/$\e[0m ");
-		// line = readline(final_path);
+		add_history(line);
 		if (ft_strlen(line) && check_quotes(line))
 			minishell(line, env);
+		free(line);
 	}
-	// while (1);
-	return 0;
+	return (0);
 }

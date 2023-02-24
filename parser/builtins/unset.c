@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_clear.c                                        :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 13:28:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/20 17:01:08 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/18 11:40:40 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/02/18 11:43:01 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	lst_clear(t_lexer_node **head)
+void	unset_cmd(char **args)
 {
-	t_lexer_node	*current;
-	int				i;
-	t_lexer_node	*temp;
+	int	i;
 
-	i = 0;
-	current = *head;
-	while (current)
+	i = 1;
+	while (args[i])
 	{
-		i = -1;
-		while (++i < current->lexer_size)
-			free(current->lexer[i].content);
-		temp = current;
-		current = current->next;
-		free(temp->lexer);
-		free(temp);
+		if (env_search(args[i]))
+			env_del_node(args[i]);
+		i++;
 	}
 }

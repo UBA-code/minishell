@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_clear.c                                        :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 13:28:56 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/20 17:01:08 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/19 16:31:03 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/02/19 16:32:25 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	lst_clear(t_lexer_node **head)
+void	init_lexer_node(t_lexer_node **head, char *line, char **env)
 {
-	t_lexer_node	*current;
 	int				i;
-	t_lexer_node	*temp;
+	t_lexer			*lexer;
+	int				j;
+	t_lexer_node	*node;
 
+	lexer = malloc(sizeof(t_lexer) * (get_token_len(line) + 1));
 	i = 0;
-	current = *head;
-	while (current)
+	j = 0;
+	while (line[i])
 	{
-		i = -1;
-		while (++i < current->lexer_size)
-			free(current->lexer[i].content);
-		temp = current;
-		current = current->next;
-		free(temp->lexer);
-		free(temp);
+		lexer[j].content = get_substring(line + i,
+				get_token_size(line + i, &i));
+		lexer[j].type = get_type(lexer[j].content);
+		j++;
 	}
+	lexer[j].content = 0;
+	node = lexer_create_node(head);
+	node->lexer = lexer;
+	node->lexer_size = get_token_len(line);
+	node->env = env;
 }
