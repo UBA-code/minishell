@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:15:14 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/25 11:40:54 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void			tab_free(char **tab);
 char			**ft_split(char const *s, char *sep);
 int				includes(char c, char *sep);
 char			*ft_strdup(const char *s1);
-char			*ft_substr(char const *s, unsigned int start, size_t len);
+char			*ft_substr(char const *s, unsigned int start, int len);
 size_t			ft_strlen(const char *str);
 void			add_back_lst(t_lexer_node **head, t_lexer_node *node);
 void			add_front_lst(t_lexer_node **head, t_lexer_node *node);
@@ -147,7 +147,7 @@ int				get_last_of_var(char *str);
 int				get_dolar(char *str);
 char			*strjoin_small(char *s1, char c);
 int				dolar_work(t_get_variable_struct *utils);
-int				speciale_check(char c, int *i);
+int				speciale_check(char c);
 void			skip_files(t_lexer_node *node, int *i);
 int				parser_get_size(t_lexer_node *node);
 char			get_file_type(t_lexer_node *node, int i);

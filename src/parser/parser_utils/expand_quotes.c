@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 10:37:08 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:21:17 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/25 11:40:34 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	dolar_work(t_get_variable_struct *utils)
 	return (1);
 }
 
-int	speciale_check(char c, int *i)
+int	speciale_check(char c)
 {
 	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
 		|| (c >= '0' && c <= '9') || c == '_')

@@ -6,15 +6,15 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 23:46:17 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:19:53 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/25 11:39:05 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static	char	*ft_strncpy(char *dest, char *src, size_t n)
+static	char	*ft_strncpy(char *dest, char *src, int n)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (n == -1)
@@ -28,14 +28,14 @@ static	char	*ft_strncpy(char *dest, char *src, size_t n)
 	return (dest);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, int len)
 {
 	char	*final_str;
 	size_t	real_len;
 
 	if (!s)
 		return (0);
-	if (len > ft_strlen(s))
+	if (len > (int)ft_strlen(s))
 		real_len = ft_strlen(s);
 	else
 		real_len = len;

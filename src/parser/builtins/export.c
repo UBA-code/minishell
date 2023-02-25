@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:39:02 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:20:58 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/25 11:41:55 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ void	loop_export(char *arg)
 
 void	export_cmd(char **args)
 {
-	char		*name;
-	char		*value;
-	int			len;
 	int			i;
 
 	if (!args[1])

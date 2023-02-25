@@ -34,7 +34,7 @@ SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 #		$(EXECUTION_PATH)exec.c
 
 OBG = $(SRCS:.c=.o)
-# CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 # CFLAGS = -fsanitize=address -g3
 NAME = minishell
 
