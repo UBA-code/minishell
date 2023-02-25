@@ -1,56 +1,47 @@
-SRCS = main.c parser/get_next_line/get_next_line.c \
-		parser/get_next_line/get_next_line_utils.c \
-		parser/utils/ft_calloc.c parser/utils/ft_split.c \
-		parser/utils/split_utils.c \
-		parser/utils/ft_strdup.c parser/utils/ft_substr.c \
-		parser/utils/ft_strcmp.c ./parser/linked_list_utils/add_back_lst.c \
-		./parser/linked_list_utils/add_front_lst.c \
-		./parser/linked_list_utils/create_node.c \
-		./parser/linked_list_utils/lst_clear.c\
-		./parser/lexer_utils/init_lexer_node.c \
-		./parser/lexer_utils/lexer_utils.c \
-		./parser/utils/ft_atoi.c \
-		./parser/utils/ft_itoa.c \
-		./parser/utils/utils.c \
-		./parser/parser_utils/parser_utils.c \
-		./parser/parser_utils/parser.c \
-		./parser/utils/create_mini_env.c \
-		./parser/linked_list_utils/env_del_node.c \
-		./parser/parser_utils/expand_quotes.c \
-		./parser/parser_utils/expand_quotes_utils.c \
-		./parser/builtins/builtins_utils.c \
-		./parser/builtins/cd.c  \
-		./parser/errors_free/parse_error.c \
-		./parser/builtins/echo.c  \
-		./parser/builtins/env.c  \
-		./parser/builtins/exit.c  \
-		./parser/builtins/export.c  \
-		./parser/builtins/pwd.c  \
-		./parser/builtins/unset.c \
-		./execution/exec.c
-# BONUS_SRCS = actions.c actions_2.c cases.c check_utils.c create_stack.c ft_calloc.c \
-# 	ft_split.c ft_strdup.c ft_substr.c push_swap_bonus.c sort_three.c utils.c utils_2.c utils_3.c \
-# 	sort_five.c last_sort.c utils_4.c \
-# 	get_next_line.c get_next_line_utils.c \
-# 	actions_2_bonus.c actions_bonus.c
+PARSE_PATH= ./src/parser/
+EXECUTION_PATH= ./src/execution/
+
+SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
+		$(PARSE_PATH)get_next_line/get_next_line_utils.c \
+		$(PARSE_PATH)utils/ft_calloc.c $(PARSE_PATH)utils/ft_split.c \
+		$(PARSE_PATH)utils/split_utils.c \
+		$(PARSE_PATH)utils/ft_strdup.c $(PARSE_PATH)utils/ft_substr.c \
+		$(PARSE_PATH)utils/ft_strcmp.c $(PARSE_PATH)linked_list_utils/add_back_lst.c \
+		$(PARSE_PATH)linked_list_utils/add_front_lst.c \
+		$(PARSE_PATH)linked_list_utils/create_node.c \
+		$(PARSE_PATH)linked_list_utils/lst_clear.c\
+		$(PARSE_PATH)lexer_utils/init_lexer_node.c \
+		$(PARSE_PATH)lexer_utils/lexer_utils.c \
+		$(PARSE_PATH)utils/ft_atoi.c \
+		$(PARSE_PATH)utils/ft_itoa.c \
+		$(PARSE_PATH)utils/utils.c \
+		$(PARSE_PATH)parser_utils/parser_utils.c \
+		$(PARSE_PATH)parser_utils/parser.c \
+		$(PARSE_PATH)utils/create_mini_env.c \
+		$(PARSE_PATH)linked_list_utils/env_del_node.c \
+		$(PARSE_PATH)parser_utils/expand_quotes.c \
+		$(PARSE_PATH)parser_utils/expand_quotes_utils.c \
+		$(PARSE_PATH)builtins/builtins_utils.c \
+		$(PARSE_PATH)builtins/cd.c  \
+		$(PARSE_PATH)errors_free/parse_error.c \
+		$(PARSE_PATH)builtins/echo.c  \
+		$(PARSE_PATH)builtins/env.c  \
+		$(PARSE_PATH)builtins/exit.c  \
+		$(PARSE_PATH)builtins/export.c  \
+		$(PARSE_PATH)builtins/pwd.c  \
+		$(PARSE_PATH)builtins/unset.c \
+#		$(EXECUTION_PATH)executor.c
+#		$(EXECUTION_PATH)exec.c
+
 OBG = $(SRCS:.c=.o)
-# BONUS_OBG = $(BONUS_SRCS:.c=.o)
-# CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 # CFLAGS = -fsanitize=address -g3
 NAME = minishell
-# BONUS = checker
 
 all: $(NAME)
 
 $(NAME): $(OBG)
 	$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/homebrew/Cellar/readline/8.2.1/lib -o $(NAME)
-#	make clean
-#	./minishell
-
-# bonus: $(BONUS)
-
-# $(BONUS): $(BONUS_OBG)
-# 	$(CC) $(CFLAGS) $(BONUS_OBG) -o checker
 
 clean:
 	rm -rf $(OBG)

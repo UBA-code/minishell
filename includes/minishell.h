@@ -6,20 +6,24 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/21 15:46:17 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/25 11:40:54 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../parser/get_next_line/get_next_line.h"
+# include "../src/parser/get_next_line/get_next_line.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "stdio.h"
-# include "stdlib.h"
-# include "unistd.h"
-# include "dirent.h"
+# include <sys/wait.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <dirent.h>
+# include <errno.h>
+# include <sys/stat.h>
+# include <string.h>
 
 # define LEFT_REDIRECT ">"
 # define RIGHT_REDIRECT "<"
@@ -46,6 +50,7 @@ typedef struct lexer_s
 	char	type;
 }	t_lexer;
 
+
 typedef struct s_files
 {
 	char			*file;
@@ -70,11 +75,13 @@ typedef struct s_mini_env
 typedef struct s_lexer_node
 {
 	t_lexer				*lexer;
-	size_t				lexer_size;
+	int					lexer_size;
 	t_cmd				cmd_struct;
 	char				**env;
 	struct s_lexer_node	*next;
 }	t_lexer_node;
+
+typedef t_lexer_node	t_executor;
 
 typedef struct s_g_global
 {
@@ -94,7 +101,7 @@ void			tab_free(char **tab);
 char			**ft_split(char const *s, char *sep);
 int				includes(char c, char *sep);
 char			*ft_strdup(const char *s1);
-char			*ft_substr(char const *s, unsigned int start, size_t len);
+char			*ft_substr(char const *s, unsigned int start, int len);
 size_t			ft_strlen(const char *str);
 void			add_back_lst(t_lexer_node **head, t_lexer_node *node);
 void			add_front_lst(t_lexer_node **head, t_lexer_node *node);
@@ -140,7 +147,7 @@ int				get_last_of_var(char *str);
 int				get_dolar(char *str);
 char			*strjoin_small(char *s1, char c);
 int				dolar_work(t_get_variable_struct *utils);
-int				speciale_check(char c, int *i);
+int				speciale_check(char c);
 void			skip_files(t_lexer_node *node, int *i);
 int				parser_get_size(t_lexer_node *node);
 char			get_file_type(t_lexer_node *node, int i);
@@ -151,8 +158,12 @@ int				get_token_len(char *str);
 int				get_token_size(char *str, int *num);
 char			get_type(char *content);
 void			parse_error_free(t_lexer_node *lexer_head);
+int				is_builtin(char *str);
+int				ft_strrchr(char *str, char c);
+char			*search_in_path(char *cmd);
+void			exec_builtin(char *cmd, char **args);
 
 // !execution
 int				exec_fun(t_lexer_node *head);
-
+void			rl_replace_line(const char *, int);
 #endif
