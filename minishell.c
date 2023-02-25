@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/23 00:43:12 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/25 01:51:22 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ int main(int ac, char **av, char **env)
 	(void) ac;
 	(void) av;
 	char	*line;
-
 	g_global.env_head = 0;
 	g_global.error = 0;
 	create_env(env);
@@ -124,7 +123,6 @@ int main(int ac, char **av, char **env)
 		add_history(line);
 		if (ft_strlen(line) && check_quotes(line))
 			minishell(line, env);
-		
 		free(line);
 	}
 	return 0;

@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/25 00:52:00 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/25 01:16:00 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,8 @@ void pipeline(t_lexer_node *head)
 	close(fd[0]);
 	close(fd[1]);
 	head = head->next;
-	waitpid(-1, &status, 0);
+	while (waitpid(-1, &status, 0) != -1)
+		;
 	g_global.error = WEXITSTATUS(status); 
 }
 
