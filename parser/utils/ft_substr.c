@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 23:46:17 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/01/29 16:30:29 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/24 18:32:04 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static	char	*ft_strncpy(char *dest, char *src, size_t n)
 	size_t	i;
 
 	i = 0;
+	if (n == -1)
+		n = ft_strlen(src);
 	while (src[i] && i < n)
 	{
 		dest[i] = src[i];

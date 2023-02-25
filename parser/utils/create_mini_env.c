@@ -6,11 +6,29 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:57:42 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/22 14:08:27 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/24 17:58:18 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_strrchr(char *str, char c)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			j = i;
+		i++;
+	}
+	if (str[j] == c)
+		return (j);
+	return (-1);
+}
 
 int	ft_strchr(char *str, char c)
 {

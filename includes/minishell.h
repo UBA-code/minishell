@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/21 15:46:17 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/25 10:44:15 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,10 @@ int				get_token_len(char *str);
 int				get_token_size(char *str, int *num);
 char			get_type(char *content);
 void			parse_error_free(t_lexer_node *lexer_head);
+int				is_builtin(char *str);
+int				ft_strrchr(char *str, char c);
+char			*search_in_path(char *cmd);
+void			exec_builtin(char *cmd, char **args);
 
 // !execution
 int				exec_fun(t_lexer_node *head);

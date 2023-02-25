@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/22 14:12:46 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/25 10:44:41 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ int	parser_utils(t_lexer_node **lexer_head)
 	{
 		if (!(current->cmd_struct.cmd[0]))
 			current->cmd_struct.cmd[0] = ft_strdup("");
-		current->cmd_struct.cmd[0] = get_cmd_path(current->cmd_struct.cmd[0]);
+		if (!is_builtin(current->cmd_struct.cmd[0]))
+			current->cmd_struct.cmd[0] = get_cmd_path(current->cmd_struct.cmd[0]);
 		current = current->next;
 	}
 	// TODO! fix variable start with numbers
@@ -123,22 +124,22 @@ int	parser_utils(t_lexer_node **lexer_head)
 	current = *lexer_head;
 	t_files *files;
 
-	while (current)
-	{
-		i = 0;
-		while (current->cmd_struct.cmd[i])
-		{
-			printf("%d|%s|\n", i + 1, current->cmd_struct.cmd[i]);
-			i++;
-		}
-		files = current->cmd_struct.files_head;
-		while (files)
-		{
-			printf("file : %s \ttype : %c\n", files->file, files->type);
-			files = files->next;
-		}
-		current = current->next;
-	}
+	// while (current)
+	// {
+	// 	i = 0;
+	// 	while (current->cmd_struct.cmd[i])
+	// 	{
+	// 		printf("%d|%s|\n", i + 1, current->cmd_struct.cmd[i]);
+	// 		i++;
+	// 	}
+	// 	files = current->cmd_struct.files_head;
+	// 	while (files)
+	// 	{
+	// 		printf("file : %s \ttype : %c\n", files->file, files->type);
+	// 		files = files->next;
+	// 	}
+	// 	current = current->next;
+	// }
 
 
 
