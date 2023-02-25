@@ -5,29 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/28 15:23:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 10:43:58 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
+/*   Updated: 2023/02/25 11:18:14 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
-
-void	ft_print_lst(t_lexer_node *head)
-{
-	int	i;
-
-	while (head)
-	{
-		i = -1;
-		printf("size of tokens : %zu\n", head->lexer_size);
-		while (++i < head->lexer_size)
-		{
-			printf("content of token : %s\n", head->lexer[i].content);
-			printf("type of token : %c\n", head->lexer[i].type);
-		}
-		head = head->next;
-	}
-}
 
 void	ft_putstr(char *str, int fd)
 {
@@ -75,6 +58,17 @@ char *get_folder(char *s1, char *s2, char *s3)
     return (final);
 }
 
+void sig_handler(void)
+{
+	// if (here_doc_is_closed == 1)
+	{
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
+
 int main(int ac, char **av, char **env)
 {
     (void)    ac;
@@ -87,6 +81,8 @@ int main(int ac, char **av, char **env)
     create_env(env);
     while (1)
     {
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, (void *)sig_handler);
         temp = get_folder("\e[1;32m", getcwd(0, 0), "~> \e[0m");
         line = readline(temp);
         free(temp);

@@ -6,20 +6,24 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 10:44:15 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/25 11:15:14 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../parser/get_next_line/get_next_line.h"
+# include "../src/parser/get_next_line/get_next_line.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "stdio.h"
-# include "stdlib.h"
-# include "unistd.h"
-# include "dirent.h"
+# include <sys/wait.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <dirent.h>
+# include <errno.h>
+# include <sys/stat.h>
+# include <string.h>
 
 # define LEFT_REDIRECT ">"
 # define RIGHT_REDIRECT "<"
@@ -46,6 +50,7 @@ typedef struct lexer_s
 	char	type;
 }	t_lexer;
 
+
 typedef struct s_files
 {
 	char			*file;
@@ -70,11 +75,13 @@ typedef struct s_mini_env
 typedef struct s_lexer_node
 {
 	t_lexer				*lexer;
-	size_t				lexer_size;
+	int					lexer_size;
 	t_cmd				cmd_struct;
 	char				**env;
 	struct s_lexer_node	*next;
 }	t_lexer_node;
+
+typedef t_lexer_node	t_executor;
 
 typedef struct s_g_global
 {
@@ -158,5 +165,5 @@ void			exec_builtin(char *cmd, char **args);
 
 // !execution
 int				exec_fun(t_lexer_node *head);
-
+void			rl_replace_line(const char *, int);
 #endif
