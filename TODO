@@ -14,7 +14,4 @@ here_doc must be set with get_next_line and not readline
 // env | grep TMPDIR
 
 
-if u get empty string in cmd check if there is here_doc or not, if not then this is cmd not found
-
-
-<< eof dasdad   exec here_doc after that print command not found
+if u get empty string in cmd check if there is here_doc or not, if not then this is cmd not found i will print it

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/26 22:20:41 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/26 11:52:10 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,6 @@ int				is_builtin(char *str);
 int				ft_strrchr(char *str, char c);
 char			*search_in_path(char *cmd);
 void			exec_builtin(char *cmd, char **args);
-int				ft_memcmp(const void *s1, const void *s2, size_t n);
 
 // !execution
 int		open_herdoc(char *limit);

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/26 16:46:59 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/26 22:46:24 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	check_env(char *cmd, char **paths)
 {
 	if (!paths)
 	{
-		ft_error(cmd, 127);
-		ft_error(": command not found\n", 127);
+		// ft_error(cmd, 127);
+		// ft_error(": command not found\n", 127);
 		free(cmd);
 		return (0);
 	}
@@ -77,10 +77,10 @@ char	*get_cmd_path(char *cmd)
 		}
 		free(final);
 	}
-	ft_error(cmd, 127);
-	ft_error(": command not found\n", 127);
-	free(cmd);
-	return (tab_free(paths), NULL);
+	// ft_error(cmd, 127);
+	// ft_error(": command not found\n", 127);
+	// free(cmd);
+	return (tab_free(paths), cmd);
 }
 
 void print_lex(t_lexer_node *head)
