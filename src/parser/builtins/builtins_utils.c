@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:50:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/26 22:45:38 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/26 23:41:43 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,17 @@ void	exec_builtin(char *cmd, char **args)
 	cmd = cmd + i;
 	if (ft_strcmp(cmd, "echo"))
 		echo_cmd(args);
-	if (ft_strcmp(cmd, "cd"))
+	else if (ft_strcmp(cmd, "cd"))
 		cd_cmd(args);
-	if (ft_strcmp(cmd, "unset"))
+	else if (ft_strcmp(cmd, "unset"))
 		unset_cmd(args);
-	if (ft_strcmp(cmd, "pwd"))
+	else if (ft_strcmp(cmd, "pwd"))
 		pwd_cmd();
-	if (ft_strcmp(cmd, "exit"))
+	else if (ft_strcmp(cmd, "exit"))
 		exit_cmd(args);
-	if (ft_strcmp(cmd, "env"))
+	else if (ft_strcmp(cmd, "env"))
 		env_cmd('e');
-	if (ft_strcmp(cmd, "export"))
+	else if (ft_strcmp(cmd, "export"))
 		export_cmd(args);
 }
 

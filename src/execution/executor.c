@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/26 22:42:21 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/27 00:37:52 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-# include <string.h>
 
 int	open_herdoc(char *limit)
 {
@@ -21,11 +20,11 @@ int	open_herdoc(char *limit)
 	pipe(fd);
 	while (1)
 	{
-		// line = readline("> ");
 		ft_putstr("> ", STDOUT_FILENO);
 		line = get_next_line(STDIN_FILENO);
-		//ft_strchr(line, "$");//
-		if (ft_strncmp(line, limit, ft_strlen(line) - 1)) // fodbidden function: memcmp
+		if (!line)
+			break ;
+		if (ft_strncmp(line, limit, ft_strlen(line) - 1)) 
 		{
 			free(line);
 			break;
@@ -42,8 +41,6 @@ int	*open_files(t_lexer_node *head)
 	int *fd = malloc(sizeof(int) * 2);
 	fd[0] = -1;
 	fd[1] = -1;
-	// if (!head->cmd_struct.files_hea÷d)
-		
 	while (head->cmd_struct.files_head)
 	{
 		if (head->cmd_struct.files_head->type == 'H')
@@ -59,41 +56,37 @@ int	*open_files(t_lexer_node *head)
 	return (fd);
 }
 
+void dup_help(int *files, int *fd_io)
+{
+	if (files[0] != -1)
+			fd_io[0] = files[0];
+		if (files[1] != -1)
+			fd_io[1] = files[1];
+}
+
 int dup_files(t_lexer_node *head, int fds[2], int tmp, int flag)
 {
-	int fd_src;
-	int fd_dest;
+	int fd_io[2];
 	int	*files;
 	
 	files = open_files(head);
-	fd_dest = fds[1];
-	fd_src = 0;
+	fd_io[1] = fds[1];
+	fd_io[0] = 0;
 	if (flag == 1)
-	{
-		if (files[0] != -1)
-			fd_src = files[0];
-		if (files[1] != -1)
-			fd_dest = files[1];
-	}
+		dup_help(files, fd_io);
 	else if (flag == 2)
 	{
-		fd_src = tmp;
-		if (files[0] != -1)
-			fd_src = files[0];
-		if (files[1] != -1)
-			fd_dest = files[1];
+		fd_io[0] = tmp;
+		dup_help(files, fd_io);
 	}
 	else if (flag == 3 || flag == 4)
 	{
-		fd_dest = 1;
+		fd_io[1] = 1;
 		if (flag == 3)
-			fd_src = tmp;
-		if (files[0] != -1)
-			fd_src = files[0];
-		if (files[1] != -1)
-			fd_dest = files[1];
+			fd_io[0] = tmp;
+		dup_help(files, fd_io);
 	}
-	return (dup2(fd_src, 0), dup2(fd_dest, 1));
+	return (dup2(fd_io[0], 0), dup2(fd_io[1], 1));
 }
 
 void	cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag)
@@ -143,7 +136,6 @@ void pipeline(t_lexer_node *head)
 	}
 }
 
-
 int	executor(t_lexer_node *head)
 {
 	int status;
@@ -156,9 +148,6 @@ int	executor(t_lexer_node *head)
 	while (waitpid(-1, &status, 0) != -1)
 		;
 	g_global.error = WEXITSTATUS(status);
-	// if (!head)
-	// print_lex(head);
-	
 	return (0);
 }
 
