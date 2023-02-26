@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/26 17:08:02 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/26 22:27:28 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag)
 		close(*fds);
 		dup_files(head, fds, tmp, flag);
 		execve(*head->cmd_struct.cmd, head->cmd_struct.cmd, head->env);
+		perror(*head->cmd_struct.cmd);
 		if (errno == EACCES)
 			exit(126);
 	}

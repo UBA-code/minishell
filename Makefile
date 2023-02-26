@@ -6,7 +6,7 @@
 #    By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 01:57:19 by bahbibe           #+#    #+#              #
-#    Updated: 2023/02/26 16:46:21 by ybel-hac         ###   ########.fr        #
+#    Updated: 2023/02/26 22:35:11 by ybel-hac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ NAME = minishell
 PARSE_PATH = ./src/parser/
 EXECUTION_PATH = ./src/execution/
 OBG = $(SRCS:.c=.o)
-# CFLAGS = -Wall -Werror -Wextra
-CFLAGS = -fsanitize=address -g3
+CFLAGS = -Wall -Werror -Wextra
+# CFLAGS = -fsanitize=address -g3
 SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 		$(PARSE_PATH)get_next_line/get_next_line_utils.c \
 		$(PARSE_PATH)utils/ft_calloc.c $(PARSE_PATH)utils/ft_split.c \
@@ -55,6 +55,7 @@ SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 		$(PARSE_PATH)builtins/export.c  \
 		$(PARSE_PATH)builtins/pwd.c  \
 		$(PARSE_PATH)builtins/unset.c \
+		$(PARSE_PATH)utils/ft_memcmp.c \
 		$(EXECUTION_PATH)executor.c
 
 

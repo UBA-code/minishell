@@ -1,45 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 15:31:14 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/26 22:14:02 by ybel-hac         ###   ########.fr       */
+/*   Created: 2022/10/17 03:46:18 by bahbibe           #+#    #+#             */
+/*   Updated: 2023/02/26 22:20:15 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int	i;
+	size_t			i ;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
 	i = 0;
-	if (!s1 || !2)
-		return (0);
-	while (s1[i] || s2[i])
+	str1 = (unsigned char *) s1;
+	str2 = (unsigned char *) s2;
+	while (i < n)
 	{
-		if (s1[i] != s2[i])
-			return (0);
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
 		i++;
 	}
-	return (1);
-}
-
-int	ft_strncmp(char *s1, char *s2, int n)
-{
-	int	i;
-
-	i = 0;
-	if (!s1 || !2)
-		return (0);
-	while ((s1[i] || s2[i]) && i < n)
-	{
-		if (s1[i] != s2[i])
-			return (0);
-		i++;
-	}
-	return (1);
+	return (0);
 }
