@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:50:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/26 02:25:40 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/26 11:27:35 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	is_builtin(char *str)
 void	exec_builtin(char *cmd, char **args)
 {
 	int	i;
-
+	
 	i = ft_strrchr(cmd, '/') + 1;
 	if (i == -1)
 		i = 0;

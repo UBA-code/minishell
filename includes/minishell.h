@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/26 07:52:43 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/26 11:52:10 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_g_global
 {
 	t_mini_env	*env_head;
 	int			error;
+	int			*save;
 }	t_global;
 
 # ifndef G_GLOBAL
@@ -168,7 +169,19 @@ int		open_herdoc(char *limit);
 int		executor(t_lexer_node *head);
 void	pipeline(t_lexer_node *head);
 int		*open_files(t_lexer_node *head);
-void	cmd_exec(t_lexer_node *head);
+
+int dup_files(t_lexer_node *head, int fds[2], int tmp, int flag)
+;
+void	cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag);
+void pipeline(t_lexer_node *head);
+
+int	executor(t_lexer_node *head);
+void reset_io(int *save)
+;
+
+
+
+
 void	rl_replace_line(const char *, int);
 void print_lex(t_lexer_node *head)
 ;
