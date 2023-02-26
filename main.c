@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/25 11:18:14 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/26 03:23:51 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ void	minishell(char *line, char **env)
 	free(args);
 	if (parser_utils(&head))
 	{
-	// exec_fun(head);
-		// cd_cmd(head->cmd_struct.cmd);
-		exec_builtin(head->cmd_struct.cmd[0], head->cmd_struct.cmd);
+		executor(head);
 		free_parser(head);
 		lst_clear(&head);
 	}
@@ -60,7 +58,7 @@ char *get_folder(char *s1, char *s2, char *s3)
 
 void sig_handler(void)
 {
-	// if (here_doc_is_closed == 1)
+	// if here_doc_is_closed 
 	{
 		printf("\n");
 		rl_replace_line("", 0);

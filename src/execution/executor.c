@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/25 11:33:26 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/26 03:28:39 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	herdoc(char *limit)
+int	open_herdoc(char *limit)
 {
 	int fd[2];
 	char *line;
@@ -38,7 +38,6 @@ void	cmd_exec(t_lexer_node *head)
 {
 	pid_t	pid;
 	int fd[2];
-	int status;
 
 	pid = fork();
 	if (pid == 0)
@@ -64,7 +63,7 @@ int	*open_files(t_lexer_node *head)
 		close(fd[0]);
 		close(fd[1]);
 		if (head->cmd_struct.files_head->type == 'H')
-			fd[0] = herdoc(head->cmd_struct.cmd[0]);
+			fd[0] = open_herdoc(head->cmd_struct.files_head->file);
 		else if (head->cmd_struct.files_head->type == 'A')
 			fd[1] = open(head->cmd_struct.files_head->file, O_CREAT | O_RDWR | O_APPEND);
 		else if (head->cmd_struct.files_head->type == 'O')
@@ -78,32 +77,35 @@ int	*open_files(t_lexer_node *head)
 
 void pipeline(t_lexer_node *head)
 {
+	t_lexer_node *curr;
 	int		*fd_io;
 	int		fd[2];
 	pid_t	pid;
 	int		fd_tmp;
 	int		status;
 
-	while (head)
+	fd_tmp = -1;
+	curr = head;
+	while (curr)
 	{
 		pipe(fd);
-		if (index == 1)
+		if (curr == head)
 		{
 			pid = fork();
 			if (pid == 0)
 			{
-				fd_io = open_files(head->cmd_struct.files_head);
+				fd_io = open_files(curr);
 				dup2(fd_io[0], 0);
 				if (fd_io[1] != -1)
 					dup2(fd[1], 1);
 				else
 					dup2(fd_io[1], 1);
-				cmd_exec(head);
+				cmd_exec(curr);
 			}
 		}
-		else if (head->next == NULL)
+		else if (curr->next == NULL)
 		{
-			fd_io = open_files(head->cmd_struct.files_head);
+			fd_io = open_files(curr);
 				if (fd_io[0] != -1)
 					dup2(fd_tmp, 0);
 				else
@@ -111,11 +113,11 @@ void pipeline(t_lexer_node *head)
 
 				if (fd_io[1] != -1)
 					dup2(fd_io[1], 1);
-				cmd_exec(head);
+				cmd_exec(curr);
 		}
 		else	
 		{
-			fd_io = open_files(head->cmd_struct.files_head);
+			fd_io = open_files(curr);
 			if (fd_io[0] == -1)
 				dup2(fd_tmp, 0);
 			else
@@ -124,31 +126,31 @@ void pipeline(t_lexer_node *head)
 				dup2(fd[1], 1);
 			else
 				dup2(fd_io[1], 1);
-			cmd_exec(head);
+			cmd_exec(curr);
 		}
 	}	
 	close(fd_tmp);
 	fd_tmp = dup(fd[0]);
 	close(fd[0]);
 	close(fd[1]);
-	head = head->next;
+	curr = curr->next;
 	while (waitpid(-1, &status, 0) != -1)
 		;
 	g_global.error = WEXITSTATUS(status); 
 }
 
-
 int	executor(t_lexer_node *head)
 {
 	if (!head)
 		return (0);
-	if (head->next == NULL )
+	if (head->next == NULL)
 	{
 		if (is_builtin(*head->cmd_struct.cmd))
-			
-		cmd_exec(head);
+			exec_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
+		else
+			cmd_exec(head);
 	}
 	else
 		pipeline(head);
-	return (EXIT_SUCCESS);
+	return (0);
 }

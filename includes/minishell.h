@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:40:54 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/26 03:22:18 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,10 @@ char			*search_in_path(char *cmd);
 void			exec_builtin(char *cmd, char **args);
 
 // !execution
-int				exec_fun(t_lexer_node *head);
-void			rl_replace_line(const char *, int);
+int		open_herdoc(char *limit);
+int		executor(t_lexer_node *head);
+void	pipeline(t_lexer_node *head);
+int		*open_files(t_lexer_node *head);
+void	cmd_exec(t_lexer_node *head);
+void	rl_replace_line(const char *, int);
 #endif

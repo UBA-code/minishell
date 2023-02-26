@@ -1,6 +1,31 @@
-PARSE_PATH= ./src/parser/
-EXECUTION_PATH= ./src/execution/
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/26 01:57:19 by bahbibe           #+#    #+#              #
+#    Updated: 2023/02/26 03:25:36 by bahbibe          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
+Off		=\033[0m
+Black	=\033[0;30m
+Red		=\033[0;31m
+Green	=\033[0;32m
+Yellow	=\033[0;33m
+Blue	=\033[0;34m
+Purple	=\033[0;35m
+Cyan	=\033[0;36m
+White	=\033[0;37m
+
+NAME = minishell
+PARSE_PATH = ./src/parser/
+EXECUTION_PATH = ./src/execution/
+OBG = $(SRCS:.c=.o)
+CFLAGS = -Wall -Werror -Wextra
+# CFLAGS = -fsanitize=address -g3
 SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 		$(PARSE_PATH)get_next_line/get_next_line_utils.c \
 		$(PARSE_PATH)utils/ft_calloc.c $(PARSE_PATH)utils/ft_split.c \
@@ -30,25 +55,18 @@ SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 		$(PARSE_PATH)builtins/export.c  \
 		$(PARSE_PATH)builtins/pwd.c  \
 		$(PARSE_PATH)builtins/unset.c \
-#		$(EXECUTION_PATH)executor.c
-#		$(EXECUTION_PATH)exec.c
+		$(EXECUTION_PATH)executor.c
 
-OBG = $(SRCS:.c=.o)
-CFLAGS = -Wall -Werror -Wextra
-# CFLAGS = -fsanitize=address -g3
-NAME = minishell
 
 all: $(NAME)
 
 $(NAME): $(OBG)
-	$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/homebrew/Cellar/readline/8.2.1/lib -o $(NAME)
-
+	@$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/homebrew/Cellar/readline/8.2.1/lib -o $(NAME)
+	@echo "$(Green)Minishell Compiled ✅$(Off)"
 clean:
 	rm -rf $(OBG)
-
 fclean: clean
 	rm -rf $(NAME)
-
 re: fclean all
-
 .PHONY: all clean fclean re
+.SILENT: $(OBJS)
