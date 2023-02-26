@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/26 03:22:18 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/26 07:52:43 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,6 @@ void	pipeline(t_lexer_node *head);
 int		*open_files(t_lexer_node *head);
 void	cmd_exec(t_lexer_node *head);
 void	rl_replace_line(const char *, int);
+void print_lex(t_lexer_node *head)
+;
 #endif

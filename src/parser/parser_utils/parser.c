@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:40:16 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/26 07:56:13 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,41 +107,32 @@ int	parser_utils(t_lexer_node **lexer_head)
 	// TODO! fix variable start with numbers
 
 
-	
 // ------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-	// print
-	
-	// current = *lexer_head;
-	// t_files *files;
-
-	// while (current)
-	// {
-	// 	i = 0;
-	// 	while (current->cmd_struct.cmd[i])
-	// 	{
-	// 		printf("%d|%s|\n", i + 1, current->cmd_struct.cmd[i]);
-	// 		i++;
-	// 	}
-	// 	files = current->cmd_struct.files_head;
-	// 	while (files)
-	// 	{
-	// 		printf("file : %s \ttype : %c\n", files->file, files->type);
-	// 		files = files->next;
-	// 	}
-	// 	current = current->next;
-	// }
-
-
-
 	
 	return (1);
 }
+// ==============================================
+void print_lex(t_lexer_node *head)
+{
+	
+	t_lexer_node *current = head;
+	t_files *files;
+
+	while (current)
+	{
+		int i = 0;
+		while (current->cmd_struct.cmd[i])
+		{
+			printf("%d|%s|\n", i + 1, current->cmd_struct.cmd[i]);
+			i++;
+		}
+		files = current->cmd_struct.files_head;
+		while (files)
+		{
+			printf("file : %s \ttype : %c\n", files->file, files->type);
+			files = files->next;
+		}
+		current = current->next;
+	}
+}
+

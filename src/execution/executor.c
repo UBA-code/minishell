@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/26 03:28:39 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/26 08:04:48 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void pipeline(t_lexer_node *head)
 	t_lexer_node *curr;
 	int		*fd_io;
 	int		fd[2];
-	pid_t	pid;
+	// pid_t	pid;
 	int		fd_tmp;
 	int		status;
 
@@ -91,9 +91,10 @@ void pipeline(t_lexer_node *head)
 		pipe(fd);
 		if (curr == head)
 		{
-			pid = fork();
-			if (pid == 0)
-			{
+			// pid = fork();
+			// if (pid == 0)
+			// {
+				print_lex(curr);
 				fd_io = open_files(curr);
 				dup2(fd_io[0], 0);
 				if (fd_io[1] != -1)
@@ -101,7 +102,7 @@ void pipeline(t_lexer_node *head)
 				else
 					dup2(fd_io[1], 1);
 				cmd_exec(curr);
-			}
+			// }
 		}
 		else if (curr->next == NULL)
 		{
@@ -128,19 +129,23 @@ void pipeline(t_lexer_node *head)
 				dup2(fd_io[1], 1);
 			cmd_exec(curr);
 		}
+		curr = curr->next;
 	}	
 	close(fd_tmp);
 	fd_tmp = dup(fd[0]);
 	close(fd[0]);
 	close(fd[1]);
-	curr = curr->next;
 	while (waitpid(-1, &status, 0) != -1)
 		;
 	g_global.error = WEXITSTATUS(status); 
+	
+	
 }
 
 int	executor(t_lexer_node *head)
 {
+	// int status;
+	
 	if (!head)
 		return (0);
 	if (head->next == NULL)
