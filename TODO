@@ -1,8 +1,17 @@
-//cat << $USER 
+// cat << $USER - fixed !
 // expand herdoc
-// en tmp 
+// en tmp - ?
 // export concate
-// echo -n duplicates
-// sigv when unset first node env 
-// sigv echo kk || << limit 
-// set g_global.status in 127 when (path)
+// echo -n duplicates - ?
+// sigv when unset first node env - fixed !
+// sigv echo kk | << limit - fixed
+// set g_global.status in 127 when (path) - already
+
+// execution
+
+here_doc must be set with get_next_line and not readline
+
+// env | grep TMPDIR
+
+
+if u get empty string in cmd check if there is here_doc or not, if not then this is cmd not found i will print it

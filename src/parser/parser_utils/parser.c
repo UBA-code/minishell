@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/26 07:56:13 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/26 16:46:59 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	parser_work(t_lexer_node *node)
 	node->cmd_struct.files_head = 0;
 	j = 0;
 	i = 0;
-	node->cmd_struct.cmd = malloc(sizeof(char *) *
-			(parser_get_size(node) + 1));
+	node->cmd_struct.cmd = ft_calloc(sizeof(char *)
+			, parser_get_size(node) + 1);
 	while (i < node->lexer_size)
 	{
 		if (node->lexer[i].type == '<' || node->lexer[i].type == '>')
@@ -35,9 +35,10 @@ int	parser_work(t_lexer_node *node)
 			node->cmd_struct.cmd[j++] = join_string(node, &i);
 		if (j && !(node->cmd_struct.cmd[j - 1]))
 			j--;
-		node->cmd_struct.cmd[j] = 0;
+		// node->cmd_struct.cmd[j] = 0;
 		i++;
 	}
+	// node->cmd_struct.cmd[j] = 0;
 	return (1);
 }
 
@@ -60,11 +61,11 @@ char	*get_cmd_path(char *cmd)
 	char	*final;
 
 	i = -1;
-	if (access(cmd, X_OK) == 0 || ft_strlen(cmd) == 0)
+	if (access(cmd, X_OK) == 0 || cmd == 0)
 		return (cmd);
 	paths = ft_split(get_variable_cmd("PATH"), ":");
 	if (!check_env(cmd, paths))
-		return (ft_strdup(""));
+		return (NULL);
 	while (paths[++i])
 	{
 		final = ft_strjoin(ft_strdup(paths[i]), "/");
@@ -79,39 +80,9 @@ char	*get_cmd_path(char *cmd)
 	ft_error(cmd, 127);
 	ft_error(": command not found\n", 127);
 	free(cmd);
-	return (tab_free(paths), ft_strdup(""));
+	return (tab_free(paths), NULL);
 }
 
-int	parser_utils(t_lexer_node **lexer_head)
-{
-	t_lexer_node	*current;
-	int				i;
-
-	current = *lexer_head;
-	while (current)
-	{
-		if (!parser_work(current))
-			return (parse_error_free(*lexer_head), 0);
-		current = current->next;
-	}
-	i = -1;
-	current = *lexer_head;
-	while (current)
-	{
-		if (!(current->cmd_struct.cmd[0]))
-			current->cmd_struct.cmd[0] = ft_strdup("");
-		if (!is_builtin(current->cmd_struct.cmd[0]))
-			current->cmd_struct.cmd[0] = get_cmd_path(current->cmd_struct.cmd[0]);
-		current = current->next;
-	}
-	// TODO! fix variable start with numbers
-
-
-// ------------------------------------------------------------------------
-	
-	return (1);
-}
-// ==============================================
 void print_lex(t_lexer_node *head)
 {
 	
@@ -135,4 +106,31 @@ void print_lex(t_lexer_node *head)
 		current = current->next;
 	}
 }
+
+int	parser_utils(t_lexer_node **lexer_head)
+{
+	t_lexer_node	*current;
+	int				i;
+
+	current = *lexer_head;
+	while (current)
+	{
+		if (!parser_work(current))
+			return (parse_error_free(*lexer_head), 0);
+		current = current->next;
+	}
+	i = -1;
+	current = *lexer_head;
+	while (current)
+	{
+		// if (!(current->cmd_struct.cmd[0]))
+			// current->cmd_struct.cmd[0] = ft_strdup("");
+		if (current->cmd_struct.cmd[0] && !is_builtin(current->cmd_struct.cmd[0]))
+			current->cmd_struct.cmd[0] = get_cmd_path(current->cmd_struct.cmd[0]);
+		current = current->next;
+	}
+	// print_lex(*lexer_head);
+	return (1);
+}
+// ==============================================
 

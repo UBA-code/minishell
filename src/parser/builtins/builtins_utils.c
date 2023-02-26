@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:50:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/26 11:27:35 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/26 16:57:45 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	is_builtin(char *str)
 {
 	int		slach_index;
 
-	if (ft_strcmp(str, "echo") || ft_strcmp(str, "cd") || ft_strcmp(str, "pwd")
+	if (str && (ft_strcmp(str, "echo") || ft_strcmp(str, "cd") || ft_strcmp(str, "pwd")
 			|| ft_strcmp(str, "export") || ft_strcmp(str, "unset")
-				|| ft_strcmp(str, "env") || ft_strcmp(str, "exit"))
+				|| ft_strcmp(str, "env") || ft_strcmp(str, "exit")))
 		return (1);
 	if (access(str, X_OK) == 0)
 	{
@@ -54,9 +54,9 @@ int	is_builtin(char *str)
 		if (!slach_index)
 			return (0);
 		str = str + slach_index + 1;
-		if (ft_strcmp(str, "echo") || ft_strcmp(str, "cd") || ft_strcmp(str, "pwd")
+		if (str && (ft_strcmp(str, "echo") || ft_strcmp(str, "cd") || ft_strcmp(str, "pwd")
 			|| ft_strcmp(str, "export") || ft_strcmp(str, "unset")
-				|| ft_strcmp(str, "env") || ft_strcmp(str, "exit"))
+				|| ft_strcmp(str, "env") || ft_strcmp(str, "exit")))
 			return (1);
 	}
 	return (0);

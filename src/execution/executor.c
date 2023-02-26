@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/26 12:17:33 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/26 17:08:02 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 # include <string.h>
+
 int	open_herdoc(char *limit)
 {
 	int fd[2];
@@ -20,9 +21,11 @@ int	open_herdoc(char *limit)
 	pipe(fd);
 	while (1)
 	{
-		line = readline("> ");
+		// line = readline("> ");
+		ft_putstr("> ", STDOUT_FILENO);
+		line = get_next_line(STDIN_FILENO);
 		//ft_strchr(line, "$");//
-		if (memcmp(line, limit, ft_strlen(line) + 1) == 0)
+		if (ft_strncmp(line, limit, ft_strlen(line) - 1)) // fodbidden function: memcmp
 		{
 			free(line);
 			break;
@@ -38,7 +41,6 @@ int	*open_files(t_lexer_node *head)
 {
 	int *fd = malloc(sizeof(int) * 2);
 	fd[0] = -1;
-		fprintf(stderr, "LOLOO\n");
 	fd[1] = -1;
 	// if (!head->cmd_struct.files_hea÷d)
 		
@@ -157,7 +159,7 @@ int	executor(t_lexer_node *head)
 	
 	return (0);
 }
- 
+
 
 
 
