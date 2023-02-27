@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/27 08:16:16 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/27 08:44:44 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,12 @@ void sig_heredoc(int sig)
 void sig_handl(int sig)
 {
 	if (sig == SIGINT && !g_global.open_heredoc)
-	printf("\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	{
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
 int *save_(void)
@@ -98,8 +100,6 @@ int main(int ac, char **av, char **env)
 	create_env(env);
 	while (1)
 	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, sig_handl);
 		// temp = get_folder("\e[1;32m", getcwd(0, 0), "~> \e[0m");
 		// line = readline(temp);
 		line = readline("\e[1;32mMinishell~> \e[0m");

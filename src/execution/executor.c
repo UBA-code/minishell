@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/27 08:20:31 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/27 08:44:34 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ int	open_herdoc(char *limit)
 	char *line;
 
 	pipe(fd);
-	g_global.open_heredoc = 0;
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, sig_heredoc);
 	while (1)
 	{
 		line = readline("> ");
@@ -35,7 +32,6 @@ int	open_herdoc(char *limit)
 		ft_putstr("\n", fd[1]);
 		free(line);
 	}
-	g_global.open_heredoc =1;
 	return (close(fd[1]), fd[0]);
 }
 
@@ -104,14 +100,13 @@ void	cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag)
 	pid = fork();
 	if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 		close(*fds);
 		dup_files(head, fds, tmp, flag);
 		execve(*head->cmd_struct.cmd, head->cmd_struct.cmd, head->env);
 		if (errno == EACCES)
 			exit(126);
 	}
+	
 
 }
 
