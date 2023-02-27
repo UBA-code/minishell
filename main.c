@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/27 01:25:51 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/27 08:16:16 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,27 @@ void	minishell(char *line, char **env)
 
 char *get_folder(char *s1, char *s2, char *s3)
 {
-    char *final;
+	char *final;
 
-    final = ft_strjoin(0, s1);
-    final = ft_strjoin(final, s2);
-    final = ft_strjoin(final, s3);
-    free(s2);
-    return (final);
+	final = ft_strjoin(0, s1);
+	final = ft_strjoin(final, s2);
+	final = ft_strjoin(final, s3);
+	free(s2);
+	return (final);
 }
 
-void sig_handler(void)
+void sig_heredoc(int sig)
 {
-	if (!g_global.open_herdoc) 
-	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	if (sig == SIGINT)
+		exit(EXIT_FAILURE);
+}
+void sig_handl(int sig)
+{
+	if (sig == SIGINT && !g_global.open_heredoc)
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 int *save_(void)
@@ -87,21 +90,20 @@ int main(int ac, char **av, char **env)
 	(void)    ac;
 	(void)    av;
 	char    *line;
-	char    *temp;
+	// char    *temp;
 
 	g_global.save = save_();
 	g_global.env_head = 0;
 	g_global.error = 0;
-	g_global.open_herdoc = 0;
 	create_env(env);
 	while (1)
 	{
-		
 		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, (void *)sig_handler);
-		temp = get_folder("\e[1;32m", getcwd(0, 0), "~> \e[0m");
-		line = readline(temp);
-		free(temp);
+		signal(SIGINT, sig_handl);
+		// temp = get_folder("\e[1;32m", getcwd(0, 0), "~> \e[0m");
+		// line = readline(temp);
+		line = readline("\e[1;32mMinishell~> \e[0m");
+		// free(temp);
 		if (!line)
 			break;
 		add_history(line);

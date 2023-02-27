@@ -6,26 +6,23 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/27 01:23:32 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/27 08:20:31 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int sig_herdoc(void)
-{
-	exit(EXIT_FAILURE);
-}
 int	open_herdoc(char *limit)
 {
 	int fd[2];
 	char *line;
 
 	pipe(fd);
-	g_global.open_herdoc = 1;
+	g_global.open_heredoc = 0;
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sig_heredoc);
 	while (1)
 	{
-		signal(SIGINT,(void *)sig_herdoc);
 		line = readline("> ");
 		if (!line)
 			break ;
@@ -38,7 +35,7 @@ int	open_herdoc(char *limit)
 		ft_putstr("\n", fd[1]);
 		free(line);
 	}
-	g_global.open_herdoc = 0;
+	g_global.open_heredoc =1;
 	return (close(fd[1]), fd[0]);
 }
 
@@ -107,14 +104,15 @@ void	cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		close(*fds);
 		dup_files(head, fds, tmp, flag);
 		execve(*head->cmd_struct.cmd, head->cmd_struct.cmd, head->env);
-		if (*head->cmd_struct.cmd)
-			perror(*head->cmd_struct.cmd);
 		if (errno == EACCES)
 			exit(126);
 	}
+
 }
 
 void pipeline(t_lexer_node *head)
