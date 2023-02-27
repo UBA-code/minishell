@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:46:14 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:41:20 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/27 22:37:09 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ char	*smart_get_variable(char *str)
 			error_num = ft_itoa(g_global.error);
 			utils.final = ft_strjoin(utils.final, error_num);
 			free(error_num);
-			utils.i += 2;
+			utils.i += 1;
 		}
-		if (str[utils.i] == '$' && speciale_check(str[utils.i + 1]))
+		else if (str[utils.i] == '$' && speciale_check(str[utils.i + 1]))
 		{
 			if (dolar_work(&utils))
 				continue ;
