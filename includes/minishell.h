@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/27 12:56:20 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/27 20:45:36 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ int				get_next_word(char *str, int i);
 int				get_token_len(char *str);
 int				get_token_size(char *str, int *num);
 char			get_type(char *content);
+int				check_syntax(char *line);
 void			parse_error_free(t_lexer_node *lexer_head);
 int				is_builtin(char *str);
 int				ft_strrchr(char *str, char c);
@@ -166,26 +167,21 @@ char			*search_in_path(char *cmd);
 void			exec_builtin(char *cmd, char **args);
 
 // !execution
-int		open_herdoc(char *limit);
-int		executor(t_lexer_node *head);
-void	pipeline(t_lexer_node *head);
-int		*open_files(t_lexer_node *head);
-void sig_handl(int sig);
-void sig_heredoc(int sig);
-
-int dup_files(t_lexer_node *head, int fds[2], int tmp, int flag)
-;
-void	cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag);
-void pipeline(t_lexer_node *head);
-
-int	executor(t_lexer_node *head);
-void reset_io(int *save)
-;
+int				open_herdoc(char *limit);
+int				executor(t_lexer_node *head);
+void			pipeline(t_lexer_node *head);
+int				*open_files(t_lexer_node *head);
+void			sig_handl(int sig);
+void			sig_heredoc(int sig);
+int				dup_files(t_lexer_node *head, int fds[2], int tmp, int flag);
+void			cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag);
+void			pipeline(t_lexer_node *head);
+int				executor(t_lexer_node *head);
+void			reset_io(int *save);
 
 
 
 
-void	rl_replace_line(const char *, int);
-void print_lex(t_lexer_node *head)
-;
+void			rl_replace_line(const char *, int);
+void			print_lex(t_lexer_node *head);
 #endif

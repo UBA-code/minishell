@@ -6,7 +6,7 @@
 #    By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 01:57:19 by bahbibe           #+#    #+#              #
-#    Updated: 2023/02/26 16:46:21 by ybel-hac         ###   ########.fr        #
+#    Updated: 2023/02/27 16:15:15 by ybel-hac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 		$(PARSE_PATH)linked_list_utils/env_del_node.c \
 		$(PARSE_PATH)parser_utils/expand_quotes.c \
 		$(PARSE_PATH)parser_utils/expand_quotes_utils.c \
+		$(PARSE_PATH)parser_utils/syntax_check.c \
 		$(PARSE_PATH)builtins/builtins_utils.c \
 		$(PARSE_PATH)builtins/cd.c  \
 		$(PARSE_PATH)errors_free/parse_error.c \
@@ -56,7 +57,7 @@ SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 		$(PARSE_PATH)builtins/pwd.c  \
 		$(PARSE_PATH)builtins/unset.c \
 		$(EXECUTION_PATH)executor.c
-
+	
 
 all: $(NAME)
 
