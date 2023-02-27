@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/27 08:44:44 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/27 11:37:14 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	minishell(char *line, char **env)
 	if (parser_utils(&head))
 	{
 		executor(head);
+		// exec_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
 		free_parser(head);
 		lst_clear(&head);
 	}
@@ -92,7 +93,6 @@ int main(int ac, char **av, char **env)
 	(void)    ac;
 	(void)    av;
 	char    *line;
-	// char    *temp;
 
 	g_global.save = save_();
 	g_global.env_head = 0;
@@ -100,8 +100,6 @@ int main(int ac, char **av, char **env)
 	create_env(env);
 	while (1)
 	{
-		// temp = get_folder("\e[1;32m", getcwd(0, 0), "~> \e[0m");
-		// line = readline(temp);
 		line = readline("\e[1;32mMinishell~> \e[0m");
 		// free(temp);
 		if (!line)

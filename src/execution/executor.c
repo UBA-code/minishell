@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/27 08:44:34 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/27 14:51:03 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ int	open_herdoc(char *limit)
 	pipe(fd);
 	while (1)
 	{
-		line = readline("> ");
+		ft_putstr("> ", STDOUT_FILENO);
+		line = get_next_line(STDIN_FILENO);
+		// line = readline("> ");
 		if (!line)
 			break ;
-		if (ft_strncmp(line, limit, ft_strlen(line)))
+		if (ft_strlen(line) > 1 && ft_strncmp(line, limit, ft_strlen(line) - 1))
 		{
 			free(line);
 			break;
@@ -58,9 +60,9 @@ int	*open_files(t_lexer_node *head)
 void dup_help(int *files, int *fd_io)
 {
 	if (files[0] != -1)
-			fd_io[0] = files[0];
-		if (files[1] != -1)
-			fd_io[1] = files[1];
+		fd_io[0] = files[0];
+	if (files[1] != -1)
+		fd_io[1] = files[1];
 }
 
 int dup_files(t_lexer_node *head, int fds[2], int tmp, int flag)
@@ -91,23 +93,25 @@ int dup_files(t_lexer_node *head, int fds[2], int tmp, int flag)
 void	cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag)
 {
 	pid_t	pid;
-	if (is_builtin(*head->cmd_struct.cmd))
-	{
-		dup_files(head, fds, tmp, flag);
-		exec_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
-		reset_io(g_global.save);
-	}
+
 	pid = fork();
 	if (pid == 0)
 	{
+		if (is_builtin(*head->cmd_struct.cmd))
+		{
+			dup_files(head, fds, tmp, flag);
+			exec_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
+			reset_io(g_global.save);
+			exit(g_global.error);
+		}
 		close(*fds);
 		dup_files(head, fds, tmp, flag);
 		execve(*head->cmd_struct.cmd, head->cmd_struct.cmd, head->env);
 		if (errno == EACCES)
 			exit(126);
 	}
-	
-
+	else
+		wait(0);
 }
 
 void pipeline(t_lexer_node *head)
@@ -140,12 +144,16 @@ int	executor(t_lexer_node *head)
 	int status;
 	int	fds[2];
 	
-	if (head->next == NULL)
+	if (head->next == NULL && is_builtin(*head->cmd_struct.cmd))
+	// {
+		exec_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
+	// }
+	else if (head->next == NULL)
 		cmd_exec(head, fds, 0, 4);
 	else
 		pipeline(head);
-	while (waitpid(-1, &status, 0) != -1)
-		;
+	// while (waitpid(-1, &status, 0) != -1)
+		// ;
 	g_global.error = WEXITSTATUS(status);
 	return (0);
 }
