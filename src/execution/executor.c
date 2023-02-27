@@ -6,25 +6,30 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/27 00:37:52 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/27 01:23:32 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int sig_herdoc(void)
+{
+	exit(EXIT_FAILURE);
+}
 int	open_herdoc(char *limit)
 {
 	int fd[2];
 	char *line;
 
 	pipe(fd);
+	g_global.open_herdoc = 1;
 	while (1)
 	{
-		ft_putstr("> ", STDOUT_FILENO);
-		line = get_next_line(STDIN_FILENO);
+		signal(SIGINT,(void *)sig_herdoc);
+		line = readline("> ");
 		if (!line)
 			break ;
-		if (ft_strncmp(line, limit, ft_strlen(line) - 1)) 
+		if (ft_strncmp(line, limit, ft_strlen(line)))
 		{
 			free(line);
 			break;
@@ -33,6 +38,7 @@ int	open_herdoc(char *limit)
 		ft_putstr("\n", fd[1]);
 		free(line);
 	}
+	g_global.open_herdoc = 0;
 	return (close(fd[1]), fd[0]);
 }
 

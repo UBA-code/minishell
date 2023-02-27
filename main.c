@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/26 19:45:48 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/27 01:25:51 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char *get_folder(char *s1, char *s2, char *s3)
 
 void sig_handler(void)
 {
-	// if here_doc_is_closed 
+	if (!g_global.open_herdoc) 
 	{
 		printf("\n");
 		rl_replace_line("", 0);
@@ -77,38 +77,38 @@ int *save_(void)
 
 void reset_io(int *save)
 {
-			dup2(save[0], 0);
-		dup2(save[1], 1);
+	dup2(save[0], 0);
+	dup2(save[1], 1);
 }
 
 
 int main(int ac, char **av, char **env)
 {
-    (void)    ac;
-    (void)    av;
-    char    *line;
-    char    *temp;
-	
+	(void)    ac;
+	(void)    av;
+	char    *line;
+	char    *temp;
+
 	g_global.save = save_();
-    g_global.env_head = 0;
-    g_global.error = 0;
-    create_env(env);
-    while (1)
-    {
+	g_global.env_head = 0;
+	g_global.error = 0;
+	g_global.open_herdoc = 0;
+	create_env(env);
+	while (1)
+	{
 		
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, (void *)sig_handler);
-        temp = get_folder("\e[1;32m", getcwd(0, 0), "~> \e[0m");
-        line = readline(temp);
-        free(temp);
-        if (!line)
-            break;
-        add_history(line);
-        if (ft_strlen(line) && check_quotes(line))
-            minishell(line, env);
-			
+		temp = get_folder("\e[1;32m", getcwd(0, 0), "~> \e[0m");
+		line = readline(temp);
+		free(temp);
+		if (!line)
+			break;
+		add_history(line);
+		if (ft_strlen(line) && check_quotes(line))
+			minishell(line, env);
 		reset_io(g_global.save);
-        free(line);
-    }
-    return 0;
+		free(line);
+	}
+	return 0;
 }
