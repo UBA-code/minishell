@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/28 14:33:26 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:15:36 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	open_herdoc(char *limit)
 	pipe(fd);
 	while (1)
 	{
-		ft_putstr("> ", STDOUT_FILENO);
-		line = get_next_line(STDIN_FILENO);
-		// line = readline("> ");
+		// ft_putstr("> ", STDOUT_FILENO);
+		// line = get_next_line(STDIN_FILENO);
+		line = readline("> ");
 		if (!line)
 			break ;
-		if (ft_strlen(line) > 1 && ft_strncmp(line, limit, ft_strlen(line) - 1))
+		if (ft_strlen(line) > 1 && ft_strncmp(line, ft_strjoin(limit, "\n"), ft_strlen(line) ))
 		{
 			free(line);
 			break;

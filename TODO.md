@@ -41,3 +41,13 @@ if u get empty string in cmd check if there is here_doc or not, if not then this
 << $hello cat
 env -i ./minishell
 `here_doc` : replace gnl w/ readline tabs are normal behavior of bash
+<< eof 
+//////////////////
+/// FAILED TEST // 
+//////////////////
+
+`<< l cat > p`  no file hang on herdoc
+`<< l  > p`  double free
+
+`cd` (null)
+
