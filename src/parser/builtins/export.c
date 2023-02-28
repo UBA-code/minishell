@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:39:02 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:41:55 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:42:54 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,27 @@ void	export_errors(char *name)
 	ft_putstr(name, STDERR_FILENO);
 	free(name);
 	ft_putstr(": not a valid identifier\n", STDERR_FILENO);
+}
+
+int	check_export_syntax(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!((str[i] >= 'a' && str[i] <= 'z')
+			|| (str[i] >= 'A' && str[i] <= 'Z')
+			|| (str[i] == '_')))
+		return (0);
+	while (str[i])
+	{
+		if (!((str[i] >= 'a' && str[i] <= 'z')
+				|| (str[i] >= 'A' && str[i] <= 'Z')
+				|| (str[i] >= '0' && str[i] <= '9')
+				|| (str[i] == '_')))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 void	loop_export(char *arg)

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/27 22:37:22 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/28 12:37:04 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	parser_work(t_lexer_node *node)
 		if (node->lexer[i].type == '<' || node->lexer[i].type == '>')
 		{
 			i = get_after_file(node, i);
-			if (i == 0)
+			if (i <= 0)
 				return (0);
 		}
 		else if (node->lexer[i].type == '\'' || node->lexer[i].type == '"'

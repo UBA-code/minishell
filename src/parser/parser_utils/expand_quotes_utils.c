@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:46:14 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/27 22:37:09 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:39:49 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,21 +88,4 @@ char	*join_string(t_lexer_node *node, int *nb)
 		++*nb;
 	}
 	return (final);
-}
-
-int	check_export_syntax(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!((str[i] >= 'a' && str[i] <= 'z')
-				|| (str[i] >= 'A' && str[i] <= 'Z')
-				|| (str[i] >= '0' && str[i] <= '9')
-				|| (str[i] == '_')))
-			return (0);
-		i++;
-	}
-	return (1);
 }

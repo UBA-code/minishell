@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/27 22:37:51 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:37:37 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	minishell(char *line, char **env)
 	int				i;
 	t_lexer_node	*head;
 
-	// if (!check_syntax(line))
-		// return ft_error("syntax error\n", 258);
+	if (!check_syntax(line))
+		return ft_error("syntax error\n", 258);
 	head = 0;
 	i = 0;
 	args = ft_split(line, "|");
@@ -89,12 +89,13 @@ void reset_io(int *save)
 	dup2(save[1], 1);
 }
 
-
 int main(int ac, char **av, char **env)
 {
 	(void)    ac;
 	(void)    av;
 	char    *line;
+
+	char	**temp;
 
 	g_global.save = save_();
 	g_global.env_head = 0;

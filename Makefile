@@ -6,7 +6,7 @@
 #    By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 01:57:19 by bahbibe           #+#    #+#              #
-#    Updated: 2023/02/27 16:15:15 by ybel-hac         ###   ########.fr        #
+#    Updated: 2023/02/28 11:27:16 by ybel-hac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ PARSE_PATH = ./src/parser/
 EXECUTION_PATH = ./src/execution/
 OBG = $(SRCS:.c=.o)
 # CFLAGS = -Wall -Werror -Wextra
-CFLAGS = -fsanitize=address -g3
+# CFLAGS = -fsanitize=address -g3
 SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 		$(PARSE_PATH)get_next_line/get_next_line_utils.c \
 		$(PARSE_PATH)utils/ft_calloc.c $(PARSE_PATH)utils/ft_split.c \

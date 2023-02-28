@@ -20,22 +20,24 @@ if u get empty string in cmd check if there is here_doc or not, if not then this
 /// FAILED TEST // 
 //////////////////
 
-`|` : single pipe
-`>` : abort
-`<` : abort
-`>>` : abort + hang
-`<<` : abort
-`echo $?` : abort ==> exit code abort on expand function
-`fjksbf` : no such file >> command not found
-`cd` : cd home : no such file
+`|` : single pipe - done
+`>` : abort - done
+`<` : abort - done
+`>>` : abort + hang - done
+`<<` : abort - done
+`echo $?` : abort ==> exit code abort on expand function - done
+`fjksbf` : no such file >> command not found - done
+`cd` : cd home : no such file - done
 `CNTL+C` : when execute builtins_utils
-`export 1moad=adas` : not a valid indentifier
-`when unset path and remove parent directory` : go to blackhole
-`exit asd 2313` : must exit 255
-`exit` : not working
+`export 1moad=adas` : not a valid indentifier - done
+`when unset path and remove parent directory` : go to blackhole - done
+`exit asd 2313` : must exit 255 - problem in execution
+`exit` : not working - problem in execution
 `CTRL+C on heredoc`
 `CTRL+D on heredoc`
 `echo "|"` : broken
 `\t` : skip like space.
-
+<< $"hello" cat
+<< $hello cat
+env -i ./minishell
 `here_doc` : replace gnl w/ readline tabs are normal behavior of bash
