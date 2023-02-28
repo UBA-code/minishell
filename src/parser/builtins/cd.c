@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:44:52 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/27 11:02:03 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/28 21:32:04 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	cd_cmd(char **args)
 	if (!args[1])
 	{
 		if (chdir(get_variable_cmd("HOME"))) // get home var from env && check if home exist
-			ft_error("HOME not set\n", 1);
+			ft_error("bash: cd: HOME not set\n", 1);
 	}
 	else if (ft_strcmp(args[1], "-"))
 	{

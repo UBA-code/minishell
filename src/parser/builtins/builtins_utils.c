@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:50:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/27 13:23:50 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/28 20:34:53 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	exec_builtin(char *cmd, char **args)
 		env_cmd('e');
 	else if (ft_strcmp(cmd, "export"))
 		export_cmd(args);
-	// exit(g_global.error); // need to check
 }
 
 void	modifie_variable(char *variable, char *new_value)

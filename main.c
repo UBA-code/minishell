@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/28 14:37:37 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/28 21:43:17 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,21 @@ void	minishell(char *line, char **env)
 	if (!check_syntax(line))
 		return ft_error("syntax error\n", 258);
 	head = 0;
-	i = 0;
-	args = ft_split(line, "|");
-	while (args[i])
-	{
+	i = -1;
+	args = ft_split_costom(line);
+	while (args[++i])
+		if (!check_quotes(args[i]))
+			return (tab_free(args));
+	i = -1;
+	while (args[++i])
+	{	
 		init_lexer_node(&head, args[i], env);
 		free(args[i]);
-		i++;
 	}
 	free(args);
 	if (parser_utils(&head))
 	{
 		executor(head);
-		// exec_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
 		free_parser(head);
 		lst_clear(&head);
 	}
@@ -64,6 +66,7 @@ void sig_heredoc(int sig)
 	if (sig == SIGINT)
 		exit(EXIT_FAILURE);
 }
+
 void sig_handl(int sig)
 {
 	if (sig == SIGINT && !g_global.open_heredoc)
@@ -89,13 +92,12 @@ void reset_io(int *save)
 	dup2(save[1], 1);
 }
 
+
 int main(int ac, char **av, char **env)
 {
 	(void)    ac;
 	(void)    av;
 	char    *line;
-
-	char	**temp;
 
 	g_global.save = save_();
 	g_global.env_head = 0;
@@ -104,10 +106,9 @@ int main(int ac, char **av, char **env)
 	while (1)
 	{
 		line = readline("\e[1;32mMinishell~> \e[0m");
-		// free(temp);
 		if (!line)
 			break;
-		if (ft_strlen(line) && check_quotes(line))
+		if (ft_strlen(line))
 		{
 			add_history(line);
 			minishell(line, env);
@@ -117,3 +118,17 @@ int main(int ac, char **av, char **env)
 	}
 	return 0;
 }
+
+
+
+// int main(int argc, char const *argv[])
+// {
+// 	char **temp;
+// 	int		i;
+
+// 	i = -1;
+// 	temp = ft_split_costom("\"\"");
+// 	while (temp[++i])
+// 		printf("*%s*\n", temp[i]);
+// 	return 0;
+// }

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/28 12:37:04 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/28 20:22:39 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*get_cmd_path(char *cmd)
 	char	*final;
 
 	i = -1;
-	if (access(cmd, X_OK) == 0 || cmd == 0)
+	if (access(cmd, X_OK) == 0 || !cmd ||  *cmd == '/' || *cmd == '.')
 		return (cmd);
 	paths = ft_split(get_variable_cmd("PATH"), ":");
 	if (!check_env(cmd, paths))
@@ -77,9 +77,6 @@ char	*get_cmd_path(char *cmd)
 		}
 		free(final);
 	}
-	// ft_error(cmd, 127);
-	// ft_error(": command not found\n", 127);
-	// free(cmd);
 	return (tab_free(paths), cmd);
 }
 

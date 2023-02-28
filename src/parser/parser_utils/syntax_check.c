@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:02:19 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/28 12:58:05 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:52:34 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,17 @@ int	get_pipes_len(char *line)
 	int	j;
 
 	j = 0;
-	i = -1;
-	while (line[++i])
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\'')
+			while (line[i + 1] && line[++i] != '\'');
+		else if (line[i] == '"')
+			while (line[i + 1] && line[++i] != '\"');
 		if (line[i] == '|')
 			j++;
+		i++;
+	}
 	return (j);
 }
 
@@ -47,7 +54,7 @@ int	check_pipes(char *line)
 	int		j;
 
 	j = 0;
-	temp = ft_split(line, "|");
+	temp = ft_split_costom(line);
 	pipes_len = get_pipes_len(line);
 	if (pipes_len > 0 && !temp)
 		return (0);

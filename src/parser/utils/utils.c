@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 20:59:09 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:39:22 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:58:16 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	ft_error(char *str, int error)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return ;
 	while (str[i])
 	{
 		write(2, &str[i], 1);
