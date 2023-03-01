@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/01 21:03:55 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:53:48 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	open_herdoc(char *limit)
 		line = readline("> ");
 		if (!line)
 			break ;
-		if (ft_strlen(line)&& ft_strncmp(line, limit, ft_strlen(line)))
+		if (ft_strlen(line) && ft_strcmp(line, limit))
 		{
 			free(line);
 			break;
@@ -37,13 +37,15 @@ int	open_herdoc(char *limit)
 
 int	*open_files(t_lexer_node *head)
 {
-	int *fd = malloc(sizeof(int) * 2);
+	int *fd;
+	
+	fd = malloc(sizeof(int) * 2);
 	fd[0] = -1;
 	fd[1] = -1;
 	while (head->cmd_struct.files_head)
 	{
 		if (head->cmd_struct.files_head->type == 'H')
-			fd[0] = head->cmd_struct.files_head->fd;
+			fd[0] = head->cmd_struct.files_head->fd; // leaks maybe
 			// fd[0] = open_herdoc(head->cmd_struct.files_head->file);
 		else if (head->cmd_struct.files_head->type == 'A')
 			fd[1] = open(head->cmd_struct.files_head->file, O_CREAT | O_RDWR | O_APPEND, 0777);
