@@ -6,34 +6,37 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:43:19 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:20:56 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/01 13:42:19 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+void	exit_error(char *str)
+{
+	ft_error("bash: ", 255);
+	ft_error(str, 255);
+	ft_error(": numeric argument required\n", 255);
+}
+
 int	check_exit(char *nb)
 {
 	int	i;
+	int	j;
 
 	i = -1;
+	j = 0;
 	while (nb[++i])
-	{
+		if (nb[i] == '-' || nb[i] == '+')
+			j++;
+	if (j > 1)
+		return (exit_error(nb), 0);
+	i = -1;
+	while (nb[++i])
 		if (!((nb[i] >= '0' && nb[i] <= '9') || nb[i] == '+' || nb[i] == '-'))
-		{
-			ft_error("bash: ", 255);
-			ft_error(nb, 255);
-			ft_error(": numeric argument required\n", 255);
-			return (0);
-		}
-	}
+			return (exit_error(nb), 0);
 	if (nb[i - 1] == '+' || nb[i - 1] == '-')
-	{
-		ft_error("bash: ", 255);
-		ft_error(nb, 255);
-		ft_error(": numeric argument required\n", 255);
-		return (0);
-	}
+		return (exit_error(nb), 0);
 	return (1);
 }
 

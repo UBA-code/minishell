@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:02:19 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/28 18:52:34 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:16:42 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ int	check_pipes(char *line)
 
 int	check_syntax(char *line)
 {
+	int	i;
+
+	i = 0;
 	if (!check_pipes(line))
 		return (0);
 	return (1);

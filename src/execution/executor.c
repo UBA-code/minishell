@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/02/28 21:48:43 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/01 14:07:16 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ void	cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag)
 		}
 		close(*fds);
 		dup_files(head, fds, tmp, flag);
+		if (!*head->cmd_struct.cmd)
+			exit (0);
 		execve(*head->cmd_struct.cmd, head->cmd_struct.cmd, head->env);
 		ft_error(*head->cmd_struct.cmd, 127);
 		ft_error(": command not found\n", 127);
@@ -125,8 +127,6 @@ void	cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag)
 		// if (errno == EACCES)
 			// exit(127);
 	}
-	else
-		wait(0);
 }
 
 void	executor_builtin(t_lexer_node *head, int fds[2], int tmp, int flag)
@@ -146,6 +146,7 @@ void pipeline(t_lexer_node *head)
 	t_lexer_node	*crr;
 	int	 			fds[2];
 	int 			tmp;
+	int status;
 
 	tmp = 0;
 	crr = head;
@@ -164,13 +165,15 @@ void pipeline(t_lexer_node *head)
 		close(fds[0]);
 		close(fds[1]);
 	}
+	while (waitpid(-1, &status, 0) != -1);
+	g_global.error = WEXITSTATUS(status);
 }
 
 int	executor(t_lexer_node *head)
 {
-	int status;
 	int	fds[2];
-	
+	int	status;
+
 	if (head->next == NULL && is_builtin(*head->cmd_struct.cmd))
 		executor_builtin(head, fds, 0, 4); // ! check the flags and the argument of the function
 	else if (head->next == NULL)

@@ -6,7 +6,7 @@
 #    By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 01:57:19 by bahbibe           #+#    #+#              #
-#    Updated: 2023/02/28 20:24:07 by ybel-hac         ###   ########.fr        #
+#    Updated: 2023/03/01 14:22:04 by ybel-hac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 all: $(NAME)
 
 $(NAME): $(OBG)
+	@stty -echoctl
 	@$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/homebrew/Cellar/readline/8.2.1/lib -o $(NAME)
 	@echo "$(Green)Minishell Compiled ✅$(Off)"
 clean:
