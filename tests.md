@@ -30,17 +30,17 @@
 
 | Status| Test						| Bash								| 
 |-------|---------------------------|-----------------------------------|
-| 	|`cd ../../../../../..`		|`pwd` shows `/`						|							
-| 	|`cd /home/user/`			|`pwd` shows `/home/user`				|						
-| 	|`cd $HOME`					|`pwd` shows `/home/user`				|							
-| 	|`cd $HOME/Documents`      	|`pwd` shows `/home/user/Documents`		|							
-| 	|`unset HOME`, then `cd` 	|HOME not set							|							
-| 	|`export HOME=` then `cd`	|No error msg							|							
-| 	|`cd /t /w`					|Too many arguments						|							
-| 	|`cd ./fakepath`			|No such directory						|							
-| 	|`cd -`						|Return to OLDPWD, print CWD			|									
-| 	|`unset OLDPWD`; `cd -`		|OLDPWD not set;						|							
-|	|`mkdir a`; `mkdir a/b`; `cd a/b`; `rm -r ../../a`; `cd ..`			| 							  
+| 	OK |`cd ../../../../../..`		|`pwd` shows `/`						|
+| 	OK |`cd /home/user/`			|`pwd` shows `/home/user`				|
+| 	OK |`cd $HOME`					|`pwd` shows `/home/user`				|
+| 	OK |`cd $HOME/Documents`      	|`pwd` shows `/home/user/Documents`		|
+| 	OK |`unset HOME`, then `cd` 	|HOME not set							|	
+| 	❌ |`export HOME=` then `cd`	|No error msg							|
+| 	OK |`cd /t /w`					|No such directory					|							
+| 	OK |`cd ./fakepath`			|No such directory						|							
+| 	❌ |`cd -`						|Return to OLDPWD, print CWD			|									
+| 	❌ |`unset OLDPWD`; `cd -`		|OLDPWD not set;						|
+|	OK |`mkdir a`; `mkdir a/b`; `cd a/b`; `rm -r ../../a`; `cd ..`			|
 
 ## ECHO
 
@@ -48,52 +48,52 @@
 |-------|---------------------------|-------------------|
 | OK	|`echo -n -n -nnnn -nnnnm`	|`-nnnnm`           |			
 | OK	|`echo a	-nnnnma`		|`a -nnnnma`		|			
-| KO	|`echo -n -nnn hello -n`	|`hello -n`			|			
+| OK	|`echo -n -nnn hello -n`	|`hello -n`			|			
 | OK	|`echo a	hello -na`		|`a hello -na`		|			
 
 ## EXPORT
 
 | Status| Test						| Bash								|
 |-------|---------------------------|-----------------------------------|
-| 	|`export ""`				|Not a valid identifier				|
-| 	|`export 42`				|Not a valid identifier				|
-| 	|`export =`					|Not a valid identifier				|
-| 	|`export hello`				|`env \| grep hello` shows nothing	|
-| 	|`export var=foo`			|`env \| grep var=` shows var		|
-| 	|`export $var=test`			|`env \| grep foo=` shows `foo=test`|
-| 	|`echo $var $foo`			|`foo test`							|
-| 	|`export t="abc def"`		|`env \| grep t` shows `t=abc def`	|
+|	❌ |`export ""`					|Not a valid identifier				|
+| 	OK |`export 42`					|Not a valid identifier				|
+| 	OK |`export =`					|Not a valid identifier				|
+| 	OK |`export hello`				|`env \| grep hello` shows nothing	|
+| 	OK |`export var=foo`			|`env \| grep var=` shows var		|
+| 	OK |`export $var=test`			|`env \| grep foo=` shows `foo=test`|
+| 	OK |`echo $var $foo`			|`foo test`							|
+| 	OK |`export t="abc def"`		|`env \| grep t` shows `t=abc def`	|
+| 	OK |`export var1=test`				|`env \| grep var` shows var1	|
 
 ## UNSET
 
 | Status| Test							| Bash							| 
 |-------|-------------------------------|-------------------------------|
-| 	|`unset PATH`					|`echo $PATH` shows `(newline)`	|
-| 	|`ls` (after `unset PATH`)		|No such file or directory		|
-| 	|`unset "" test`				|Does nothing					|
-| 	|`unset =`						|Does nothing					|
-| 	|`unset FAKEVAR`				|Does nothing					|
-| 	|`export var1=test`				|`env \| grep var` shows var1	|
-| 	|`unset var` (following `var1`)	|Does not delete `var1`			|
+| 	OK |`unset PATH`					|`echo $PATH` shows `(newline)`	|
+| 	OK |`ls` (after `unset PATH`)		|No such file or directory		|
+| 	OK |`unset "" test`				|Does nothing					|
+| 	OK |`unset =`						|Does nothing					|
+| 	OK |`unset FAKEVAR`				|Does nothing					|
+| 	OK |`unset var` (following `var1`)	|Does not delete `var1`			|
 
 ## ENV
 
-| Status| Test										| Bash				| 
-|-------|-------------------------------------------|-------------------|
-| 		|`env` then `export d=3 a=12 c=0` then `env`|					|				
+| Status| Test										| Bash					| 
+|-------|-------------------------------------------|-----------------------|
+| 	❌	|`env` then `export d=3 a=12 c=0` then `env`|	shows env sorted	|
 
 ## EXIT
 
 | Status| Test							| Bash													| 
 |-------|-------------------------------|-------------------------------------------------------|
-| 	|`exit 10`						|exits shell											|
-| 	|`exit -10`						|exits shell											|							
-| 	|`exit abc`						|exits shell; error numeric arg required				|
-| 	|`exit --10`					|exits shell; error numeric arg required				|
-| 	|`exit ++10`					|exits shell; error numeric arg required				|
-| 	|`exit abc 5`					|exits shell; error numeric arg required				|
-| 	|`exit 5 abc`					|does not exit shell; too many args						|
-| 	|`exit 5 < Makefile`			|exits shell											|
+| 	OK |`exit 10`						|exits shell											|
+| 	OK |`exit -10`						|exits shell											|							
+| 	OK |`exit abc`						|exits shell; error numeric arg required				|
+| 	❌ |`exit --10`					|exits shell; error numeric arg required				|
+| 	❌ |`exit ++10`					|exits shell; error numeric arg required				|
+| 	OK |`exit abc 5`					|exits shell; error numeric arg required				|
+| 	OK |`exit 5 abc`					|does not exit shell; too many args						|
+| 	OK |`exit 5 < Makefile`			|exits shell											|
 | 	|`exit 8 > test`				|exits shell; write exit to terminal, file empty		|
 | 	|`ls \| exit`					|does not exit shell; no output							|
 | 	|`ls \| exit 42`				|does not exit shell; no output							|
