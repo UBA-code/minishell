@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/01 14:07:16 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:03:55 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	open_herdoc(char *limit)
 	pipe(fd);
 	while (1)
 	{
-		// ft_putstr("> ", STDOUT_FILENO);
-		// line = get_next_line(STDIN_FILENO);
 		line = readline("> ");
 		if (!line)
 			break ;
@@ -45,7 +43,8 @@ int	*open_files(t_lexer_node *head)
 	while (head->cmd_struct.files_head)
 	{
 		if (head->cmd_struct.files_head->type == 'H')
-			fd[0] = open_herdoc(head->cmd_struct.files_head->file);
+			fd[0] = head->cmd_struct.files_head->fd;
+			// fd[0] = open_herdoc(head->cmd_struct.files_head->file);
 		else if (head->cmd_struct.files_head->type == 'A')
 			fd[1] = open(head->cmd_struct.files_head->file, O_CREAT | O_RDWR | O_APPEND, 0777);
 		else if (head->cmd_struct.files_head->type == 'O')

@@ -39,7 +39,7 @@ env -i ./minishell
 
 `cd` (null)
 
-leaks in builtins
+# ! leaks in echo hh > out
 
 all here_docs must be opened first before files
 

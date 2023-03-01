@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/28 21:41:27 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:51:57 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_files
 {
 	char			*file;
 	char			type;
+	int				fd;
 	struct s_files	*next;
 }	t_files;
 

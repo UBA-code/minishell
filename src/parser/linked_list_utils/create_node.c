@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:23:20 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:20:14 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:05:11 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_files	*files_create_node(t_files **head, char *file, char type)
 		files_add_back_lst(*head, node);
 	node->file = file;
 	node->type = type;
+	if (type == 'H')
+		node->fd = open_herdoc(file);
 	node->next = 0;
 	return (node);
 }
