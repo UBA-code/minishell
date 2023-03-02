@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/02 15:43:02 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:36:33 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
 	pid = fork();
 	if (pid == 0)
 	{ 
-		signal(SIGINT, sig_handler_cmd);
+		signal(SIGINT, SIG_DFL);
 		if (is_builtin(*head->cmd_struct.cmd))
 		{
 			dup_files(head, pip, tmp, flag);
@@ -140,7 +140,7 @@ void pipeline(t_lexer_node *head)
 	t_lexer_node	*cur;
 	int	 			pip[2];
 	int 			tmp;
-	int status;
+	// int status;
 
 	tmp = 0;
 	cur = head;
@@ -159,8 +159,7 @@ void pipeline(t_lexer_node *head)
 		close(pip[1]);
 		cur = cur->next;
 	}
-	while (waitpid(-1, &status, 0) != -1);
-	g_global.error = WEXITSTATUS(status);
+	
 }
 
 int	executor(t_lexer_node *head)
@@ -176,13 +175,20 @@ int	executor(t_lexer_node *head)
 			cmd_exec(head, pip, 0, SINGLE);
 		else
 			pipeline(head);
-		waitpid(-1, &status, 0);
-		g_global.error = WEXITSTATUS(status);
+		while (waitpid(-1, &status, 0) != -1);
+		g_global.error = exit_stat(status);
 	}
 	// g_global.error = 0;
 	return (0);
 }
-
+int exit_stat(int stat)
+{
+	if (WIFEXITED(stat))
+		return (WEXITSTATUS(stat));
+	else if (WIFSIGNALED(stat))
+		return (WTERMSIG(stat) +128);
+	return (0);
+}
 
 
 
