@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/02 16:36:33 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/02 18:25:03 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,30 @@ int	open_herdoc(char *limit)
 {
 	int fd[2];
 	char *line;
+	int		pid;
+	int		status;
 
 	pipe(fd);
-	while (1)
+	pid = fork();
+	if (!pid)
 	{
 		signal(SIGINT, sig_heredoc);
-		line = readline("> ");
-		if (!line)
-			break ;
-		if (ft_strlen(line) && ft_strcmp(line, limit))
+		while (1)
 		{
+			line = readline("> ");
+			if (ft_strlen(line) && ft_strcmp(line, limit))
+			{
+				free(line);
+				exit(EXIT_SUCCESS);
+			}
+			ft_putstr(line, fd[1]);
+			ft_putstr("\n", fd[1]);
 			free(line);
-			break;
 		}
-		ft_putstr(line, fd[1]);
-		ft_putstr("\n", fd[1]);
-		free(line);
 	}
+	else
+		wait(&status);
+	g_global.error =  exit_stat(status);
 	return (close(fd[1]), fd[0]);
 }
 
@@ -181,6 +188,7 @@ int	executor(t_lexer_node *head)
 	// g_global.error = 0;
 	return (0);
 }
+
 int exit_stat(int stat)
 {
 	if (WIFEXITED(stat))
