@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/01 21:51:53 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:46:46 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,22 @@ char *get_folder(char *s1, char *s2, char *s3)
 	return (final);
 }
 
-void sig_heredoc(int sig)
-{
-	if (sig == SIGINT)
-		exit(EXIT_FAILURE);
-}
+// void sig_heredoc(int sig)
+// {
+// 	if (sig == SIGINT)
+// 		exit(EXIT_FAILURE);
+// }
 
-void sig_handl(int sig)
-{
-	if (sig == SIGINT && !g_global.open_heredoc)
-	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}
+// void sig_handl(int sig)
+// {
+// 	if (sig == SIGINT && !g_global.open_heredoc)
+// 	{
+// 		printf("\n");
+// 		rl_replace_line("", 0);
+// 		rl_on_new_line();
+// 		rl_redisplay();
+// 	}
+// }
 
 int *save_(void)
 {
@@ -106,7 +106,10 @@ int main(int ac, char **av, char **env)
 	create_env(env);
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, sig_handler);
 		line = readline("\e[1;32mMinishell~> \e[0m");
+		signal(SIGINT, SIG_IGN);
 		if (!line)
 			break;
 		if (ft_strlen(line))
@@ -115,6 +118,7 @@ int main(int ac, char **av, char **env)
 			minishell(line, env);
 			reset_io(g_global.save);
 		}
+		
 		free(line);
 	}
 	return 0;

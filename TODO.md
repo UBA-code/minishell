@@ -34,8 +34,7 @@ env -i ./minishell
 /// FAILED TEST // 
 //////////////////
 
-`<< l cat > p`  no file hang on herdoc
-`<< l  > p`  double free
+
 
 `cd` (null)
 

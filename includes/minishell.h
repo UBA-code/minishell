@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/01 20:51:57 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:20:30 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@
 # define RIGHT_GROUP ")"
 # define SPACE " "
 # define DOLAR "$"
+# define FIRST 1
+# define INPIPE 2
+# define LAST 3
+# define SINGLE 4
+
 // #define equal "="
 
 typedef struct s_get_variable_struct
@@ -173,9 +178,9 @@ int				open_herdoc(char *limit);
 int				executor(t_lexer_node *head);
 void			pipeline(t_lexer_node *head);
 int				*open_files(t_lexer_node *head);
-void			sig_handl(int sig);
+void			sig_handler(int sig);
 void			sig_heredoc(int sig);
-int				*dup_files(t_lexer_node *head, int fds[2], int tmp, int flag);
+int				dup_files(t_lexer_node *head, int fds[2], int tmp, int flag);
 void			cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag);
 void			pipeline(t_lexer_node *head);
 int				executor(t_lexer_node *head);

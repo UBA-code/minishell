@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/28 20:22:39 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:55:24 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int	parser_utils(t_lexer_node **lexer_head)
 		if (!parser_work(current))
 			return (parse_error_free(*lexer_head), 0);
 		current = current->next;
+		g_global.error = 0;
 	}
 	i = -1;
 	current = *lexer_head;

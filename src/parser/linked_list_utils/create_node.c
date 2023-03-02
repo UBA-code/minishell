@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:23:20 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/01 21:05:11 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:49:48 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_lexer_node	*lexer_create_node(t_lexer_node **head)
 t_files	*files_create_node(t_files **head, char *file, char type)
 {
 	t_files	*node;
+	int		pid;
+	int		status;
 
 	node = malloc(sizeof(t_files));
 	if (!*head)
@@ -32,8 +34,15 @@ t_files	*files_create_node(t_files **head, char *file, char type)
 		files_add_back_lst(*head, node);
 	node->file = file;
 	node->type = type;
-	if (type == 'H')
-		node->fd = open_herdoc(file);
+	if (type == 'H' && g_global.error == 0)
+	{
+		pid = fork();
+		if (!pid)
+			node->fd = open_herdoc(file);
+		else
+			wait(&status);
+		g_global.error =  WEXITSTATUS(status);
+	}
 	node->next = 0;
 	return (node);
 }

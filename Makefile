@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+         #
+#    By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 01:57:19 by bahbibe           #+#    #+#              #
-#    Updated: 2023/03/01 21:32:20 by ybel-hac         ###   ########.fr        #
+#    Updated: 2023/03/02 13:01:10 by bahbibe          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,8 @@ SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 		$(PARSE_PATH)builtins/export.c  \
 		$(PARSE_PATH)builtins/pwd.c  \
 		$(PARSE_PATH)builtins/unset.c \
-		$(EXECUTION_PATH)executor.c
+		$(EXECUTION_PATH)executor.c \
+		$(EXECUTION_PATH)signals.c \
 	
 
 all: $(NAME)
@@ -65,7 +66,16 @@ all: $(NAME)
 $(NAME): $(OBG)
 	@stty -echoctl
 	@$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/homebrew/Cellar/readline/8.2.1/lib -o $(NAME)
-	@echo "$(Green)Minishell Compiled ✅$(Off)"
+	@echo "🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚$(Green)bahbibe & ybel-hac represent $(Off)🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚"
+	@echo "🐚$(Red)    ##     ## #### ##    ## ####  ######  ##     ## ######## ##       ##          🐚";
+	@echo "🐚    ###   ###  ##  ###   ##  ##  ##    ## ##     ## ##       ##       ##          🐚";
+	@echo "🐚    #### ####  ##  ####  ##  ##  ##       ##     ## ##       ##       ##          🐚";
+	@echo "🐚    ## ### ##  ##  ## ## ##  ##   ######  ######### ######   ##       ##          🐚";
+	@echo "🐚    ##     ##  ##  ##  ####  ##        ## ##     ## ##       ##       ##          🐚";
+	@echo "🐚    ##     ##  ##  ##   ###  ##  ##    ## ##     ## ##       ##       ##          🐚";
+	@echo "🐚    ##     ## #### ##    ## ####  ######  ##     ## ######## ######## ########    🐚";
+	@echo "🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚"
+
 clean:
 	rm -rf $(OBG)
 fclean: clean
