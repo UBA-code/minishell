@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/02 15:22:02 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 15:43:02 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ void	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
 
 	pid = fork();
 	if (pid == 0)
-	{
-		signal(SIGINT, sig_handler);
+	{ 
+		signal(SIGINT, sig_handler_cmd);
 		if (is_builtin(*head->cmd_struct.cmd))
 		{
 			dup_files(head, pip, tmp, flag);

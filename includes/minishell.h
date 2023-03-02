@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/02 12:20:30 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/02 15:28:11 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void			cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag);
 void			pipeline(t_lexer_node *head);
 int				executor(t_lexer_node *head);
 void			reset_io(int *save);
-
+void			sig_handler_cmd(int sig);
 
 
 void			rl_replace_line(const char *, int);
