@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/02 19:17:47 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 22:53:46 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ int	open_herdoc(char *limit)
 	else
 		wait(&status);
 	g_global.error =  exit_stat(status);
+	if (g_global.error)
+	{
+		printf("\n");
+		g_global.done = 1;
+	}
 	return (close(fd[1]), fd[0]);
 }
 
@@ -64,9 +69,8 @@ int	*open_files(t_lexer_node *head)
 			fd[0] = open(head->cmd_struct.files_head->file, O_RDONLY);
 			if (fd[0] == -1)
 			{
-				ft_error(head->cmd_struct.files_head->file, 1);
-				ft_error(": no such file or directory\n", 1);
-				return (NULL);
+				perror(head->cmd_struct.files_head->file);
+				exit(EXIT_FAILURE);
 			}
 		}
 		head->cmd_struct.files_head = head->cmd_struct.files_head->next;
@@ -175,7 +179,7 @@ int	executor(t_lexer_node *head)
 	int	status;
 
 	if (head->next == NULL && is_builtin(*head->cmd_struct.cmd))
-		executor_builtin(head, pip, 0, SINGLE);
+		executor_builtin(head, pip, 0, SINGLE); // ! check the flags and the argument of the function
 	else
 	{	
 		if (head->next == NULL)

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/02 19:17:59 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 21:53:00 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int main(int ac, char **av, char **env)
 	create_env(env);
 	while (1)
 	{
+		g_global.done = 0;
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, sig_handler);
 		line = readline("\e[1;32mMinishell~> \e[0m");

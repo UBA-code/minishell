@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 12:18:07 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/02 19:16:16 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 21:00:14 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@
 void sig_handler(int sig)
 {
 	if (sig == SIGINT)
-	printf("\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	{
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+		g_global.error = 1;
+	}
 }
 
 void sig_heredoc(int sig)

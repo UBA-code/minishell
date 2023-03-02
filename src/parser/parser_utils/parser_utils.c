@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:49:25 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/02 19:21:32 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:26:02 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,7 @@ char	get_file_type(t_lexer_node *node, int i)
 int	get_after_file(t_lexer_node *node, int i)
 {
 	char	type;
-	int		check;
 
-	check = 0;
 	type = get_file_type(node, i);
 	if (!type)
 		return (0);
@@ -105,7 +103,7 @@ int	get_after_file(t_lexer_node *node, int i)
 				|| node->lexer[i].type == 'W'))
 		{
 			if (type == 'H')
-				check = files_create_node(&(node->cmd_struct.files_head),
+				files_create_node(&(node->cmd_struct.files_head),
 					ft_strdup(node->lexer[i].content), type); // !leak
 			else
 				files_create_node(&(node->cmd_struct.files_head),

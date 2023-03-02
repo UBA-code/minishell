@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/02 19:17:53 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 21:54:16 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,17 @@ typedef t_lexer_node	t_executor;
 typedef struct s_g_global
 {
 	t_mini_env	*env_head;
+	int		open_heredoc;
 	int			error;
+	int			done;
 	int			*save;
 }	t_global;
 
-# ifndef G_GLOBAL
+// # ifndef G_GLOBAL
 
 t_global	g_global;
 
-# endif
+// # endif
 
 void			*ft_memset(void *b, int c, size_t len);
 void			*ft_calloc(size_t count, size_t size);
@@ -165,7 +167,7 @@ int				get_token_len(char *str);
 int				get_token_size(char *str, int *num);
 char			get_type(char *content);
 int				check_syntax(char *line);
-void			parse_error_free(t_lexer_node *lexer_head);
+void			parse_error_free(t_lexer_node *lexer_head, int n);
 int				is_builtin(char *str);
 int				ft_strrchr(char *str, char c);
 char			*search_in_path(char *cmd);
