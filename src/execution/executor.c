@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/02 18:25:03 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 19:17:47 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int	executor(t_lexer_node *head)
 	int	status;
 
 	if (head->next == NULL && is_builtin(*head->cmd_struct.cmd))
-		executor_builtin(head, pip, 0, SINGLE); // ! check the flags and the argument of the function
+		executor_builtin(head, pip, 0, SINGLE);
 	else
 	{	
 		if (head->next == NULL)

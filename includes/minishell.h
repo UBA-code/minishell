@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/02 16:29:50 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/02 19:17:53 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,15 @@ typedef t_lexer_node	t_executor;
 typedef struct s_g_global
 {
 	t_mini_env	*env_head;
-	int		open_heredoc;
 	int			error;
 	int			*save;
 }	t_global;
 
-// # ifndef G_GLOBAL
+# ifndef G_GLOBAL
 
 t_global	g_global;
 
-// # endif
+# endif
 
 void			*ft_memset(void *b, int c, size_t len);
 void			*ft_calloc(size_t count, size_t size);
