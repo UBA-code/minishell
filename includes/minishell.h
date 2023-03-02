@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/02 21:54:16 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 23:43:20 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,24 +173,23 @@ int				ft_strrchr(char *str, char c);
 char			*search_in_path(char *cmd);
 void			exec_builtin(char *cmd, char **args);
 char			**ft_split_costom(char *str);
-
 // !execution
-int				open_herdoc(char *limit);
 int				executor(t_lexer_node *head);
 void			pipeline(t_lexer_node *head);
-int				*open_files(t_lexer_node *head);
+void			cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag);
+int				dup_files(t_lexer_node *head, int fds[2], int tmp, int flag);
+int				open_herdoc(char *limit);
+int				*redirect(t_lexer_node *head);
+int				open_input(t_files *file);
+// !signals
 void			sig_handler(int sig);
 void			sig_heredoc(int sig);
-int				dup_files(t_lexer_node *head, int fds[2], int tmp, int flag);
-void			cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag);
-void			pipeline(t_lexer_node *head);
-int				executor(t_lexer_node *head);
-void			reset_io(int *save);
-void			sig_handler_cmd(int sig);
 int				exit_stat(int stat);
-
-
-
+// !utils
+void			get_file_fd(int *files, int *fd_io);
+void			executor_builtin(t_lexer_node *head, int pip[2], int tmp, int flag);
+int				*save_(void);
+void			reset_io(int *save);
 void			rl_replace_line(const char *, int);
 void			print_lex(t_lexer_node *head);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/02 21:53:00 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 23:09:39 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,9 @@ char *get_folder(char *s1, char *s2, char *s3)
 // 	}
 // }
 
-int *save_(void)
-{
-	int *save = malloc(sizeof(int) * 2);
-	save[0] = dup(0);
-	save[1] = dup(1);
-	return (save);
-}
 
-void reset_io(int *save)
-{
-	dup2(save[0], 0);
-	dup2(save[1], 1);
-}
+
+
 
 
 int main(int ac, char **av, char **env)

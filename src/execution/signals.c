@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 12:18:07 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/02 21:00:14 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/02 23:05:22 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ void sig_heredoc(int sig)
 		exit(EXIT_FAILURE);
 }
 
-// void sig_handler_cmd(int sig)
-// {
-// 	//(void)sig;
-// 	if (sig == SIGINT)
-// 		exit_stat(130);
-// }
+int exit_stat(int stat)
+{
+	if (WIFEXITED(stat))
+		return (WEXITSTATUS(stat));
+	else if (WIFSIGNALED(stat))
+		return (WTERMSIG(stat) + 128);
+	return (0);
+}
