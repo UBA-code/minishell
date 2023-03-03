@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/03 14:57:42 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 15:26:36 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,8 @@ int	parser_utils(t_lexer_node **lexer_head)
 	current = *lexer_head;
 	while (current)
 	{
-		if (!parser_work(current))
-			return (parse_error_free(*lexer_head), 0);
-		if (g_global.done)
-			return (parse_error_free(*lexer_head), 0);
+		if (!parser_work(current) || g_global.done)
+			return (parse_free(*lexer_head), 0);
 		current = current->next;
 		g_global.error = 0;
 	}

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/02 22:53:46 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:53:20 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,31 @@ int	open_herdoc(char *limit)
 
 int	*open_files(t_lexer_node *head)
 {
-	int *fd;
-	
+	int		*fd;
+	t_files	*current;
+
+	current = head->cmd_struct.files_head;
 	fd = malloc(sizeof(int) * 2);
 	fd[0] = -1;
 	fd[1] = -1;
-	while (head->cmd_struct.files_head)
+	while (current)
 	{
-		if (head->cmd_struct.files_head->type == 'H')
-			fd[0] = head->cmd_struct.files_head->fd; // leaks maybe
-			// fd[0] = open_herdoc(head->cmd_struct.files_head->file);
-		else if (head->cmd_struct.files_head->type == 'A')
-			fd[1] = open(head->cmd_struct.files_head->file, O_CREAT | O_RDWR | O_APPEND, 0777);
-		else if (head->cmd_struct.files_head->type == 'O')
-			fd[1] = open(head->cmd_struct.files_head->file, O_CREAT | O_RDWR | O_TRUNC, 0777);
-		else if (head->cmd_struct.files_head->type == 'I')
+		if (current->type == 'H')
+			fd[0] = current->fd;
+		else if (current->type == 'A')
+			fd[1] = open(current->file, O_CREAT | O_WRONLY | O_APPEND, 0777);
+		else if (current->type == 'O')
+			fd[1] = open(current->file, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+		else if (current->type == 'I')
 		{
-			fd[0] = open(head->cmd_struct.files_head->file, O_RDONLY);
+			fd[0] = open(current->file, O_RDONLY);
 			if (fd[0] == -1)
 			{
-				perror(head->cmd_struct.files_head->file);
+				perror(current->file);
 				exit(EXIT_FAILURE);
 			}
 		}
-		head->cmd_struct.files_head = head->cmd_struct.files_head->next;
+		current = current->next;
 	}
 	return (fd);
 }
@@ -86,7 +87,7 @@ void get_file_fd(int *files, int *fd_io)
 		fd_io[1] = files[1];
 }
 
-int dup_files(t_lexer_node *head, int pip[2], int tmp, int flag)
+int *dup_files(t_lexer_node *head, int pip[2], int tmp, int flag)
 {
 	int fd_io[2];
 	int	*files;
@@ -110,7 +111,8 @@ int dup_files(t_lexer_node *head, int pip[2], int tmp, int flag)
 			fd_io[0] = tmp;
 		get_file_fd(files, fd_io);
 	}
-	return (dup2(fd_io[0], 0), dup2(fd_io[1], 1));
+	dup2(fd_io[1], 1);
+	return (dup2(fd_io[0], 0), files);
 }
 
 void	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
@@ -141,9 +143,12 @@ void	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
 
 void	executor_builtin(t_lexer_node *head, int pip[2], int tmp, int flag)
 {
-	dup_files(head, pip, tmp, flag);
+	int	*files;
+
+	files = dup_files(head, pip, tmp, flag);
 	exec_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
 	reset_io(g_global.save);
+	free(files);
 }
 
 void pipeline(t_lexer_node *head)
@@ -179,7 +184,7 @@ int	executor(t_lexer_node *head)
 	int	status;
 
 	if (head->next == NULL && is_builtin(*head->cmd_struct.cmd))
-		executor_builtin(head, pip, 0, SINGLE); // ! check the flags and the argument of the function
+		executor_builtin(head, pip, 0, SINGLE);
 	else
 	{	
 		if (head->next == NULL)
@@ -189,7 +194,6 @@ int	executor(t_lexer_node *head)
 		while (waitpid(-1, &status, 0) != -1);
 		g_global.error = exit_stat(status);
 	}
-	// g_global.error = 0;
 	return (0);
 }
 

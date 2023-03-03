@@ -6,13 +6,13 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 11:25:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/03 15:01:39 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 15:26:19 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	parse_error_free(t_lexer_node *lexer_head)
+void	parse_free(t_lexer_node *lexer_head)
 {
 	// int	i;
 

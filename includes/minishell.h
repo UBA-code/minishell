@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/03 14:57:17 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:13:54 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ int				get_token_len(char *str);
 int				get_token_size(char *str, int *num);
 char			get_type(char *content);
 int				check_syntax(char *line);
-void			parse_error_free(t_lexer_node *lexer_head);
+void			parse_free(t_lexer_node *lexer_head);
 int				is_builtin(char *str);
 int				ft_strrchr(char *str, char c);
 char			*search_in_path(char *cmd);
@@ -181,7 +181,7 @@ void			pipeline(t_lexer_node *head);
 int				*open_files(t_lexer_node *head);
 void			sig_handler(int sig);
 void			sig_heredoc(int sig);
-int				dup_files(t_lexer_node *head, int fds[2], int tmp, int flag);
+int				*dup_files(t_lexer_node *head, int fds[2], int tmp, int flag);
 void			cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag);
 void			pipeline(t_lexer_node *head);
 int				executor(t_lexer_node *head);
