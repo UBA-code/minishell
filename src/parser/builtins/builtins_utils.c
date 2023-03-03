@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:50:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/03 00:59:36 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/28 20:34:53 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
 
 char	*search_in_path(char *cmd)
 {
@@ -43,10 +44,9 @@ int	is_builtin(char *str)
 {
 	int		slach_index;
 
-	if (str && (ft_strcmp(str, "echo") || ft_strcmp(str, "cd")
-			|| ft_strcmp(str, "pwd") || ft_strcmp(str, "export")
-			|| ft_strcmp(str, "unset")
-			|| ft_strcmp(str, "env") || ft_strcmp(str, "exit")))
+	if (str && (ft_strcmp(str, "echo") || ft_strcmp(str, "cd") || ft_strcmp(str, "pwd")
+			|| ft_strcmp(str, "export") || ft_strcmp(str, "unset")
+				|| ft_strcmp(str, "env") || ft_strcmp(str, "exit")))
 		return (1);
 	if (access(str, X_OK) == 0)
 	{
@@ -54,9 +54,8 @@ int	is_builtin(char *str)
 		if (!slach_index)
 			return (0);
 		str = str + slach_index + 1;
-		if (str && (ft_strcmp(str, "echo") || ft_strcmp(str, "cd")
-				|| ft_strcmp(str, "pwd")
-				|| ft_strcmp(str, "export") || ft_strcmp(str, "unset")
+		if (str && (ft_strcmp(str, "echo") || ft_strcmp(str, "cd") || ft_strcmp(str, "pwd")
+			|| ft_strcmp(str, "export") || ft_strcmp(str, "unset")
 				|| ft_strcmp(str, "env") || ft_strcmp(str, "exit")))
 			return (1);
 	}
@@ -66,7 +65,7 @@ int	is_builtin(char *str)
 void	exec_builtin(char *cmd, char **args)
 {
 	int	i;
-
+	
 	i = ft_strrchr(cmd, '/') + 1;
 	if (i == -1)
 		i = 0;

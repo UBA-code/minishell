@@ -3,38 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 12:18:07 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/03 02:15:37 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/02 21:00:14 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	sig_handler(int sig)
+
+void sig_handler(int sig)
 {
-	if (sig == SIGINT && !g_global.done)
+	if (sig == SIGINT)
 	{
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		// g_global.error = 1;
+		g_global.error = 1;
 	}
 }
 
-void	sig_heredoc(int sig)
+void sig_heredoc(int sig)
 {
 	if (sig == SIGINT)
 		exit(EXIT_FAILURE);
 }
 
-int	exit_stat(int stat)
-{
-	if (WIFEXITED(stat))
-		return (WEXITSTATUS(stat));
-	else if (WIFSIGNALED(stat))
-		return (WTERMSIG(stat) + 128);
-	return (0);
-}
+// void sig_handler_cmd(int sig)
+// {
+// 	//(void)sig;
+// 	if (sig == SIGINT)
+// 		exit_stat(130);
+// }

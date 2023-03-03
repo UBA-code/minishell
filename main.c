@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/03 02:17:39 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/02 21:53:00 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	minishell(char *line, char **env)
 	t_lexer_node	*head;
 
 	if (!check_syntax(line))
-		return (ft_error("syntax error\n", 258));
+		return ft_error("syntax error\n", 258);
 	head = 0;
 	i = -1;
 	args = ft_split_costom(line);
@@ -44,7 +44,6 @@ void	minishell(char *line, char **env)
 	free(args);
 	if (parser_utils(&head))
 	{
-		
 		executor(head);
 		// exec_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
 		free_parser(head);
@@ -52,9 +51,9 @@ void	minishell(char *line, char **env)
 	}
 }
 
-char	*get_folder(char *s1, char *s2, char *s3)
+char *get_folder(char *s1, char *s2, char *s3)
 {
-	char	*final;
+	char *final;
 
 	final = ft_strjoin(0, s1);
 	final = ft_strjoin(final, s2);
@@ -63,12 +62,44 @@ char	*get_folder(char *s1, char *s2, char *s3)
 	return (final);
 }
 
-int	main(int ac, char **av, char **env)
-{
-	char	*line;
+// void sig_heredoc(int sig)
+// {
+// 	if (sig == SIGINT)
+// 		exit(EXIT_FAILURE);
+// }
 
-	(void) ac;
-	(void) av;
+// void sig_handl(int sig)
+// {
+// 	if (sig == SIGINT && !g_global.open_heredoc)
+// 	{
+// 		printf("\n");
+// 		rl_replace_line("", 0);
+// 		rl_on_new_line();
+// 		rl_redisplay();
+// 	}
+// }
+
+int *save_(void)
+{
+	int *save = malloc(sizeof(int) * 2);
+	save[0] = dup(0);
+	save[1] = dup(1);
+	return (save);
+}
+
+void reset_io(int *save)
+{
+	dup2(save[0], 0);
+	dup2(save[1], 1);
+}
+
+
+int main(int ac, char **av, char **env)
+{
+	(void)    ac;
+	(void)    av;
+	char    *line;
+
 	g_global.save = save_();
 	g_global.env_head = 0;
 	g_global.error = 0;
@@ -81,14 +112,29 @@ int	main(int ac, char **av, char **env)
 		line = readline("\e[1;32mMinishell~> \e[0m");
 		signal(SIGINT, SIG_IGN);
 		if (!line)
-			break ;
+			break;
 		if (ft_strlen(line))
 		{
 			add_history(line);
 			minishell(line, env);
 			reset_io(g_global.save);
 		}
+		
 		free(line);
 	}
-	return (0);
+	return 0;
 }
+
+
+
+// int main(int argc, char const *argv[])
+// {
+// 	char **temp;
+// 	int		i;
+
+// 	i = -1;
+// 	temp = ft_split_costom("\"\"");
+// 	while (temp[++i])
+// 		printf("*%s*\n", temp[i]);
+// 	return 0;
+// }

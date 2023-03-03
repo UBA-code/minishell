@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:57:06 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/03 01:01:55 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/02/25 11:19:26 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static int	skip_sign(char *nb, int *i, int *sign)
+static int skip_sign(char *nb, int *i, int *sign)
 {
-	int	j;
+	int j;
 
 	j = 0;
 	*sign = 1;
@@ -30,11 +30,11 @@ static int	skip_sign(char *nb, int *i, int *sign)
 	return (1);
 }
 
-long long	ft_atoi(char *nb)
+long long ft_atoi(char *nb)
 {
-	size_t		i;
-	int			sign;
-	long long	n;
+	size_t i;
+	int sign;
+	long long n;
 
 	i = 0;
 	n = 0;
