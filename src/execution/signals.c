@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 12:18:07 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/03 00:56:40 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/03 02:15:37 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	sig_handler(int sig)
 {
-	if (sig == SIGINT)
+	if (sig == SIGINT && !g_global.done)
 	{
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		g_global.error = 1;
+		// g_global.error = 1;
 	}
 }
 

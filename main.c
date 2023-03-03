@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/03 01:10:52 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/03 02:17:39 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	minishell(char *line, char **env)
 	free(args);
 	if (parser_utils(&head))
 	{
+		
 		executor(head);
 		// exec_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
 		free_parser(head);

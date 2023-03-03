@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 23:07:46 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/03 00:55:12 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/03 02:23:44 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	open_herdoc(char *limit)
 	pid = fork();
 	if (!pid)
 	{
+		g_global.done = 1;
+		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, sig_heredoc);
 		while (1)
 		{
@@ -77,6 +79,7 @@ int	open_herdoc(char *limit)
 	else
 		wait(&status);
 	g_global.error = exit_stat(status);
+	g_global.done = 0;
 	if (g_global.error)
 	{
 		printf("\n");
