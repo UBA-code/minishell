@@ -6,29 +6,29 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 23:07:46 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/02 23:44:50 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/03 00:55:12 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int open_input(t_files *file)
+int	open_input(t_files *file)
 {
-	int fd;
-	
+	int	fd;
+
 	fd = open(file->file, O_RDONLY);
 	if (fd == -1)
 	{
 		perror(file->file);
 		exit(EXIT_FAILURE);
 	}
-	return(fd);
+	return (fd);
 }
 
 int	*redirect(t_lexer_node *head)
 {
-	int *fd;
-	
+	int	*fd;
+
 	fd = malloc(sizeof(int) * 2);
 	fd[0] = -1;
 	fd[1] = -1;
@@ -51,8 +51,8 @@ int	*redirect(t_lexer_node *head)
 
 int	open_herdoc(char *limit)
 {
-	int fd[2];
-	char *line;
+	int		fd[2];
+	char	*line;
 	int		pid;
 	int		status;
 
@@ -76,7 +76,7 @@ int	open_herdoc(char *limit)
 	}
 	else
 		wait(&status);
-	g_global.error =  exit_stat(status);
+	g_global.error = exit_stat(status);
 	if (g_global.error)
 	{
 		printf("\n");
@@ -85,11 +85,11 @@ int	open_herdoc(char *limit)
 	return (close(fd[1]), fd[0]);
 }
 
-int dup_files(t_lexer_node *head, int pip[2], int tmp, int flag)
+int	dup_files(t_lexer_node *head, int pip[2], int tmp, int flag)
 {
-	int fd_io[2];
+	int	fd_io[2];
 	int	*files;
-	
+
 	files = redirect(head);
 	if (!files)
 		return (0);
@@ -111,4 +111,3 @@ int dup_files(t_lexer_node *head, int pip[2], int tmp, int flag)
 	}
 	return (dup2(fd_io[0], 0), dup2(fd_io[1], 1));
 }
-

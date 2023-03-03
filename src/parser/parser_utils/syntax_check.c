@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:02:19 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/01 17:16:42 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 01:04:42 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int	get_pipes_len(char *line)
 	while (line[i])
 	{
 		if (line[i] == '\'')
-			while (line[i + 1] && line[++i] != '\'');
+			while (line[i + 1] && line[++i] != '\'')
+				;
 		else if (line[i] == '"')
-			while (line[i + 1] && line[++i] != '\"');
+			while (line[i + 1] && line[++i] != '\"')
+				;
 		if (line[i] == '|')
 			j++;
 		i++;

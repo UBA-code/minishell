@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/02 23:32:53 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/03 00:56:08 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
 
 	pid = fork();
 	if (pid == 0)
-	{ 
+	{
 		signal(SIGINT, SIG_DFL);
 		if (is_builtin(*head->cmd_struct.cmd))
 		{
@@ -27,7 +27,7 @@ void	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
 			reset_io(g_global.save);
 			exit(g_global.error);
 		}
-		close(*pip);
+		close(pip[0]);
 		dup_files(head, pip, tmp, flag);
 		if (!*head->cmd_struct.cmd)
 			exit (0);
@@ -38,11 +38,11 @@ void	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
 	}
 }
 
-void pipeline(t_lexer_node *head)
+void	pipeline(t_lexer_node *head)
 {
 	t_lexer_node	*cur;
-	int	 			pip[2];
-	int 			tmp;
+	int				pip[2];
+	int				tmp;
 
 	tmp = 0;
 	cur = head;
@@ -61,7 +61,6 @@ void pipeline(t_lexer_node *head)
 		close(pip[1]);
 		cur = cur->next;
 	}
-	
 }
 
 int	executor(t_lexer_node *head)
@@ -70,14 +69,20 @@ int	executor(t_lexer_node *head)
 	int	status;
 
 	if (head->next == NULL && is_builtin(*head->cmd_struct.cmd))
-		executor_builtin(head, pip, 0, SINGLE); // ! check the flags and the argument of the function
+	{
+		dup_files(head, pip, 0, SINGLE);
+		exec_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
+		reset_io(g_global.save);
+	}
+		// executor_builtin(head, pip, 0, SINGLE);
 	else
 	{	
 		if (head->next == NULL)
 			cmd_exec(head, pip, 0, SINGLE);
 		else
 			pipeline(head);
-		while (waitpid(-1, &status, 0) != -1);
+		while (waitpid(-1, &status, 0) != -1)
+			;
 		g_global.error = exit_stat(status);
 	}
 	return (0);

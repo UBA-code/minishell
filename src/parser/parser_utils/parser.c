@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/02 21:54:08 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 01:07:11 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int	parser_work(t_lexer_node *node)
 	node->cmd_struct.files_head = 0;
 	j = 0;
 	i = 0;
-	node->cmd_struct.cmd = ft_calloc(sizeof(char *)
-			, parser_get_size(node) + 1);
+	node->cmd_struct.cmd = ft_calloc(sizeof(char *), parser_get_size(node) + 1);
 	while (i < node->lexer_size)
 	{
 		if (node->lexer[i].type == '<' || node->lexer[i].type == '>')
@@ -63,7 +62,7 @@ char	*get_cmd_path(char *cmd)
 	char	*final;
 
 	i = -1;
-	if (access(cmd, X_OK) == 0 || !cmd ||  *cmd == '/' || *cmd == '.')
+	if (access(cmd, X_OK) == 0 || !cmd || *cmd == '/' || *cmd == '.')
 		return (cmd);
 	paths = ft_split(get_variable_cmd("PATH"), ":");
 	if (!check_env(cmd, paths))
@@ -82,15 +81,16 @@ char	*get_cmd_path(char *cmd)
 	return (tab_free(paths), cmd);
 }
 
-void print_lex(t_lexer_node *head)
+void	print_lex(t_lexer_node *head)
 {
-	
-	t_lexer_node *current = head;
-	t_files *files;
+	t_lexer_node	*current;
+	t_files			*files;
+	int				i;
 
+	current = head;
 	while (current)
 	{
-		int i = 0;
+		i = 0;
 		while (current->cmd_struct.cmd[i])
 		{
 			printf("%d|%s|\n", i + 1, current->cmd_struct.cmd[i]);

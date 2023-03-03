@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/02 23:43:20 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/03 01:09:21 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct lexer_s
 	char	type;
 }	t_lexer;
 
-
 typedef struct s_files
 {
 	char			*file;
@@ -92,7 +91,6 @@ typedef t_lexer_node	t_executor;
 typedef struct s_g_global
 {
 	t_mini_env	*env_head;
-	int		open_heredoc;
 	int			error;
 	int			done;
 	int			*save;
@@ -187,7 +185,7 @@ void			sig_heredoc(int sig);
 int				exit_stat(int stat);
 // !utils
 void			get_file_fd(int *files, int *fd_io);
-void			executor_builtin(t_lexer_node *head, int pip[2], int tmp, int flag);
+// void			executor_builtin(t_lexer_node *head, int pip[2], int tmp, int flag);
 int				*save_(void);
 void			reset_io(int *save);
 void			rl_replace_line(const char *, int);
