@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:15:37 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:20:34 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 13:51:42 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	lexer_check(char c)
 {
 	if (c == '\'' || c == '"' || c == '<' || c == '>'
-		|| c == ' ' || c == ')' || c == '(')
+		|| c == ' ' || c == '	')
 		return (1);
 	return (0);
 }
@@ -95,6 +95,8 @@ char	get_type(char *content)
 		return (')');
 	if (ft_strcmp(content, SPACE))
 		return ('S');
+	if (ft_strcmp(content, TAB))
+		return ('T');
 	else
 		return ('W');
 }

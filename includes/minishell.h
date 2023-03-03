@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/02 21:54:16 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:57:17 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define LEFT_GROUP "("
 # define RIGHT_GROUP ")"
 # define SPACE " "
+# define TAB "	"
 # define DOLAR "$"
 # define FIRST 1
 # define INPIPE 2
@@ -98,11 +99,9 @@ typedef struct s_g_global
 	int			*save;
 }	t_global;
 
-// # ifndef G_GLOBAL
-
+# ifndef G_GLOBAL
 t_global	g_global;
-
-// # endif
+# endif
 
 void			*ft_memset(void *b, int c, size_t len);
 void			*ft_calloc(size_t count, size_t size);
@@ -167,12 +166,13 @@ int				get_token_len(char *str);
 int				get_token_size(char *str, int *num);
 char			get_type(char *content);
 int				check_syntax(char *line);
-void			parse_error_free(t_lexer_node *lexer_head, int n);
+void			parse_error_free(t_lexer_node *lexer_head);
 int				is_builtin(char *str);
 int				ft_strrchr(char *str, char c);
 char			*search_in_path(char *cmd);
 void			exec_builtin(char *cmd, char **args);
 char			**ft_split_costom(char *str);
+int				check_empty(char *line);
 
 // !execution
 int				open_herdoc(char *limit);

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:49:25 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/02 18:26:02 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 15:01:52 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_parser(t_lexer_node *head)
 	while (head)
 	{
 		i = 0;
-		while (head->cmd_struct.cmd[i])
+		while (head->cmd_struct.cmd && head->cmd_struct.cmd[i])
 		{
 			free(head->cmd_struct.cmd[i]);
 			i++;

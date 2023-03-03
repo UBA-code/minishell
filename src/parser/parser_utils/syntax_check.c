@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:02:19 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/01 17:16:42 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 13:53:53 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_word(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != ' ')
+		if (str[i] != ' ' && str[i] != '	')
 			return (1);
 		i++;
 	}
@@ -67,6 +67,19 @@ int	check_pipes(char *line)
 	}
 	tab_free(temp);
 	if (j != pipes_len + 1)
+		return (0);
+	return (1);
+}
+
+int	check_empty(char *line)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i])
+		if (line[i] != ' ' && line[i] != '	')
+			return (1);
+	if (!line[i])
 		return (0);
 	return (1);
 }

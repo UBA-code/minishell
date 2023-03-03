@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/02 21:54:08 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:57:42 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,9 @@ int	parser_utils(t_lexer_node **lexer_head)
 	while (current)
 	{
 		if (!parser_work(current))
-			return (parse_error_free(*lexer_head, 1), 0);
+			return (parse_error_free(*lexer_head), 0);
 		if (g_global.done)
-			return (parse_error_free(*lexer_head, 0), 0);
+			return (parse_error_free(*lexer_head), 0);
 		current = current->next;
 		g_global.error = 0;
 	}
@@ -125,8 +125,6 @@ int	parser_utils(t_lexer_node **lexer_head)
 	current = *lexer_head;
 	while (current)
 	{
-		// if (!(current->cmd_struct.cmd[0]))
-			// current->cmd_struct.cmd[0] = ft_strdup("");
 		if (current->cmd_struct.cmd[0] && !is_builtin(current->cmd_struct.cmd[0]))
 			current->cmd_struct.cmd[0] = get_cmd_path(current->cmd_struct.cmd[0]);
 		current = current->next;

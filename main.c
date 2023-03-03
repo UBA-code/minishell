@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/02 21:53:00 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:30:45 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,12 @@ int main(int ac, char **av, char **env)
 		signal(SIGINT, SIG_IGN);
 		if (!line)
 			break;
-		if (ft_strlen(line))
+		if (ft_strlen(line) && check_empty(line))
 		{
 			add_history(line);
 			minishell(line, env);
 			reset_io(g_global.save);
 		}
-		
 		free(line);
 	}
 	return 0;

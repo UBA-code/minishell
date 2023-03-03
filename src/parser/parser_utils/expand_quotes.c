@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 10:37:08 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:40:34 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:34:08 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*strjoin_small(char *s1, char c)
 
 	i = 0;
 	total_len = get_str_len(s1) + 1;
-	final_str = malloc(sizeof(char) * (total_len + 2));
+	final_str = ft_calloc(sizeof(char), (total_len + 2));
 	if (!final_str)
 		return (0);
 	if (!s1)

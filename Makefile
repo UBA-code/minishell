@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+         #
+#    By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 01:57:19 by bahbibe           #+#    #+#              #
-#    Updated: 2023/03/02 16:50:39 by bahbibe          ###   ########.fr        #
+#    Updated: 2023/03/03 14:58:23 by ybel-hac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ NAME = minishell
 PARSE_PATH = ./src/parser/
 EXECUTION_PATH = ./src/execution/
 OBG = $(SRCS:.c=.o)
-CFLAGS = -Wall -Werror -Wextra
+# CFLAGS = -Wall -Werror -Wextra
 # CFLAGS = -fsanitize=address -g3
 SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 		$(PARSE_PATH)get_next_line/get_next_line_utils.c \

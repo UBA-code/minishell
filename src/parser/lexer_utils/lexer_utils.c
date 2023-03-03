@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:31:03 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:20:37 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:32:07 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_lexer_node(t_lexer_node **head, char *line, char **env)
 	int				j;
 	t_lexer_node	*node;
 
-	lexer = malloc(sizeof(t_lexer) * (get_token_len(line) + 1));
+	lexer = ft_calloc(sizeof(t_lexer), (get_token_len(line) + 1));
 	i = 0;
 	j = 0;
 	while (line[i])
