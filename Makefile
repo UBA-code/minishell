@@ -6,7 +6,7 @@
 #    By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 01:57:19 by bahbibe           #+#    #+#              #
-#    Updated: 2023/03/03 14:58:23 by ybel-hac         ###   ########.fr        #
+#    Updated: 2023/03/03 21:18:23 by ybel-hac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 		$(PARSE_PATH)lexer_utils/init_lexer_node.c \
 		$(PARSE_PATH)lexer_utils/lexer_utils.c \
 		$(PARSE_PATH)utils/ft_atoi.c \
+		$(PARSE_PATH)utils/ft_putstr.c \
 		$(PARSE_PATH)utils/ft_itoa.c \
 		$(PARSE_PATH)utils/custom_split.c \
 		$(PARSE_PATH)utils/utils.c \

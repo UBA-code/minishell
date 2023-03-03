@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/02 12:18:07 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/03 21:05:12 by ybel-hac         ###   ########.fr       */
+/*   Created: 2023/03/03 17:30:02 by ybel-hac          #+#    #+#             */
+/*   Updated: 2023/03/03 17:30:21 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-void	sig_handler(int sig)
+void	ft_putstr(char *str, int fd)
 {
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-		g_global.error = 1;
-	}
-}
+	int	i;
 
-void	sig_heredoc(int sig)
-{
-	if (sig == SIGINT)
-		exit(EXIT_FAILURE);
+	i = -1;
+	while (str[++i])
+		write(fd, &str[i], 1);
 }
-
-// void sig_handler_cmd(int sig)
-// {
-// 	//(void)sig;
-// 	if (sig == SIGINT)
-// 		exit_stat(130);
-// }

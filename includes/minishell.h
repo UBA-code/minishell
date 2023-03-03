@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/03 16:13:54 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 21:14:35 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@
 # define LAST 3
 # define SINGLE 4
 
-// #define equal "="
-
 typedef struct s_get_variable_struct
 {
 	char	*variable;
@@ -55,7 +53,6 @@ typedef struct lexer_s
 	char	*content;
 	char	type;
 }	t_lexer;
-
 
 typedef struct s_files
 {
@@ -93,14 +90,16 @@ typedef t_lexer_node	t_executor;
 typedef struct s_g_global
 {
 	t_mini_env	*env_head;
-	int		open_heredoc;
+	int			open_heredoc;
 	int			error;
 	int			done;
 	int			*save;
 }	t_global;
 
 # ifndef G_GLOBAL
+
 t_global	g_global;
+
 # endif
 
 void			*ft_memset(void *b, int c, size_t len);
@@ -173,8 +172,6 @@ char			*search_in_path(char *cmd);
 void			exec_builtin(char *cmd, char **args);
 char			**ft_split_costom(char *str);
 int				check_empty(char *line);
-
-// !execution
 int				open_herdoc(char *limit);
 int				executor(t_lexer_node *head);
 void			pipeline(t_lexer_node *head);
@@ -188,9 +185,6 @@ int				executor(t_lexer_node *head);
 void			reset_io(int *save);
 void			sig_handler_cmd(int sig);
 int				exit_stat(int stat);
-
-
-
-void			rl_replace_line(const char *, int);
+void			rl_replace_line(const char *str, int nb);
 void			print_lex(t_lexer_node *head);
 #endif

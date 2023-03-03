@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:57:42 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/25 11:21:34 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:52:34 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,6 @@ void	create_env(char **env)
 	char	*value;
 
 	i = 0;
-	// if (!env || !env[0])
-	// {
-		// ft_error("bruh why u try to sigfault me :( please don't unset the env\n", 1);
-		// exit(EXIT_FAILURE);
-	// }
 	while (env && env[i])
 	{
 		if (ft_strchr(env[i], '=') == -1)

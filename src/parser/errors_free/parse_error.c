@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 11:25:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/03 15:26:19 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:47:51 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 
 void	parse_free(t_lexer_node *lexer_head)
 {
-	// int	i;
-
-	// i = -1;
-	// while (lexer_head->cmd_struct.cmd[++i])
-	// 	free(lexer_head->cmd_struct.cmd[i]);
-	// lst_clear(&lexer_head);
-	// free(lexer_head->cmd_struct.cmd);
-	// if (n)
-	// 	ft_error("Error, Parse Error\n", 258);
 	free_parser(lexer_head);
 	lst_clear(&lexer_head);
 }

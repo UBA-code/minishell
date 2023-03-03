@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/03 15:26:36 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/03 21:25:41 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	parser_work(t_lexer_node *node)
 
 	node->cmd_struct.files_head = 0;
 	j = 0;
-	i = 0;
-	node->cmd_struct.cmd = ft_calloc(sizeof(char *)
-			, parser_get_size(node) + 1);
-	while (i < node->lexer_size)
+	i = -1;
+	node->cmd_struct.cmd = ft_calloc(sizeof(char *),
+			parser_get_size(node) + 1);
+	while (++i < node->lexer_size)
 	{
 		if (node->lexer[i].type == '<' || node->lexer[i].type == '>')
 		{
@@ -37,10 +37,7 @@ int	parser_work(t_lexer_node *node)
 			j--;
 		if (g_global.done)
 			return (1);
-		// node->cmd_struct.cmd[j] = 0;
-		i++;
 	}
-	// node->cmd_struct.cmd[j] = 0;
 	return (1);
 }
 
@@ -48,8 +45,6 @@ int	check_env(char *cmd, char **paths)
 {
 	if (!paths)
 	{
-		// ft_error(cmd, 127);
-		// ft_error(": command not found\n", 127);
 		free(cmd);
 		return (0);
 	}
@@ -63,7 +58,7 @@ char	*get_cmd_path(char *cmd)
 	char	*final;
 
 	i = -1;
-	if (access(cmd, X_OK) == 0 || !cmd ||  *cmd == '/' || *cmd == '.')
+	if (!cmd || *cmd == '/' || *cmd == '.')
 		return (cmd);
 	paths = ft_split(get_variable_cmd("PATH"), ":");
 	if (!check_env(cmd, paths))
@@ -82,15 +77,16 @@ char	*get_cmd_path(char *cmd)
 	return (tab_free(paths), cmd);
 }
 
-void print_lex(t_lexer_node *head)
+void	print_lex(t_lexer_node *head)
 {
-	
-	t_lexer_node *current = head;
-	t_files *files;
+	t_lexer_node	*current;
+	t_files			*files;
+	int				i;
 
+	current = head;
 	while (current)
 	{
-		int i = 0;
+		i = 0;
 		while (current->cmd_struct.cmd[i])
 		{
 			printf("%d|%s|\n", i + 1, current->cmd_struct.cmd[i]);
@@ -123,12 +119,10 @@ int	parser_utils(t_lexer_node **lexer_head)
 	current = *lexer_head;
 	while (current)
 	{
-		if (current->cmd_struct.cmd[0] && !is_builtin(current->cmd_struct.cmd[0]))
-			current->cmd_struct.cmd[0] = get_cmd_path(current->cmd_struct.cmd[0]);
+		if (current->cmd_struct.cmd[0]
+			&& !is_builtin(current->cmd_struct.cmd[0]))
+			*current->cmd_struct.cmd = get_cmd_path(*current->cmd_struct.cmd);
 		current = current->next;
 	}
-	// print_lex(*lexer_head);
 	return (1);
 }
-// ==============================================
-

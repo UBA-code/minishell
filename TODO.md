@@ -38,13 +38,6 @@ env -i ./minishell
 
 `cd` (null)
 
-# ! leaks in echo hh > out
-
-all here_docs must be opened first before files
-
-cmd has only `\t` `space` : ignore them not  synatx error
-`cd` (null)
-`echo "|"`   pipe in doubl quotes not a spectial caractere - done
-`when unset path and remove parent directory` : need specify error 
-
 skip blank car o cmd
+
+echo "" hello
