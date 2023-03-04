@@ -9,17 +9,17 @@
 | OK	|`/usr/bin/ls`				|bash: /usr/bin/ls: No such file or directory| 			
 | OK	|`usr/bin/ls`				|no such file or dir		|							
 | OK	|`./ls`						|no such file or dir		|			
-| KO	|`hello`					|command not found			|	
+| OK	|`hello`					|command not found			|	
 | OK	|`/usr/bin/hello`			|no such file or dir		|		
 | OK	|`./hello`					|no such file or dir		|		
-| KO	|`""`						|command not found			|		
-| KO	|`.`						|filename arg required		|		
-| KO	|`..`						|`..`: command not found	|		
-| KO	|`$`						|`$`: command not found		|	
-| KO 	|`./`						|is a directory				|	
-| KO	|`../`						|is a directory				|	
-| KO	|`../existing_dir`			|is a directory				|	
-| KO	|`../fake_dir`				|no such file or dir		|	
+| OK	|`""`						|command not found			|		
+| OK	|`.`						|filename arg required		|		
+| OK	|`..`						|`..`: command not found	|		
+| OK	|`$`						|`$`: command not found		|	
+| OK 	|`./`						|is a directory				|	
+| OK	|`../`						|is a directory				|	
+| OK	|`../existing_dir`			|is a directory				|	
+| OK	|`../fake_dir`				|no such file or dir		|	
 | OK	|`./Makefile`				|permission denied			|	
 | OK	|`./does_not_exist`			|no such file or dir		|		
 | OK	|`./minishell`				|executes new minishell		|	
@@ -38,8 +38,8 @@
 | 	❌ |`export HOME=` then `cd`	|No error msg							|
 | 	OK |`cd /t /w`					|No such directory					|							
 | 	OK |`cd ./fakepath`			|No such directory						|							
-| 	❌ |`cd -`						|Return to OLDPWD, print CWD			|									
-| 	❌ |`unset OLDPWD`; `cd -`		|OLDPWD not set;						|
+| 	OK |`cd -`						|Return to OLDPWD, print CWD			|									
+| 	OK |`unset OLDPWD`; `cd -`		|OLDPWD not set;						|
 |	OK |`mkdir a`; `mkdir a/b`; `cd a/b`; `rm -r ../../a`; `cd ..`			|
 
 ## ECHO
@@ -55,7 +55,7 @@
 
 | Status| Test						| Bash								|
 |-------|---------------------------|-----------------------------------|
-|	❌ |`export ""`					|Not a valid identifier				|
+|	OK |`export ""`					|Not a valid identifier				|
 | 	OK |`export 42`					|Not a valid identifier				|
 | 	OK |`export =`					|Not a valid identifier				|
 | 	OK |`export hello`				|`env \| grep hello` shows nothing	|
@@ -89,8 +89,8 @@
 | 	OK |`exit 10`						|exits shell											|
 | 	OK |`exit -10`						|exits shell											|							
 | 	OK |`exit abc`						|exits shell; error numeric arg required				|
-| 	❌ |`exit --10`					|exits shell; error numeric arg required				|
-| 	❌ |`exit ++10`					|exits shell; error numeric arg required				|
+| 	OK |`exit --10`					|exits shell; error numeric arg required				|
+| 	OK |`exit ++10`					|exits shell; error numeric arg required				|
 | 	OK |`exit abc 5`					|exits shell; error numeric arg required				|
 | 	OK |`exit 5 abc`					|does not exit shell; too many args						|
 | 	OK |`exit 5 < Makefile`			|exits shell											|
@@ -116,11 +116,11 @@
 |-------|-------------------------------------------|---------------------------------------|
 | 	|`cat \| cat \| cat \| ls`					|`ls` output then hangs, `enter` 3 times|
 | 	|`cat Makefile \| grep a \| wc -l \| cd x`	|No such file or directory				|
-| 	|`cat Makefile \| grep a \| wc -l \| x`		|command not found						|
-| 	|`echo test \|cat`							|`test`									|
-| 	|`echo test \|\|\| cat`						|syntax error							|
-| 	|`export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8`	|`env` shows vars						|
-| 	|`echo "$A'$B"'$C"$D'$E'"$F"'"'$G'$H"`		|`1'2$C"$D5"$F"'7'8`					|
+|  |`cat Makefile \| grep a \| wc -l \| x`		|command not found						|
+|OK|`echo test \|cat`							|`test`									|
+|OK|`echo test \|\|\| cat`						|syntax error							|
+|OK|`export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8`	|`env` shows vars						|
+|OK|`echo "$A'$B"'$C"$D'$E'"$F"'"'$G'$H"`		|`1'2$C"$D5"$F"'7'8`					|
 
 ## Variable Expansion Tests 
 🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰
@@ -131,24 +131,24 @@ Leading and trailling spaces in the output are denoted with the `█` character.
 |-------|-----------------------|-------------------|
 | 	OK	|`echo $USER`			|`username`			|					
 | 	OK	|`echo $`				|`$`				|					
-| 	❌  |`echo $""`				|`(newline)`		|				
+| 	OK  |`echo $""`				|`(newline)`		|				
 |	KO	|`echo $$$USER`			|`26153username`	|					
 |	KO	|`echo $$USER`			|`26153USER`		|					
 | 	OK	|`echo $USER$USER`		|`usernameusername`	|					
 | 	OK	|`echo $USER""$USER`	|`usernameusername`	|					
 | 	OK	|`echo $USER" "$USER`	|`username username`|					
-| 	KO	|`echo test$1test`		|`testtest`			|					
+| 	OK	|`echo test$1test`		|`testtest`			|					
 | 	OK	|`echo test$FAKE_VAR`	|`test`				|					
 | 	OK	|`echo "$USER>>"`		|`username>>`		|					
 | 	OK	|`echo "$USER11111ffjf"`|`(newline)`		|					
-| 	OK(diff)	|`echo $\"echo`			|`$"echo`	|					
+| 	OK  |`echo $\"echo`			|`$"echo`	|					
 |  OK		|`echo "test$<test"`	|`test$<test`		|					
 | OK	|`echo test$<test`		|test: no such file	|					
 | KO	|`echo "test$-r"`		|`testhimBHsr`		|					
 | KO	|`echo "test$-?"`		|`testhimBHs?`		|					
 | 	KO	|`echo $-1$USER`		|`himBHs1username`	|					
-| 	KO	|`echo $1`				|`(newline)`		|					
-| 	KO	|`echo "$1"`			|`(newline)`		|					
+| 	OK	|`echo $1`				|`(newline)`		|					
+| 	OK	|`echo "$1"`			|`(newline)`		|					
 | OK	|`echo $"USER"`			|`USER`				|					
 | OK	|`echo $'USER'`			|`USER`				|					
 | 	OK	|`echo $NULL test`		|`test`				|					
@@ -175,7 +175,7 @@ Leading and trailling spaces in the output are denoted with the `█` character.
 | OK	|`echo $USE""R`			|`R`				|			
 | OK	|`echo ""$USER`			|`username`			|		
 | OK	|`echo "$"USER`			|`$USER`			|			
-| OK	|`echo  $""USER`		|`USER`				|				
+| KO	|`echo  $""USER`		|`USER`				|				
 | OK	|`ec''ho test`			|`test`				|				
 | OK	|`''echo test`			|`test`				|				
 | OK	|`echo'' test`			|`test`				|				
@@ -183,7 +183,7 @@ Leading and trailling spaces in the output are denoted with the `█` character.
 | OK	|`echo $USE''R`			|`R`				|				
 | OK	|`echo ''$USER`			|`username`			|			
 | OK	|`echo '$'USER`			|`$USER`			|			
-| OK	|`echo  $''USER`		|`USER`				|		
+| KO	|`echo  $''USER`		|`USER`				|		
 | OK	|`echo "" "" "" test`	|`███test`			|			
 | OK	|`echo """""" test`		|`█test`			|			
 | OK	|`echo $USER"" ''`		|`username`			|			
@@ -219,16 +219,16 @@ Leading and trailling spaces in the output are denoted with the `█` character.
 ## Heredoc Tests
 | Status| Test								| Bash							| 
 |-------|-----------------------------------|-------------------------------|
-| 	|`<< END cat`; `$USER$USER`; `END`	|`usernameusername`				|		
-| 	|`<< END cat`; `$USER'$USER'`; `END`|`username'username'`			|		
-| 	|`<< END cat`; `$USER"$USER"`; `END`|`username"username"`			|		
-|  	|`<< END cat`; `$USER $USER`; `END`	|`username username`			|			
-| 	|`<< END cat`; `helloEND`			|Heredoc keeps waiting for input|
-| 	|`<< END cat`; `ENDhello`			|Heredoc keeps waiting for input|
-| 	|`<< END cat`; `helloENDhello`		|Heredoc keeps waiting for input|						
-| 	|`< Makefile cat \| << END cat`		|Heredoc + cat execute			|		
-| 	|`export $VAR=test`					|`env` shows `VAR=test`			|			
-| 	|`<< $VAR cat`; `$USER`; `$VAR`		|Heredoc ends with `$VAR` input	|	
+| OK |`<< END cat`; `$USER$USER`; `END`	|`usernameusername`				|		
+| OK |`<< END cat`; `$USER'$USER'`; `END`|`username'username'`			|		
+| OK |`<< END cat`; `$USER"$USER"`; `END`|`username"username"`			|		
+| OK |`<< END cat`; `$USER $USER`; `END`	|`username username`			|			
+| OK |`<< END cat`; `helloEND`			|Heredoc keeps waiting for input|
+| OK |`<< END cat`; `ENDhello`			|Heredoc keeps waiting for input|
+| OK |`<< END cat`; `helloENDhello`		|Heredoc keeps waiting for input|						
+| OK |`< Makefile cat \| << END cat`		|Heredoc + cat execute			|		
+| OK |`export $VAR=test`					|`env` shows `VAR=test`			|			
+| OK |`<< $VAR cat`; `$USER`; `$VAR`		|Heredoc ends with `$VAR` input	|	
 
 ## Redirection Tests
 🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰 

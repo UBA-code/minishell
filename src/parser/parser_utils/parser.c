@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/03 21:25:41 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/04 22:14:52 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	parser_work(t_lexer_node *node)
 		}
 		else if (node->lexer[i].type == '\'' || node->lexer[i].type == '"'
 			|| node->lexer[i].type == 'W')
-			node->cmd_struct.cmd[j++] = join_string(node, &i);
+			node->cmd_struct.cmd[j++] = join_string(node, &i, 1);
 		if (j && !(node->cmd_struct.cmd[j - 1]))
 			j--;
 		if (g_global.done)
@@ -61,8 +61,8 @@ char	*get_cmd_path(char *cmd)
 	if (!cmd || *cmd == '/' || *cmd == '.')
 		return (cmd);
 	paths = ft_split(get_variable_cmd("PATH"), ":");
-	if (!check_env(cmd, paths))
-		return (NULL);
+	if (!paths || !check_env(cmd, paths) || !ft_strlen(cmd))
+		return (cmd);
 	while (paths[++i])
 	{
 		final = ft_strjoin(ft_strdup(paths[i]), "/");
@@ -124,5 +124,6 @@ int	parser_utils(t_lexer_node **lexer_head)
 			*current->cmd_struct.cmd = get_cmd_path(*current->cmd_struct.cmd);
 		current = current->next;
 	}
+	// print_lex(*lexer_head);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:50:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/04 06:30:00 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/04 22:15:01 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,25 @@ char	*search_in_path(char *cmd)
 
 int	is_builtin(char *str)
 {
-	int		slach_index;
+	// int		slach_index;
 
 	if (str && (ft_strcmp(str, "echo")
 			|| ft_strcmp(str, "cd") || ft_strcmp(str, "pwd")
 			|| ft_strcmp(str, "export") || ft_strcmp(str, "unset")
 			|| ft_strcmp(str, "env") || ft_strcmp(str, "exit")))
 		return (1);
-	if (access(str, X_OK) == 0) //! here ??? what happens to `./echo` 
-	{
-		slach_index = ft_strrchr(str, '/');
-		if (!slach_index)
-			return (0);
-		str = str + slach_index + 1;
-		if (str && (ft_strcmp(str, "echo")
-				|| ft_strcmp(str, "cd") || ft_strcmp(str, "pwd")
-				|| ft_strcmp(str, "export") || ft_strcmp(str, "unset")
-				|| ft_strcmp(str, "env") || ft_strcmp(str, "exit")))
-			return (1);
-	}
+	// if (access(str, X_OK) == 0)
+	// {
+	// 	slach_index = ft_strrchr(str, '/');
+	// 	if (slach_index == -1)
+	// 		return (0);
+	// 	str = str + slach_index + 1;
+	// 	if (str && (ft_strcmp(str, "echo")
+	// 			|| ft_strcmp(str, "cd") || ft_strcmp(str, "pwd")
+	// 			|| ft_strcmp(str, "export") || ft_strcmp(str, "unset")
+	// 			|| ft_strcmp(str, "env") || ft_strcmp(str, "exit")))
+	// 		return (1);
+	// }
 	return (0);
 }
 
@@ -67,10 +67,10 @@ void	exec_builtin(char *cmd, char **args)
 {
 	int	i;
 
-	i = ft_strrchr(cmd, '/') + 1;
-	if (i == -1)
+	// i = ft_strrchr(cmd, '/') + 1;
+	// if (i == -1)
 		i = 0;
-	cmd = cmd + i;
+	// cmd = cmd + i;
 	if (ft_strcmp(cmd, "echo"))
 		echo_cmd(args);
 	else if (ft_strcmp(cmd, "cd"))

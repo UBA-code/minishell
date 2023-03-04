@@ -43,3 +43,5 @@ skip blank car o cmd
 echo "" hello
 
 
+ctrl + d not display exit
+

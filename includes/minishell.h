@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/04 05:57:01 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/04 22:09:36 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
-# include <sys/stat.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <dirent.h>
 # include <errno.h>
+# include <sys/stat.h>
 # include <string.h>
 
 # define LEFT_REDIRECT ">"
@@ -38,8 +38,6 @@
 # define INPIPE 2
 # define LAST 3
 # define SINGLE 4
-# define ISDIR 126
-# define ISEXE 1
 
 typedef struct s_get_variable_struct
 {
@@ -145,8 +143,8 @@ void			cd_cmd(char **args);
 void			modifie_variable(char *variable, char *new_value);
 void			free_parser(t_lexer_node *head);
 int				get_last_of_var(char *str);
-char			*join_string(t_lexer_node *node, int *nb);
-char			*smart_get_variable(char *str);
+char			*join_string(t_lexer_node *node, int *nb, int flag);
+char			*smart_get_variable(char *str, int flag);
 int				check_export_syntax(char *str);
 int				env_search(char *variable);
 long long		ft_atoi(char *nb);
@@ -171,10 +169,11 @@ void			parse_free(t_lexer_node *lexer_head);
 int				is_builtin(char *str);
 int				ft_strrchr(char *str, char c);
 char			*search_in_path(char *cmd);
+int				open_file(char *file, char flag);
 void			exec_builtin(char *cmd, char **args);
 char			**ft_split_costom(char *str);
 int				check_empty(char *line);
-int				open_herdoc(char *limit);
+int				open_herdoc(char *limit, int flag);
 int				executor(t_lexer_node *head);
 void			pipeline(t_lexer_node *head);
 int				*open_files(t_lexer_node *head);
@@ -182,12 +181,12 @@ void			sig_handler(int sig);
 void			sig_heredoc(int sig);
 int				*dup_files(t_lexer_node *head, int fds[2], int tmp, int flag);
 void			cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag);
+void			check_error(char *cmd);
 void			pipeline(t_lexer_node *head);
 int				executor(t_lexer_node *head);
 void			reset_io(int *save);
+void			sig_handler_cmd(int sig);
 int				exit_stat(int stat);
 void			rl_replace_line(const char *str, int nb);
 void			print_lex(t_lexer_node *head);
-// char			*get_cmd_path(char *cmd);
-int	check_env(char *cmd, char **paths);
 #endif

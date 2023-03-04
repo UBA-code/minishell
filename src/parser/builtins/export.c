@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:39:02 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/04 03:26:24 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/04 16:14:32 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	export_errors(char *name)
 {
-	ft_putstr("minishell: export: ", STDERR_FILENO);
+	ft_putstr("bash: export: ", STDERR_FILENO);
 	ft_putstr(name, STDERR_FILENO);
 	free(name);
 	ft_putstr(": not a valid identifier\n", STDERR_FILENO);
@@ -51,7 +51,7 @@ void	loop_export(char *arg)
 	if (len == -1)
 		len = ft_strlen(arg);
 	if (arg[0] == '=')
-		return (ft_error("minishell: export: `=': not a valid identifier", 1));
+		return (ft_error("bash: export: `=': not a valid identifier\n", 1));
 	name = get_substring(arg, len);
 	if (!check_export_syntax(name))
 		return (export_errors(name));

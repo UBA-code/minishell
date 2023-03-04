@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/04 00:19:49 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/04 21:46:13 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ void	reset_io(int *save)
 
 int	main(int ac, char **av, char **env)
 {
-	// execve(av[1], av + 1, env);
-	// if (access("./print", X_OK) == 0)
-	// 	printf("hhh\n");
 	char		*line;
 
 	(void)av;
@@ -89,7 +86,7 @@ int	main(int ac, char **av, char **env)
 		line = readline("\e[1;32mMinishell~> \e[0m");
 		signal(SIGINT, SIG_IGN);
 		if (!line)
-			break ;
+			exit(0);
 		if (ft_strlen(line) && check_empty(line))
 		{
 			add_history(line);
