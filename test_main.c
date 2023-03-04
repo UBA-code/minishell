@@ -11,8 +11,10 @@
 // }
 int main(int argc, char const *argv[])
 {
-	int f = open("werwerew", 0);
-	char *e = strerror(errno);
-	printf("%s\n", e);
-	return 0;
+	// int f = open("werwerew", 0);
+	// char *e = strerror(errno);
+	// printf("%s\n", e);
+	// return 0;
+	char *path = getenv("PATH");
+	printf("%s\n", path);
 }

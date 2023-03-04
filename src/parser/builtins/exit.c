@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:43:19 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/01 13:42:19 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/04 03:25:58 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exit_error(char *str)
 {
-	ft_error("bash: ", 255);
+	ft_error("minishell: ", 255);
 	ft_error(str, 255);
 	ft_error(": numeric argument required\n", 255);
 }

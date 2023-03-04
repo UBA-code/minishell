@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:50:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/03 21:03:34 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/04 06:30:00 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	is_builtin(char *str)
 			|| ft_strcmp(str, "export") || ft_strcmp(str, "unset")
 			|| ft_strcmp(str, "env") || ft_strcmp(str, "exit")))
 		return (1);
-	if (access(str, X_OK) == 0)
+	if (access(str, X_OK) == 0) //! here ??? what happens to `./echo` 
 	{
 		slach_index = ft_strrchr(str, '/');
 		if (!slach_index)

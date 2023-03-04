@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/03 21:14:35 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/04 05:57:01 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <dirent.h>
 # include <errno.h>
-# include <sys/stat.h>
 # include <string.h>
 
 # define LEFT_REDIRECT ">"
@@ -38,6 +38,8 @@
 # define INPIPE 2
 # define LAST 3
 # define SINGLE 4
+# define ISDIR 126
+# define ISEXE 1
 
 typedef struct s_get_variable_struct
 {
@@ -183,8 +185,9 @@ void			cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag);
 void			pipeline(t_lexer_node *head);
 int				executor(t_lexer_node *head);
 void			reset_io(int *save);
-void			sig_handler_cmd(int sig);
 int				exit_stat(int stat);
 void			rl_replace_line(const char *str, int nb);
 void			print_lex(t_lexer_node *head);
+// char			*get_cmd_path(char *cmd);
+int	check_env(char *cmd, char **paths);
 #endif

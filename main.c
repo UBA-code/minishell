@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/03 21:57:56 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/04 00:19:49 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,32 +71,32 @@ void	reset_io(int *save)
 
 int	main(int ac, char **av, char **env)
 {
-	execve(av[1], av + 1, env);
-	if (access("./print", X_OK) == 0)
-		printf("hhh\n");
-	// char		*line;
+	// execve(av[1], av + 1, env);
+	// if (access("./print", X_OK) == 0)
+	// 	printf("hhh\n");
+	char		*line;
 
-	// (void)av;
-	// g_global.save = save_();
-	// g_global.env_head = 0;
-	// g_global.error = ac * 0;
-	// create_env(env);
-	// while (1)
-	// {
-	// 	g_global.done = 0;
-	// 	signal(SIGQUIT, SIG_IGN);
-	// 	signal(SIGINT, sig_handler);
-	// 	line = readline("\e[1;32mMinishell~> \e[0m");
-	// 	signal(SIGINT, SIG_IGN);
-	// 	if (!line)
-	// 		break ;
-	// 	if (ft_strlen(line) && check_empty(line))
-	// 	{
-	// 		add_history(line);
-	// 		minishell(line, env);
-	// 		reset_io(g_global.save);
-	// 	}
-	// 	free(line);
-	// }
+	(void)av;
+	g_global.save = save_();
+	g_global.env_head = 0;
+	g_global.error = ac * 0;
+	create_env(env);
+	while (1)
+	{
+		g_global.done = 0;
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, sig_handler);
+		line = readline("\e[1;32mMinishell~> \e[0m");
+		signal(SIGINT, SIG_IGN);
+		if (!line)
+			break ;
+		if (ft_strlen(line) && check_empty(line))
+		{
+			add_history(line);
+			minishell(line, env);
+			reset_io(g_global.save);
+		}
+		free(line);
+	}
 	return (0);
 }

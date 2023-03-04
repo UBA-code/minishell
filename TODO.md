@@ -41,3 +41,5 @@ env -i ./minishell
 skip blank car o cmd
 
 echo "" hello
+
+
