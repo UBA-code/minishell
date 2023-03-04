@@ -6,13 +6,13 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/04 19:36:31 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/04 22:11:58 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	open_herdoc(char *limit)
+int	open_herdoc(char *limit, int flag)
 {
 	int fd[2];
 	char *line;
@@ -34,7 +34,10 @@ int	open_herdoc(char *limit)
 				free(line);
 				exit(EXIT_SUCCESS);
 			}
-			ft_putstr(smart_get_variable(line), fd[1]);
+			if (!flag)
+				ft_putstr(line, fd[1]);
+			else
+				ft_putstr(smart_get_variable(line, 1), fd[1]);
 			ft_putstr("\n", fd[1]);
 			free(line);
 		}

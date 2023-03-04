@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:50:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/04 18:54:24 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/04 22:15:01 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*search_in_path(char *cmd)
 
 int	is_builtin(char *str)
 {
-	int		slach_index;
+	// int		slach_index;
 
 	if (str && (ft_strcmp(str, "echo")
 			|| ft_strcmp(str, "cd") || ft_strcmp(str, "pwd")
