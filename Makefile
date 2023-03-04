@@ -1,63 +1,86 @@
-SRCS = main.c parser/get_next_line/get_next_line.c \
-		parser/get_next_line/get_next_line_utils.c \
-		parser/utils/ft_calloc.c parser/utils/ft_split.c \
-		parser/utils/split_utils.c \
-		parser/utils/ft_strdup.c parser/utils/ft_substr.c \
-		parser/utils/ft_strcmp.c ./parser/linked_list_utils/add_back_lst.c \
-		./parser/linked_list_utils/add_front_lst.c \
-		./parser/linked_list_utils/create_node.c \
-		./parser/linked_list_utils/lst_clear.c\
-		./parser/lexer_utils/init_lexer_node.c \
-		./parser/lexer_utils/lexer_utils.c \
-		./parser/utils/ft_atoi.c \
-		./parser/utils/ft_itoa.c \
-		./parser/utils/utils.c \
-		./parser/parser_utils/parser_utils.c \
-		./parser/parser_utils/parser.c \
-		./parser/utils/create_mini_env.c \
-		./parser/linked_list_utils/env_del_node.c \
-		./parser/parser_utils/expand_quotes.c \
-		./parser/parser_utils/expand_quotes_utils.c \
-		./parser/builtins/builtins_utils.c \
-		./parser/builtins/cd.c  \
-		./parser/errors_free/parse_error.c \
-		./parser/builtins/echo.c  \
-		./parser/builtins/env.c  \
-		./parser/builtins/exit.c  \
-		./parser/builtins/export.c  \
-		./parser/builtins/pwd.c  \
-		./parser/builtins/unset.c \
-		./execution/exec.c
-# BONUS_SRCS = actions.c actions_2.c cases.c check_utils.c create_stack.c ft_calloc.c \
-# 	ft_split.c ft_strdup.c ft_substr.c push_swap_bonus.c sort_three.c utils.c utils_2.c utils_3.c \
-# 	sort_five.c last_sort.c utils_4.c \
-# 	get_next_line.c get_next_line_utils.c \
-# 	actions_2_bonus.c actions_bonus.c
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/26 01:57:19 by bahbibe           #+#    #+#              #
+#    Updated: 2023/03/04 15:44:39 by ybel-hac         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Off		=\033[0m
+Black	=\033[0;30m
+Red		=\033[0;31m
+Green	=\033[0;32m
+Yellow	=\033[0;33m
+Blue	=\033[0;34m
+Purple	=\033[0;35m
+Cyan	=\033[0;36m
+White	=\033[0;37m
+
+NAME = minishell
+PARSE_PATH = ./src/parser/
+EXECUTION_PATH = ./src/execution/
 OBG = $(SRCS:.c=.o)
-# BONUS_OBG = $(BONUS_SRCS:.c=.o)
 # CFLAGS = -Wall -Werror -Wextra
 # CFLAGS = -fsanitize=address -g3
-NAME = minishell
-# BONUS = checker
+SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
+		$(PARSE_PATH)get_next_line/get_next_line_utils.c \
+		$(PARSE_PATH)utils/ft_calloc.c $(PARSE_PATH)utils/ft_split.c \
+		$(PARSE_PATH)utils/split_utils.c \
+		$(PARSE_PATH)utils/ft_strdup.c $(PARSE_PATH)utils/ft_substr.c \
+		$(PARSE_PATH)utils/ft_strcmp.c $(PARSE_PATH)linked_list_utils/add_back_lst.c \
+		$(PARSE_PATH)linked_list_utils/add_front_lst.c \
+		$(PARSE_PATH)linked_list_utils/create_node.c \
+		$(PARSE_PATH)linked_list_utils/lst_clear.c\
+		$(PARSE_PATH)lexer_utils/init_lexer_node.c \
+		$(PARSE_PATH)lexer_utils/lexer_utils.c \
+		$(PARSE_PATH)utils/ft_atoi.c \
+		$(PARSE_PATH)utils/ft_putstr.c \
+		$(PARSE_PATH)utils/ft_itoa.c \
+		$(PARSE_PATH)utils/custom_split.c \
+		$(PARSE_PATH)utils/utils.c \
+		$(PARSE_PATH)parser_utils/parser_utils.c \
+		$(PARSE_PATH)parser_utils/parser.c \
+		$(PARSE_PATH)utils/create_mini_env.c \
+		$(PARSE_PATH)linked_list_utils/env_del_node.c \
+		$(PARSE_PATH)parser_utils/expand_quotes.c \
+		$(PARSE_PATH)parser_utils/expand_quotes_utils.c \
+		$(PARSE_PATH)parser_utils/syntax_check.c \
+		$(PARSE_PATH)builtins/builtins_utils.c \
+		$(PARSE_PATH)builtins/cd.c  \
+		$(PARSE_PATH)errors_free/parse_error.c \
+		$(PARSE_PATH)builtins/echo.c  \
+		$(PARSE_PATH)builtins/env.c  \
+		$(PARSE_PATH)builtins/exit.c  \
+		$(PARSE_PATH)builtins/export.c  \
+		$(PARSE_PATH)builtins/pwd.c  \
+		$(PARSE_PATH)builtins/unset.c \
+		$(EXECUTION_PATH)executor.c \
+		$(EXECUTION_PATH)signals.c \
+		$(EXECUTION_PATH)execution_error.c
 
 all: $(NAME)
 
 $(NAME): $(OBG)
-	$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/homebrew/Cellar/readline/8.2.1/lib -o $(NAME)
-#	make clean
-#	./minishell
-
-# bonus: $(BONUS)
-
-# $(BONUS): $(BONUS_OBG)
-# 	$(CC) $(CFLAGS) $(BONUS_OBG) -o checker
+	@stty -echoctl
+	@$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/homebrew/Cellar/readline/8.2.1/lib -o $(NAME)
+	@echo "🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚"
+	@echo "🐚$(Red)    ##     ## #### ##    ## ####  ######  ##     ## ######## ##       ##          🐚";
+	@echo "🐚    ###   ###  ##  ###   ##  ##  ##    ## ##     ## ##       ##       ##          🐚";
+	@echo "🐚    #### ####  ##  ####  ##  ##  ##       ##     ## ##       ##       ##          🐚";
+	@echo "🐚    ## ### ##  ##  ## ## ##  ##   ######  ######### ######   ##       ##          🐚";
+	@echo "🐚    ##     ##  ##  ##  ####  ##        ## ##     ## ##       ##       ##          🐚";
+	@echo "🐚    ##     ##  ##  ##   ###  ##  ##    ## ##     ## ##       ##       ##          🐚";
+	@echo "🐚    ##     ## #### ##    ## ####  ######  ##     ## ######## ######## ########    🐚";
+	@echo "🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚  $(Green)by bahbibe & ybel-hac © $(Off)  🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚🐚"
 
 clean:
 	rm -rf $(OBG)
-
 fclean: clean
 	rm -rf $(NAME)
-
 re: fclean all
-
 .PHONY: all clean fclean re
+.SILENT: $(OBJS)
