@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/04 15:44:21 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/04 18:47:58 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ void			parse_free(t_lexer_node *lexer_head);
 int				is_builtin(char *str);
 int				ft_strrchr(char *str, char c);
 char			*search_in_path(char *cmd);
+int				open_file(char *file, char flag);
 void			exec_builtin(char *cmd, char **args);
 char			**ft_split_costom(char *str);
 int				check_empty(char *line);

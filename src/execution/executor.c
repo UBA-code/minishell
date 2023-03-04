@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/04 18:15:37 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/04 19:36:31 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,11 @@ int	*open_files(t_lexer_node *head)
 		if (current->type == 'H')
 			fd[0] = current->fd;
 		else if (current->type == 'A')
-			fd[1] = open(current->file, O_CREAT | O_WRONLY | O_APPEND, 0777);
+			fd[1] = open_file(current->file, 'A');
 		else if (current->type == 'O')
-			fd[1] = open(current->file, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+			fd[1] = open_file(current->file, 'O');
 		else if (current->type == 'I')
-		{
-			fd[0] = open(current->file, O_RDONLY);
-			if (fd[0] == -1)
-			{
-				perror(current->file);
-				exit(EXIT_FAILURE);
-			}
-		}
+			fd[1] = open_file(current->file, 'I');
 		current = current->next;
 	}
 	return (fd);

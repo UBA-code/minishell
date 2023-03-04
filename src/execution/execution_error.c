@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:42:16 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/04 18:12:21 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/04 18:48:06 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,23 @@ void	check_error(char *cmd)
 		ft_error(": is a directory\n", 126);
 		exit(126);
 	}
+}
+
+
+int	open_file(char *file, char flag)
+{
+	int	fd;
+
+	if (flag == 'A')
+		fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	else if (flag == 'O')
+		fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	else
+		fd = open(file, O_RDONLY);
+	if (fd == -1)
+	{
+		perror(file);
+		exit(EXIT_FAILURE);
+	}
+	return (fd);
 }
