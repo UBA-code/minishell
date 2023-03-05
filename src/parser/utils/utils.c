@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 20:59:09 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/28 18:58:16 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/06 00:36:45 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_dbquotes(char *str, int *i, int j)
 	}
 	if (*i != j)
 	{
-		ft_error("Error, Unclosed Quotes\n", 258);
+		ft_error("minishell: Unclosed Quotes\n", 258);
 		return (0);
 	}
 	return (1);
@@ -48,7 +48,7 @@ int	check_squotes(char *str, int *i, int j)
 	}
 	if (*i != j)
 	{
-		ft_error("Error, Unclosed Quotes\n", 258);
+		ft_error("minishell: Unclosed Quotes\n", 258);
 		return (0);
 	}
 	return (1);

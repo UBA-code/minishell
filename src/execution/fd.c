@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 21:11:31 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/05 23:02:41 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 00:38:44 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,10 @@ int	open_file(char *file, char flag)
 	if (fd == -1)
 	{
 		perror(file);
-		exit(EXIT_FAILURE);
+		if (g_global.inparent == 1)
+			exit(EXIT_FAILURE);
+		else
+			fd = -2;
 	}
 	return (fd);
 }

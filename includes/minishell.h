@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 21:57:31 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 00:04:23 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_g_global
 	int				open_heredoc;
 	int				error;
 	int				*save;
+	int				inparent;
 }	t_global;
 
 # ifndef G_GLOBAL

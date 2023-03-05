@@ -6,19 +6,20 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/05 23:14:03 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 00:38:59 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-void	minishell(char *line, char **env, t_lexer_node *head)
+void	minishell(char *line, char **env)
 {
 	char			**args;
 	int				i;
+	t_lexer_node	*head;
 
 	if (!check_syntax(line))
-		return (ft_error("syntax error\n", 258));
+		return (ft_error("minishell: syntax error\n", 258));
 	head = 0;
 	i = -1;
 	args = ft_split_costom(line);
@@ -44,7 +45,6 @@ void	minishell(char *line, char **env, t_lexer_node *head)
 int	main(int ac, char **av, char **env)
 {
 	char			*line;
-	t_lexer_node	*head;
 
 	init_var(ac, av, env);
 	while (1)
@@ -62,7 +62,7 @@ int	main(int ac, char **av, char **env)
 		if (ft_strlen(line) && check_empty(line))
 		{
 			add_history(line);
-			minishell(line, env, head);
+			minishell(line, env);
 			reset_io(g_global.save);
 		}
 		free(line);

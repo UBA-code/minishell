@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/05 22:56:03 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 00:38:33 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	*open_files(t_lexer_node *head)
 			fd[1] = open_file(current->file, 'O');
 		else if (current->type == 'I')
 			fd[1] = open_file(current->file, 'I');
+		if (fd[1] == -2)
+			return (free(fd), NULL);
 		current = current->next;
 	}
 	return (fd);
@@ -41,6 +43,11 @@ void	executor_builtin(t_lexer_node *head, int pip[2], int tmp, int flag)
 	int	*files;
 
 	files = dup_files(head, pip, tmp, flag);
+	if (!files)
+	{
+		g_global.error = 1;
+		return ;
+	}
 	get_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
 	reset_io(g_global.save);
 	free(files);
@@ -62,7 +69,7 @@ int	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
 			reset_io(g_global.save);
 			exit(g_global.error);
 		}
-		close(*pip);
+		close(pip[0]);
 		dup_files(head, pip, tmp, flag);
 		if (!*head->cmd_struct.cmd)
 			exit (0);
@@ -108,9 +115,13 @@ int	executor(t_lexer_node *head)
 	int	pid;
 
 	if (head->next == NULL && is_builtin(*head->cmd_struct.cmd))
+	{
+		g_global.inparent = 0;
 		executor_builtin(head, pip, 0, SINGLE);
+	}
 	else
 	{	
+		g_global.inparent = 1;
 		if (head->next == NULL)
 			pid = cmd_exec(head, pip, 0, SINGLE);
 		else
