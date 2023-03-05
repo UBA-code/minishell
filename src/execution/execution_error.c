@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:42:16 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/04 18:48:06 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 18:00:46 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	check_error(char *cmd)
 	}
 	if (access(cmd, X_OK))
 	{
-		ft_error(cmd, 126);
-		perror(" ");
+		// ft_error(cmd, 126);
+		perror(cmd);
 		exit(126);
 	}
 	temp = open(cmd, O_DIRECTORY);

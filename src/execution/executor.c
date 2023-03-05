@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/05 11:38:11 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 17:57:43 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int *dup_files(t_lexer_node *head, int pip[2], int tmp, int flag)
 	return (dup2(fd_io[0], 0), files);
 }
 
-void	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
+int	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
 {
 	pid_t	pid;
 
@@ -137,6 +137,7 @@ void	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
 		perror("");
 		exit(127);
 	}
+	return (pid);
 }
 
 void	executor_builtin(t_lexer_node *head, int pip[2], int tmp, int flag)
@@ -149,11 +150,12 @@ void	executor_builtin(t_lexer_node *head, int pip[2], int tmp, int flag)
 	free(files);
 }
 
-void pipeline(t_lexer_node *head)
+int pipeline(t_lexer_node *head)
 {
 	t_lexer_node	*cur;
 	int	 			pip[2];
 	int 			tmp;
+	int 			pid;
 	// int status;
 
 	tmp = 0;
@@ -162,34 +164,35 @@ void pipeline(t_lexer_node *head)
 	{
 		pipe(pip);
 		if (cur == head)
-			cmd_exec(cur, pip, tmp, FIRST);
+			pid = cmd_exec(cur, pip, tmp, FIRST);
 		else if (cur->next == NULL)
-			cmd_exec(cur, pip, tmp, LAST);
+			pid = cmd_exec(cur, pip, tmp, LAST);
 		else
-			cmd_exec(cur, pip, tmp, INPIPE);
+			pid = cmd_exec(cur, pip, tmp, INPIPE);
 		close(tmp);
 		tmp = dup(pip[0]);
 		close(pip[0]);
 		close(pip[1]);
 		cur = cur->next;
 	}
-	
+	return (pid);
 }
 
 int	executor(t_lexer_node *head)
 {
 	int	pip[2];
 	int	status;
+	int	pid;
 
 	if (head->next == NULL && is_builtin(*head->cmd_struct.cmd))
 		executor_builtin(head, pip, 0, SINGLE);
 	else
 	{	
 		if (head->next == NULL)
-			cmd_exec(head, pip, 0, SINGLE);
+			pid = cmd_exec(head, pip, 0, SINGLE);
 		else
-			pipeline(head);
-		while (waitpid(-1, &status, 0) != -1);
+			pid = pipeline(head);
+		while (waitpid(pid , &status, 0) != -1);
 		g_global.error = exit_stat(status);
 	}
 	return (0);
