@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 22:05:34 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 00:54:09 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ char	*get_cmd_path(char *cmd)
 	if (!cmd || *cmd == '/' || *cmd == '.')
 		return (cmd);
 	paths = ft_split(get_variable_cmd("PATH"), ":");
-	if (!paths || !check_env(cmd, paths) || !ft_strlen(cmd))
+	if (!paths)
 		return (cmd);
+	if (!check_env(cmd, paths) || !ft_strlen(cmd))
+		return (tab_free(paths), cmd);
 	while (paths[++i])
 	{
 		final = ft_strjoin(ft_strdup(paths[i]), "/");

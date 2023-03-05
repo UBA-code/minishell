@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/06 00:38:59 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 00:48:16 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	minishell(char *line, char **env)
 	while (args[++i])
 	{	
 		init_lexer_node(&head, args[i], env);
-		free(args[i]);
+		// free(args[i]);
 	}
 	free(args);
 	if (parser_utils(&head))
