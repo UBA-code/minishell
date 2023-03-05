@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:37:53 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/03 18:47:03 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 17:02:16 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ void	echo_cmd(char **args)
 			break ;
 	}
 	echo_utils(args + i, new);
+	g_global.error = 0;
 }

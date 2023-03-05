@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:39:02 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 10:58:52 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 17:11:35 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	export_errors(char *name)
 {
-	ft_putstr("Minishell: export: ", STDERR_FILENO);
-	ft_putstr(name, STDERR_FILENO);
+	ft_error("Minishell: export: ", 1);
+	ft_error(name, 1);
 	free(name);
-	ft_putstr(": not a valid identifier\n", STDERR_FILENO);
+	ft_error(": not a valid identifier\n", 1);
 }
 
 int	check_export_syntax(char *str)
@@ -71,9 +71,11 @@ void	export_cmd(char **args)
 {
 	int			i;
 
+	g_global.error = 0; //! check error
 	if (!args[1])
 	{
 		env_cmd('x');
+		g_global.error = 0;
 		return ;
 	}
 	i = 1;

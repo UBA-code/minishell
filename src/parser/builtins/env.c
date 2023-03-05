@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:38:39 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/26 03:16:24 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/05 17:08:09 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ void	env_cmd(char c)
 			current = current->next;
 		}
 	}
+	g_global.error = 0;
 }

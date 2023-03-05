@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:43:48 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/04 16:07:58 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 17:07:25 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void	pwd_cmd(void)
 	else
 		printf("%s\n", temp);
 	free(temp);
+	g_global.error = 0;
 }

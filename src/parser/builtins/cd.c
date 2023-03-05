@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:44:52 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 11:00:14 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 17:03:16 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,5 @@ directory: getcwd: cannot access parent directories");
 	else
 		modifie_variable("PWD", temp);
 	free(temp);
+	g_global.error = 0;
 }
