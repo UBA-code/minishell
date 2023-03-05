@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/05 17:57:43 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/05 18:42:44 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,8 @@ int	executor(t_lexer_node *head)
 			pid = cmd_exec(head, pip, 0, SINGLE);
 		else
 			pid = pipeline(head);
-		while (waitpid(pid , &status, 0) != -1);
+		waitpid(pid , &status, 0);
+		while (wait(NULL) != -1);
 		g_global.error = exit_stat(status);
 	}
 	return (0);
