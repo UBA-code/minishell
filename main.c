@@ -6,17 +6,16 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/05 18:28:19 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/05 23:14:03 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-void	minishell(char *line, char **env)
+void	minishell(char *line, char **env, t_lexer_node *head)
 {
 	char			**args;
 	int				i;
-	t_lexer_node	*head;
 
 	if (!check_syntax(line))
 		return (ft_error("syntax error\n", 258));
@@ -42,59 +41,28 @@ void	minishell(char *line, char **env)
 	}
 }
 
-char	*get_folder(char *s1, char *s2, char *s3)
-{
-	char	*final;
-
-	final = ft_strjoin(0, s1);
-	final = ft_strjoin(final, s2);
-	final = ft_strjoin(final, s3);
-	free(s2);
-	return (final);
-}
-
-int	*save_(void)
-{
-	int	*save;
-
-	save = malloc(sizeof(int) * 2);
-	save[0] = dup(0);
-	save[1] = dup(1);
-	return (save);
-}
-
-void	reset_io(int *save)
-{
-	dup2(save[0], 0);
-	dup2(save[1], 1);
-}
-
-
 int	main(int ac, char **av, char **env)
 {
-	char		*line;
+	char			*line;
+	t_lexer_node	*head;
 
-	(void)av;
-	g_global.save = save_();
-	g_global.env_head = 0;
-	g_global.error = ac * 0;
-	create_env(env);
+	init_var(ac, av, env);
 	while (1)
 	{
-		g_global.done = 0;
+		g_global.open_heredoc = 0;
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, sig_handler);
 		line = readline("\e[1;32mMinishell~> \e[0m");
 		signal(SIGINT, SIG_IGN);
 		if (!line)
 		{
-			printf ("\r\e[1;32mMinishell~> \e[0m exit\n");
-			exit(0);
+			printf("exit\n");
+			exit(EXIT_SUCCESS);
 		}
 		if (ft_strlen(line) && check_empty(line))
 		{
 			add_history(line);
-			minishell(line, env);
+			minishell(line, env, head);
 			reset_io(g_global.save);
 		}
 		free(line);

@@ -3,55 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/05 18:42:44 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 22:56:03 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	open_herdoc(char *limit, int flag)
-{
-	int fd[2];
-	char *line;
-	int		pid;
-	int		status;
-
-	pipe(fd);
-	pid = fork();
-	if (!pid)
-	{
-		signal(SIGINT, sig_heredoc);
-		while (1)
-		{
-			line = readline("> ");
-			if (!line)
-				exit(EXIT_SUCCESS);
-			if (ft_strlen(line) && ft_strcmp(line, limit))
-			{
-				free(line);
-				exit(EXIT_SUCCESS);
-			}
-			if (!flag)
-				ft_putstr(line, fd[1]);
-			else
-				ft_putstr(smart_get_variable(line, 1), fd[1]);
-			ft_putstr("\n", fd[1]);
-			free(line);
-		}
-	}
-	else
-		wait(&status);
-	g_global.error =  exit_stat(status);
-	if (g_global.error)
-	{
-		printf("\n");
-		g_global.done = 1;
-	}
-	return (close(fd[1]), fd[0]);
-}
 
 int	*open_files(t_lexer_node *head)
 {
@@ -77,40 +36,14 @@ int	*open_files(t_lexer_node *head)
 	return (fd);
 }
 
-void get_file_fd(int *files, int *fd_io)
+void	executor_builtin(t_lexer_node *head, int pip[2], int tmp, int flag)
 {
-	if (files[0] != -1)
-		fd_io[0] = files[0];
-	if (files[1] != -1)
-		fd_io[1] = files[1];
-}
-
-int *dup_files(t_lexer_node *head, int pip[2], int tmp, int flag)
-{
-	int fd_io[2];
 	int	*files;
-	
-	files = open_files(head);
-	if (!files)
-		return (0);
-	fd_io[1] = pip[1];
-	fd_io[0] = 0;
-	if (flag == FIRST)
-		get_file_fd(files, fd_io);
-	else if (flag == INPIPE)
-	{
-		fd_io[0] = tmp;
-		get_file_fd(files, fd_io);
-	}
-	else if (flag == LAST || flag == SINGLE)
-	{
-		fd_io[1] = 1;
-		if (flag == LAST)
-			fd_io[0] = tmp;
-		get_file_fd(files, fd_io);
-	}
-	dup2(fd_io[1], 1);
-	return (dup2(fd_io[0], 0), files);
+
+	files = dup_files(head, pip, tmp, flag);
+	get_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
+	reset_io(g_global.save);
+	free(files);
 }
 
 int	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
@@ -119,12 +52,13 @@ int	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
 
 	pid = fork();
 	if (pid == 0)
-	{ 
+	{
 		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (is_builtin(*head->cmd_struct.cmd))
 		{
 			dup_files(head, pip, tmp, flag);
-			exec_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
+			get_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
 			reset_io(g_global.save);
 			exit(g_global.error);
 		}
@@ -140,23 +74,12 @@ int	cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag)
 	return (pid);
 }
 
-void	executor_builtin(t_lexer_node *head, int pip[2], int tmp, int flag)
-{
-	int	*files;
-
-	files = dup_files(head, pip, tmp, flag);
-	exec_builtin(*head->cmd_struct.cmd, head->cmd_struct.cmd);
-	reset_io(g_global.save);
-	free(files);
-}
-
-int pipeline(t_lexer_node *head)
+int	pipeline(t_lexer_node *head)
 {
 	t_lexer_node	*cur;
-	int	 			pip[2];
-	int 			tmp;
-	int 			pid;
-	// int status;
+	int				pip[2];
+	int				tmp;
+	int				pid;
 
 	tmp = 0;
 	cur = head;
@@ -192,18 +115,12 @@ int	executor(t_lexer_node *head)
 			pid = cmd_exec(head, pip, 0, SINGLE);
 		else
 			pid = pipeline(head);
-		waitpid(pid , &status, 0);
-		while (wait(NULL) != -1);
+		waitpid(pid, &status, 0);
+		while (wait(NULL) != -1)
+			;
 		g_global.error = exit_stat(status);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+			printf("^\\Quit: %d\n", WTERMSIG(status));
 	}
-	return (0);
-}
-
-int exit_stat(int stat)
-{
-	if (WIFEXITED(stat))
-		return (WEXITSTATUS(stat));
-	else if (WIFSIGNALED(stat))
-		return (WTERMSIG(stat) + 128);
 	return (0);
 }

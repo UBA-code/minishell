@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expand_quotes_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:46:14 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 11:58:26 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 22:08:27 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-// get the variable and join only and spicial characters at end
 char	*smart_get_variable(char *str, int flag)
 {
 	t_get_variable_struct	utils;
@@ -74,8 +73,8 @@ char	*join_string(t_lexer_node *node, int *nb, int flag)
 	char	*temp;
 
 	final = 0;
-	while (*nb < node->lexer_size &&
-		(node->lexer[*nb].type != 'S' && node->lexer[*nb].type != 'T'))
+	while (*nb < node->lexer_size
+		&& (node->lexer[*nb].type != 'S' && node->lexer[*nb].type != 'T'))
 	{
 		if (node->lexer[*nb].type == '\'')
 			temp = single_expand(node, nb);

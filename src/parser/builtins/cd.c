@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:44:52 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 17:03:16 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 21:57:03 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	cd_work(char **args)
 		else
 		{
 			chdir(get_variable_cmd("OLDPWD"));
-			exec_builtin("pwd", (char *[1]){"pwd"});
+			get_builtin("pwd", (char *[1]){"pwd"});
 		}
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:43:19 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 11:21:09 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 21:01:21 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	exit_cmd(char **args)
 	{
 		if (!g_global.head->next)
 			printf("exit\n");
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	else
 		ft_error("exit: too many arguments\n", 1);

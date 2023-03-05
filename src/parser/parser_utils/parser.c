@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 12:00:10 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 22:05:34 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	parser_work(t_lexer_node *node)
 			node->cmd_struct.cmd[j++] = join_string(node, &i, 1);
 		if (j && !(node->cmd_struct.cmd[j - 1]))
 			j--;
-		if (g_global.done)
+		if (g_global.open_heredoc)
 			return (1);
 	}
 	return (1);
@@ -110,7 +110,7 @@ int	parser_utils(t_lexer_node **lexer_head)
 	current = *lexer_head;
 	while (current)
 	{
-		if (!parser_work(current) || g_global.done)
+		if (!parser_work(current) || g_global.open_heredoc)
 			return (parse_free(*lexer_head), 0);
 		current = current->next;
 		g_global.error = 0;
@@ -124,6 +124,5 @@ int	parser_utils(t_lexer_node **lexer_head)
 			*current->cmd_struct.cmd = get_cmd_path(*current->cmd_struct.cmd);
 		current = current->next;
 	}
-	// print_lex(*lexer_head);
 	return (1);
 }

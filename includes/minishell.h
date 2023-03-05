@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 18:15:38 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/05 21:57:31 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <dirent.h>
 # include <errno.h>
-# include <sys/stat.h>
 # include <string.h>
 
 # define LEFT_REDIRECT ">"
@@ -93,13 +93,12 @@ typedef struct s_g_global
 	t_lexer_node	*head;
 	int				open_heredoc;
 	int				error;
-	int				done;
 	int				*save;
 }	t_global;
 
 # ifndef G_GLOBAL
 
-t_global	g_global;
+t_global				g_global;
 
 # endif
 
@@ -171,22 +170,27 @@ int				is_builtin(char *str);
 int				ft_strrchr(char *str, char c);
 char			*search_in_path(char *cmd);
 int				open_file(char *file, char flag);
-void			exec_builtin(char *cmd, char **args);
+void			get_builtin(char *cmd, char **args);
 char			**ft_split_costom(char *str);
 int				check_empty(char *line);
 int				open_herdoc(char *limit, int flag);
 int				executor(t_lexer_node *head);
-int			pipeline(t_lexer_node *head);
+int				pipeline(t_lexer_node *head);
 int				*open_files(t_lexer_node *head);
 void			sig_handler(int sig);
 void			sig_heredoc(int sig);
-int				*dup_files(t_lexer_node *head, int fds[2], int tmp, int flag);
-int			cmd_exec(t_lexer_node *head, int fds[2], int tmp, int flag);
 void			check_error(char *cmd);
-// void			pipeline(t_lexer_node *head);
 int				executor(t_lexer_node *head);
 void			reset_io(int *save);
 int				exit_stat(int stat);
 void			rl_replace_line(const char *str, int nb);
 void			print_lex(t_lexer_node *head);
+void			exec_builtin(t_lexer_node *head, int pip[2], int tmp, int flag);
+int				cmd_exec(t_lexer_node *head, int pip[2], int tmp, int flag);
+void			heredoc_prompt(char *limit, int fd[2], int flag);
+int				*open_files(t_lexer_node *head);
+int				*dup_files(t_lexer_node *head, int pip[2], int tmp, int flag);
+void			get_file_fd(int *files, int *fd_io);
+void			init_var(int ac, char **av, char **env);
+int				*save_(void);
 #endif

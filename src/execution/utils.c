@@ -1,16 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/02 12:18:07 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/05 18:26:37 by bahbibe          ###   ########.fr       */
+/*   Created: 2023/03/05 21:08:32 by bahbibe           #+#    #+#             */
+/*   Updated: 2023/03/05 22:03:17 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	reset_io(int *save)
+{
+	dup2(save[0], 0);
+	dup2(save[1], 1);
+}
+
+void	init_var(int ac, char **av, char **env)
+{
+	(void)av;
+	(void)ac;
+	g_global.save = save_();
+	g_global.env_head = 0;
+	g_global.error = 0;
+	create_env(env);
+}
+
+int	*save_(void)
+{
+	int	*save;
+
+	save = malloc(sizeof(int) * 2);
+	save[0] = dup(0);
+	save[1] = dup(1);
+	return (save);
+}
 
 void	sig_handler(int sig)
 {
@@ -29,10 +55,3 @@ void	sig_heredoc(int sig)
 	if (sig == SIGINT)
 		exit(EXIT_FAILURE);
 }
-
-// void sig_handler_cmd(int sig)
-// {
-// 	//(void)sig;
-// 	if (sig == SIGINT)
-// 		exit_stat(130);
-// }

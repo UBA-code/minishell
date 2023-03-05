@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:50:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 17:08:29 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 22:03:58 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,36 +41,19 @@ char	*search_in_path(char *cmd)
 
 int	is_builtin(char *str)
 {
-	// int		slach_index;
-
 	if (str && (ft_strcmp(str, "echo")
 			|| ft_strcmp(str, "cd") || ft_strcmp(str, "pwd")
 			|| ft_strcmp(str, "export") || ft_strcmp(str, "unset")
 			|| ft_strcmp(str, "env") || ft_strcmp(str, "exit")))
 		return (1);
-	// if (access(str, X_OK) == 0)
-	// {
-	// 	slach_index = ft_strrchr(str, '/');
-	// 	if (slach_index == -1)
-	// 		return (0);
-	// 	str = str + slach_index + 1;
-	// 	if (str && (ft_strcmp(str, "echo")
-	// 			|| ft_strcmp(str, "cd") || ft_strcmp(str, "pwd")
-	// 			|| ft_strcmp(str, "export") || ft_strcmp(str, "unset")
-	// 			|| ft_strcmp(str, "env") || ft_strcmp(str, "exit")))
-	// 		return (1);
-	// }
 	return (0);
 }
 
-void	exec_builtin(char *cmd, char **args)
+void	get_builtin(char *cmd, char **args)
 {
 	int	i;
 
-	// i = ft_strrchr(cmd, '/') + 1;
-	// if (i == -1)
-		i = 0;
-	// cmd = cmd + i;
+	i = 0;
 	if (ft_strcmp(cmd, "echo"))
 		echo_cmd(args);
 	else if (ft_strcmp(cmd, "cd"))

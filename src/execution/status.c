@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_error.c                                  :+:      :+:    :+:   */
+/*   status.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/04 15:42:16 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 18:00:46 by bahbibe          ###   ########.fr       */
+/*   Created: 2023/03/05 21:10:46 by bahbibe           #+#    #+#             */
+/*   Updated: 2023/03/05 23:26:38 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	check_error(char *cmd)
 	}
 	if (access(cmd, X_OK))
 	{
-		// ft_error(cmd, 126);
 		perror(cmd);
 		exit(126);
 	}
@@ -38,21 +37,11 @@ void	check_error(char *cmd)
 	}
 }
 
-
-int	open_file(char *file, char flag)
+int	exit_stat(int stat)
 {
-	int	fd;
-
-	if (flag == 'A')
-		fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
-	else if (flag == 'O')
-		fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	else
-		fd = open(file, O_RDONLY);
-	if (fd == -1)
-	{
-		perror(file);
-		exit(EXIT_FAILURE);
-	}
-	return (fd);
+	if (WIFEXITED(stat))
+		return (WEXITSTATUS(stat));
+	else if (WIFSIGNALED(stat))
+		return (WTERMSIG(stat) + 128);
+	return (0);
 }
