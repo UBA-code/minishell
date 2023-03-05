@@ -23,8 +23,8 @@
 | OK	|`./Makefile`				|permission denied			|	
 | OK	|`./does_not_exist`			|no such file or dir		|		
 | OK	|`./minishell`				|executes new minishell		|	
-| KO	|`minishell`				|command not found			|			
-| KO	|`.minishell`				|command not found			|			
+| OK	|`minishell`				|command not found			|			
+| OK	|`.minishell`				|command not found			|			
 
 ## CD
 
@@ -95,28 +95,28 @@
 | 	OK |`exit 5 abc`					|does not exit shell; too many args						|
 | 	OK |`exit 5 < Makefile`			|exits shell											|
 | 	|`exit 8 > test`				|exits shell; write exit to terminal, file empty		|
-| 	|`ls \| exit`					|does not exit shell; no output							|
-| 	|`ls \| exit 42`				|does not exit shell; no output							|
-| 	|`ls \| exit 12 abc`			|does not exit shell; exit too many args				|
-| 	|`ls \| exit abc 12`			|does not exit shell; exit numeric arg error			|
-| 	|`exit \| ls`					|does not exit shell; `ls` output						|
-| 	|`exit 42 \| ls`				|does not exit shell; `ls` output						|
-| 	|`exit 12 abc \| ls`			|does not exit shell; exit too many args + `ls` output	|
-| 	|`exit abc 12 \| ls`			|does not exit shell; exit numeric arg error + `ls` out	|
-| 	|`ls > file \| exit`			|`ls` output in `file` (does not exit shell)			|
-| 	|`sleep 5 \| exit`				|Sleeps 5 seconds (does not exit shell)					|
-| 	|`ls -l > x \| exit \| wc -l`	|Output `0`; file `x` contains `ls` (no exit)			|
-| 	|`exit \| ls`					|`ls` output (does not exit shell)						|
-| 	|`exit 1 \| exit 0`				|Does nothing (does not exit shell)						|
-| 	|`exit 0 \| exit 1`				|Does nothing (does not exit shell)						|
+| OK	|`ls \| exit`					|does not exit shell; no output							|
+| OK	|`ls \| exit 42`				|does not exit shell; no output							|
+| OK	|`ls \| exit 12 abc`			|does not exit shell; exit too many args				|
+| OK	|`ls \| exit abc 12`			|does not exit shell; exit numeric arg error			|
+| OK	|`exit \| ls`					|does not exit shell; `ls` output						|
+| OK	|`exit 42 \| ls`				|does not exit shell; `ls` output						|
+| OK	|`exit 12 abc \| ls`			|does not exit shell; exit too many args + `ls` output	|
+| OK	|`exit abc 12 \| ls`			|does not exit shell; exit numeric arg error + `ls` out	|
+| OK	|`ls > file \| exit`			|`ls` output in `file` (does not exit shell)			|
+| OK	|`sleep 5 \| exit`				|Sleeps 5 seconds (does not exit shell)					|
+| OK	|`ls -l > x \| exit \| wc -l`	|Output `0`; file `x` contains `ls` (no exit)			|
+| OK	|`exit \| ls`					|`ls` output (does not exit shell)						|
+| OK	|`exit 1 \| exit 0`				|Does nothing (does not exit shell)						|
+| OK	|`exit 0 \| exit 1`				|Does nothing (does not exit shell)						|
 
 ## Pipe tests
 
 | Status| Test										| Bash									| 
 |-------|-------------------------------------------|---------------------------------------|
-| 	|`cat \| cat \| cat \| ls`					|`ls` output then hangs, `enter` 3 times|
-| 	|`cat Makefile \| grep a \| wc -l \| cd x`	|No such file or directory				|
-|  |`cat Makefile \| grep a \| wc -l \| x`		|command not found						|
+|OK|`cat \| cat \| cat \| ls`					|`ls` output then hangs, `enter` 3 times|
+|KO|`cat Makefile \| grep a \| wc -l \| cd x`	|No such file or directory				|
+|KO|`cat Makefile \| grep a \| wc -l \| x`		|command not found						|
 |OK|`echo test \|cat`							|`test`									|
 |OK|`echo test \|\|\| cat`						|syntax error							|
 |OK|`export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8`	|`env` shows vars						|
@@ -127,6 +127,7 @@
 
 Leading and trailling spaces in the output are denoted with the `█` character.
 
+# ! stop here
 | Status| Test					| Bash				| 
 |-------|-----------------------|-------------------|
 | 	OK	|`echo $USER`			|`username`			|					

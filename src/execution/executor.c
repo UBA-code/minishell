@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/04 22:11:58 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 11:38:11 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,6 @@ int exit_stat(int stat)
 	if (WIFEXITED(stat))
 		return (WEXITSTATUS(stat));
 	else if (WIFSIGNALED(stat))
-		return (WTERMSIG(stat) +128);
+		return (WTERMSIG(stat) + 128);
 	return (0);
 }

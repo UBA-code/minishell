@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:46:14 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/04 22:13:43 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 11:58:26 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*smart_get_variable(char *str, int flag)
 	char					*error_num;
 
 	utils.i = -1;
-	utils.final = ft_strdup("");
+	utils.final = 0;
 	utils.string = str;
 	while (str[++(utils.i)])
 	{
@@ -32,8 +32,8 @@ char	*smart_get_variable(char *str, int flag)
 		}
 		else if (str[utils.i] == '$' && speciale_check(str[utils.i + 1]))
 		{
-			if (flag && dolar_work(&utils))
-				continue ;
+			if (flag)
+				dolar_work(&utils);
 			else
 				utils.final = strjoin_small(utils.final, str[utils.i]);
 		}
@@ -53,7 +53,7 @@ char	*single_expand(t_lexer_node *node, int *nb)
 	return (final);
 }
 
-char	*double_expand(t_lexer_node *node, int *nb)
+char	*double_expand(t_lexer_node *node, int *nb, int flag)
 {
 	char	*final;
 	char	*temp;
@@ -61,7 +61,7 @@ char	*double_expand(t_lexer_node *node, int *nb)
 	final = ft_strdup("");
 	while (++*nb < node->lexer_size && node->lexer[*nb].type != '"')
 	{
-		temp = smart_get_variable(node->lexer[*nb].content, 1);
+		temp = smart_get_variable(node->lexer[*nb].content, flag);
 		final = ft_strjoin(final, temp);
 		free(temp);
 	}
@@ -80,7 +80,7 @@ char	*join_string(t_lexer_node *node, int *nb, int flag)
 		if (node->lexer[*nb].type == '\'')
 			temp = single_expand(node, nb);
 		else if (node->lexer[*nb].type == '"')
-			temp = double_expand(node, nb);
+			temp = double_expand(node, nb, flag);
 		else
 			temp = smart_get_variable(node->lexer[*nb].content, flag);
 		if (++*nb && temp)

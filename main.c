@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/04 21:46:13 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 12:00:07 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	minishell(char *line, char **env)
 	free(args);
 	if (parser_utils(&head))
 	{
+		g_global.head = head;
 		executor(head);
 		free_parser(head);
 		lst_clear(&head);

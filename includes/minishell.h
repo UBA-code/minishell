@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/04 22:09:36 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 11:19:24 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,12 @@ typedef t_lexer_node	t_executor;
 
 typedef struct s_g_global
 {
-	t_mini_env	*env_head;
-	int			open_heredoc;
-	int			error;
-	int			done;
-	int			*save;
+	t_mini_env		*env_head;
+	t_lexer_node	*head;
+	int				open_heredoc;
+	int				error;
+	int				done;
+	int				*save;
 }	t_global;
 
 # ifndef G_GLOBAL

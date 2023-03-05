@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:43:19 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/01 13:42:19 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/05 11:21:09 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exit_error(char *str)
 {
-	ft_error("bash: ", 255);
+	ft_error("Minishell: ", 255);
 	ft_error(str, 255);
 	ft_error(": numeric argument required\n", 255);
 }
@@ -46,12 +46,14 @@ void	exit_cmd(char **args)
 		exit(255);
 	if (args[1] && !args[2])
 	{
-		printf("exit\n");
+		if (!g_global.head->next)
+			printf("exit\n");
 		exit(ft_atoi(args[1]));
 	}
 	if (!args[1])
 	{
-		printf("exit\n");
+		if (!g_global.head->next)
+			printf("exit\n");
 		exit(0);
 	}
 	else
