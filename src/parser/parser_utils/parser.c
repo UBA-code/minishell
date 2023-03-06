@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 18:35:14 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:44:40 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,6 @@ int	parser_utils(t_lexer_node **lexer_head)
 			*current->cmd_struct.cmd = get_cmd_path(*current->cmd_struct.cmd);
 		current = current->next;
 	}
+	// print_lex(*lexer_head);
 	return (1);
 }

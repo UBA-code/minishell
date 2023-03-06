@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:43:19 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 21:01:21 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 18:44:56 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	check_exit(char *nb)
 
 void	exit_cmd(char **args)
 {
+	if (check_empty(args[0]))
+		return (exit_error(args[0]), exit(255));
 	if (args[1] && !check_exit(args[1]))
 		exit(255);
 	if (args[1] && !args[2])
