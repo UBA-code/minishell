@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:43:19 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 21:43:09 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 21:54:10 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_exit(char *nb)
 
 void	exit_cmd(char **args)
 {
-	if (!check_empty(args[1]))
+	if (args[1] && !check_empty(args[1]))
 		return (exit_error(args[1]), ft_error("exit\n", 1), exit(255));
 	if (args[1] && !check_exit(args[1]))
 		exit(255);
