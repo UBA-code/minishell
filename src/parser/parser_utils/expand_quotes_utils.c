@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:46:14 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 15:39:24 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:55:53 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*join_string(t_lexer_node *node, int *nb, int flag)
 
 	final = 0;
 	while (*nb < node->lexer_size
-			&& tokens_check(node->lexer[*nb].type, nb))
+		&& tokens_check(node->lexer[*nb].type, nb))
 	{
 		if (node->lexer[*nb].type == '\'')
 			temp = single_expand(node, nb);

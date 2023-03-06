@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:43:48 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 17:07:25 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:48:14 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	pwd_cmd(void)
 
 	temp = getcwd(0, 0);
 	if (!temp)
-		printf("%s\n", get_variable_cmd("PWD"));
+		return ;
 	else
 		printf("%s\n", temp);
 	free(temp);

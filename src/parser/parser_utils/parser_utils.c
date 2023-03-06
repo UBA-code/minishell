@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:49:25 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 18:38:18 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:09:28 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,24 @@ int	parser_get_size(t_lexer_node *node)
 	return (size);
 }
 
-char	get_file_type(t_lexer_node *node, int i)
+char	get_file_type(t_lexer_node *node, int *i)
 {
-	if (i + 1 < node->lexer_size && node->lexer[i].type == '>'
-		&& node->lexer[i + 1].type != '>' && node->lexer[i + 2].type != '>'
-		&& node->lexer[i + 2].type != '<' && node->lexer[i + 1].type != '<')
-		return ('O');
-	if (i + 1 < node->lexer_size && node->lexer[i].type == '>'
-		&& node->lexer[i + 1].type == '>' && node->lexer[i + 2].type != '>'
-		&& node->lexer[i + 2].type != '<')
-		return ('A');
-	if (i + 1 < node->lexer_size && node->lexer[i].type == '<'
-		&& node->lexer[i + 1].type != '<' && node->lexer[i + 2].type != '>'
-		&& node->lexer[i + 2].type != '<' && node->lexer[i + 1].type != '>')
-		return ('I');
-	if (i + 1 < node->lexer_size && node->lexer[i].type == '<'
-		&& node->lexer[i + 1].type == '<' && node->lexer[i + 2].type != '>'
-		&& node->lexer[i + 2].type != '<')
-		return ('H');
+	if (*i + 1 < node->lexer_size && node->lexer[*i].type == '>'
+		&& node->lexer[*i + 1].type != '>' && node->lexer[*i + 2].type != '>'
+		&& node->lexer[*i + 2].type != '<' && node->lexer[*i + 1].type != '<')
+		return (++*i, 'O');
+	if (*i + 1 < node->lexer_size && node->lexer[*i].type == '>'
+		&& node->lexer[*i + 1].type == '>' && node->lexer[*i + 2].type != '>'
+		&& node->lexer[*i + 2].type != '<')
+		return (++*i, ++*i, 'A');
+	if (*i + 1 < node->lexer_size && node->lexer[*i].type == '<'
+		&& node->lexer[*i + 1].type != '<' && node->lexer[*i + 2].type != '>'
+		&& node->lexer[*i + 2].type != '<' && node->lexer[*i + 1].type != '>')
+		return (++*i, 'I');
+	if (*i + 1 < node->lexer_size && node->lexer[*i].type == '<'
+		&& node->lexer[*i + 1].type == '<' && node->lexer[*i + 2].type != '>'
+		&& node->lexer[*i + 2].type != '<')
+		return (++*i, ++*i, 'H');
 	return (0);
 }
 
@@ -95,7 +95,7 @@ int	get_after_file(t_lexer_node *node, int i)
 {
 	char	type;
 
-	type = get_file_type(node, i);
+	type = get_file_type(node, &i);
 	if (!type)
 		return (0);
 	while (i < node->lexer_size)
@@ -111,6 +111,8 @@ int	get_after_file(t_lexer_node *node, int i)
 					join_string(node, &i, 1), type);
 			return (i);
 		}
+		else if (node->lexer[i].type == '<' || node->lexer[i].type == '>')
+			return (-1);
 		i++;
 	}
 	return (-1);

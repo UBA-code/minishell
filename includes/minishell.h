@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 18:36:46 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:08:29 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int				dolar_work(t_get_variable_struct *utils);
 int				speciale_check(char c);
 void			skip_files(t_lexer_node *node, int *i);
 int				parser_get_size(t_lexer_node *node);
-char			get_file_type(t_lexer_node *node, int i);
+char			get_file_type(t_lexer_node *node, int *i);
 int				get_after_file(t_lexer_node *node, int i);
 int				lexer_check(char c);
 int				get_next_word(char *str, int i);
