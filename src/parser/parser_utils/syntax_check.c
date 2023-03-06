@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:02:19 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/03 18:52:18 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:08:56 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,6 @@ int	check_empty(char *line)
 
 int	check_syntax(char *line)
 {
-	int	i;
-
-	i = 0;
 	if (!check_pipes(line))
 		return (0);
 	return (1);

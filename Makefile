@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+         #
+#    By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 01:57:19 by bahbibe           #+#    #+#              #
-#    Updated: 2023/03/06 16:48:20 by ybel-hac         ###   ########.fr        #
+#    Updated: 2023/03/06 18:11:17 by bahbibe          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ all: $(NAME)
 $(NAME): $(OBG)
 	@stty -echoctl
 	@$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/homebrew/Cellar/readline/8.2.1/lib -o $(NAME)
-	@echo "$(Green)minishell compiled ✅$(Off)"
+	@echo "$(Green)Minishell Compiled ✅$(Off)"
 
 clean:
 	rm -rf $(OBG)
@@ -79,4 +79,4 @@ fclean: clean
 	rm -rf $(NAME)
 re: fclean all
 .PHONY: all clean fclean re
-# .SILENT: $(OBJS)
+.SILENT: $(OBJS)

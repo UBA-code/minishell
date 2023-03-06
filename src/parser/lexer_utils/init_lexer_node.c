@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_lexer_node.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:15:37 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 15:24:19 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:05:39 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ int	get_token_len(char *str)
 int	get_token_size(char *str, int *num)
 {
 	int	i;
-	int	len;
 
-	len = ft_strlen(str);
 	i = 0;
 	while (str[i])
 	{

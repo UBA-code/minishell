@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:50:47 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/05 22:03:58 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 18:10:01 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,6 @@ int	is_builtin(char *str)
 
 void	get_builtin(char *cmd, char **args)
 {
-	int	i;
-
-	i = 0;
 	if (ft_strcmp(cmd, "echo"))
 		echo_cmd(args);
 	else if (ft_strcmp(cmd, "cd"))
