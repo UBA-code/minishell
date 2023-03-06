@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/06 04:48:31 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 15:41:25 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ void	minishell(char *line, char **env)
 	}
 }
 
+void	close_saved_fd(int *files)
+{
+	close(files[0]);
+	close(files[1]);
+	free(files);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char			*line;
@@ -52,16 +59,15 @@ int	main(int ac, char **av, char **env)
 		line = readline("\e[1;32mminishell~> \e[0m");
 		signal(SIGINT, SIG_IGN);
 		if (!line)
-		{
-			printf("exit\n");
-			exit(EXIT_SUCCESS);
-		}
+			return (printf("exit\n"), 0);
+		g_global.save = save_();
 		if (ft_strlen(line) && check_empty(line))
 		{
 			add_history(line);
 			minishell(line, env);
 			reset_io(g_global.save);
 		}
+		close_saved_fd(g_global.save);
 		free(line);
 	}
 	return (0);

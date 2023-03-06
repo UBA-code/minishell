@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 00:04:23 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 15:31:48 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@
 # define RIGHT_REDIRECT "<"
 # define DOUBLE_QUOTES "\""
 # define SINGLE_QUOTES "'"
-# define LEFT_GROUP "("
-# define RIGHT_GROUP ")"
 # define SPACE " "
 # define TAB "	"
 # define DOLAR "$"
@@ -175,6 +173,7 @@ void			get_builtin(char *cmd, char **args);
 char			**ft_split_costom(char *str);
 int				check_empty(char *line);
 int				open_herdoc(char *limit, int flag);
+int				tokens_check(char c, int *nb);
 int				executor(t_lexer_node *head);
 int				pipeline(t_lexer_node *head);
 int				*open_files(t_lexer_node *head);

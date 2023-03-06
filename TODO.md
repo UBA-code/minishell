@@ -45,3 +45,8 @@ echo "" hello
 
 ctrl + d not display exit
 
+<< ""
+
+ls << << ub
+<< << << ls
+cat /dev/random | head | tail >> out>>>>> ouy1

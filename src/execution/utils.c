@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 21:08:32 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/05 22:03:17 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 14:24:28 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	init_var(int ac, char **av, char **env)
 {
 	(void)av;
 	(void)ac;
-	g_global.save = save_();
 	g_global.env_head = 0;
 	g_global.error = 0;
 	create_env(env);

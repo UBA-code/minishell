@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"_mcontext.h": "c"
+		"_mcontext.h": "c",
+		"minishell.h": "c"
 	}
 }

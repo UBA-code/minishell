@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_quotes_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:46:14 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 01:30:57 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 15:39:24 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ char	*smart_get_variable(char *str, int flag)
 	utils.string = str;
 	while (str[++(utils.i)])
 	{
-		if (flag && str[utils.i] == '$' && str[utils.i + 1] == '?')
+		if (flag && str[utils.i] == '$' && str[utils.i + 1] == '?' && ++utils.i)
 		{
 			error_num = ft_itoa(g_global.error);
 			utils.final = ft_strjoin(utils.final, error_num);
 			free(error_num);
-			utils.i += 1;
 		}
 		else if (str[utils.i] == '$' && speciale_check(str[utils.i + 1]))
 		{
@@ -74,7 +73,7 @@ char	*join_string(t_lexer_node *node, int *nb, int flag)
 
 	final = 0;
 	while (*nb < node->lexer_size
-		&& (node->lexer[*nb].type != 'S' && node->lexer[*nb].type != 'T'))
+			&& tokens_check(node->lexer[*nb].type, nb))
 	{
 		if (node->lexer[*nb].type == '\'')
 			temp = single_expand(node, nb);
@@ -94,4 +93,11 @@ char	*join_string(t_lexer_node *node, int *nb, int flag)
 		}
 	}
 	return (final);
+}
+
+int	tokens_check(char c, int *nb)
+{
+	if (c == '>' || c == '<' || c == 'S' || c == 'T')
+		return (--*nb, 0);
+	return (1);
 }

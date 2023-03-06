@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 00:54:09 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 16:47:25 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	parser_work(t_lexer_node *node)
 		{
 			i = get_after_file(node, i);
 			if (i <= 0)
-				return (0);
+				return (ft_error("Minishell: syntax error\n", 258), 0);
 		}
 		else if (node->lexer[i].type == '\'' || node->lexer[i].type == '"'
 			|| node->lexer[i].type == 'W')
@@ -36,7 +36,7 @@ int	parser_work(t_lexer_node *node)
 		if (j && !(node->cmd_struct.cmd[j - 1]))
 			j--;
 		if (g_global.open_heredoc)
-			return (1);
+			return (0);
 	}
 	return (1);
 }
@@ -104,12 +104,23 @@ void	print_lex(t_lexer_node *head)
 	}
 }
 
+void	init_help(t_lexer_node *lexer_head)
+{
+	while (lexer_head)
+	{
+		lexer_head->cmd_struct.cmd = 0;
+		lexer_head->cmd_struct.files_head = 0;
+		lexer_head = lexer_head->next;
+	}
+}
+
 int	parser_utils(t_lexer_node **lexer_head)
 {
 	t_lexer_node	*current;
 	int				i;
 
 	current = *lexer_head;
+	init_help(*lexer_head);
 	while (current)
 	{
 		if (!parser_work(current) || g_global.open_heredoc)
@@ -126,5 +137,6 @@ int	parser_utils(t_lexer_node **lexer_head)
 			*current->cmd_struct.cmd = get_cmd_path(*current->cmd_struct.cmd);
 		current = current->next;
 	}
+	// print_lex(*lexer_head);
 	return (1);
 }

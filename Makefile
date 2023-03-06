@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+         #
+#    By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 01:57:19 by bahbibe           #+#    #+#              #
-#    Updated: 2023/03/06 04:48:14 by bahbibe          ###   ########.fr        #
+#    Updated: 2023/03/06 16:48:20 by ybel-hac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ PARSE_PATH = ./src/parser/
 EXECUTION_PATH = ./src/execution/
 OBG = $(SRCS:.c=.o)
 CFLAGS = -Wall -Werror -Wextra
-# CFLAGS = -fsanitize=address -g3
+# CFLAGS += -fsanitize=address -g3
 SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 		$(PARSE_PATH)get_next_line/get_next_line_utils.c \
 		$(PARSE_PATH)utils/ft_calloc.c \
@@ -72,7 +72,6 @@ $(NAME): $(OBG)
 	@stty -echoctl
 	@$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/homebrew/Cellar/readline/8.2.1/lib -o $(NAME)
 	@echo "$(Green)minishell compiled ✅$(Off)"
-	@./minishell
 
 clean:
 	rm -rf $(OBG)
@@ -80,4 +79,4 @@ fclean: clean
 	rm -rf $(NAME)
 re: fclean all
 .PHONY: all clean fclean re
-.SILENT: $(OBJS)
+# .SILENT: $(OBJS)

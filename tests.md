@@ -115,8 +115,8 @@
 | Status| Test										| Bash									| 
 |-------|-------------------------------------------|---------------------------------------|
 |OK|`cat \| cat \| cat \| ls`					|`ls` output then hangs, `enter` 3 times|
-|KO|`cat Makefile \| grep a \| wc -l \| cd x`	|No such file or directory				|
-|KO|`cat Makefile \| grep a \| wc -l \| x`		|command not found						|
+|OK|`cat Makefile \| grep a \| wc -l \| cd x`	|No such file or directory				|
+|OK|`cat Makefile \| grep a \| wc -l \| x`		|command not found						|
 |OK|`echo test \|cat`							|`test`									|
 |OK|`echo test \|\|\| cat`						|syntax error							|
 |OK|`export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8`	|`env` shows vars						|
