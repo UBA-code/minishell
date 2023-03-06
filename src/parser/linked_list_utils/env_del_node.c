@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:41:54 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 21:29:06 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:17:22 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	env_del_node(char *variable)
 			else
 			{
 				(current->previous)->next = current->next;
-				if (current->next)
-					(current->next)->previous = current->previous;
+				(current->next)->previous = current->previous;
 			}
 			free(temp->name);
 			free(temp->value);
