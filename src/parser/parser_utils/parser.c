@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 20:59:54 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 22:11:01 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	parser_utils(t_lexer_node **lexer_head)
 	while (current)
 	{
 		current->temp_fd = -1;
+		current->expand_here_doc = 1;
 		if (!parser_work(current) || g_global.open_heredoc)
 			return (parse_free(*lexer_head), 0);
 		current = current->next;

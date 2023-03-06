@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:23:20 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 19:05:05 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/06 22:11:29 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_files	*files_create_node(t_lexer_node *current,
 	if (type == 'H')
 	{
 		close(current->temp_fd);
-		if (node->file[0] == '$')
+		if (current->expand_here_doc)
 			node->fd = open_herdoc(file, 1);
 		else
 			node->fd = open_herdoc(file, 0);

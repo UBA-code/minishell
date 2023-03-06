@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:46:14 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 18:55:53 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/06 22:10:32 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*single_expand(t_lexer_node *node, int *nb)
 {
 	char	*final;
 
+	node->expand_here_doc = 0;
 	final = ft_strdup("");
 	while (++*nb < node->lexer_size && node->lexer[*nb].type != '\'')
 		final = ft_strjoin(final, node->lexer[*nb].content);
@@ -56,6 +57,7 @@ char	*double_expand(t_lexer_node *node, int *nb, int flag)
 	char	*final;
 	char	*temp;
 
+	node->expand_here_doc = 0;
 	final = ft_strdup("");
 	while (++*nb < node->lexer_size && node->lexer[*nb].type != '"')
 	{
