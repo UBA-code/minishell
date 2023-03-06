@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:41:54 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/02/26 16:12:45 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:17:22 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	env_del_node(char *variable)
 			if (current == g_global.env_head)
 				g_global.env_head = current->next;
 			else
+			{
 				(current->previous)->next = current->next;
+				(current->next)->previous = current->previous;
+			}
 			free(temp->name);
 			free(temp->value);
 			free(temp);
