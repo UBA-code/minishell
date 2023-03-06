@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 19:06:47 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/06 20:59:54 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,31 +79,6 @@ char	*get_cmd_path(char *cmd)
 	return (tab_free(paths), cmd);
 }
 
-void	print_lex(t_lexer_node *head)
-{
-	t_lexer_node	*current;
-	t_files			*files;
-	int				i;
-
-	current = head;
-	while (current)
-	{
-		i = 0;
-		while (current->cmd_struct.cmd[i])
-		{
-			printf("%d|%s|\n", i + 1, current->cmd_struct.cmd[i]);
-			i++;
-		}
-		files = current->cmd_struct.files_head;
-		while (files)
-		{
-			printf("file : %s \ttype : %c\n", files->file, files->type);
-			files = files->next;
-		}
-		current = current->next;
-	}
-}
-
 void	init_help(t_lexer_node *lexer_head)
 {
 	while (lexer_head)
@@ -136,6 +111,5 @@ int	parser_utils(t_lexer_node **lexer_head)
 			*current->cmd_struct.cmd = get_cmd_path(*current->cmd_struct.cmd);
 		current = current->next;
 	}
-	// print_lex(*lexer_head);
 	return (1);
 }
