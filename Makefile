@@ -6,7 +6,7 @@
 #    By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 01:57:19 by bahbibe           #+#    #+#              #
-#    Updated: 2023/03/05 21:43:33 by bahbibe          ###   ########.fr        #
+#    Updated: 2023/03/06 04:48:14 by bahbibe          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,13 @@ CFLAGS = -Wall -Werror -Wextra
 # CFLAGS = -fsanitize=address -g3
 SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
 		$(PARSE_PATH)get_next_line/get_next_line_utils.c \
-		$(PARSE_PATH)utils/ft_calloc.c $(PARSE_PATH)utils/ft_split.c \
+		$(PARSE_PATH)utils/ft_calloc.c \
+		$(PARSE_PATH)utils/ft_split.c \
 		$(PARSE_PATH)utils/split_utils.c \
-		$(PARSE_PATH)utils/ft_strdup.c $(PARSE_PATH)utils/ft_substr.c \
-		$(PARSE_PATH)utils/ft_strcmp.c $(PARSE_PATH)linked_list_utils/add_back_lst.c \
+		$(PARSE_PATH)utils/ft_strdup.c \
+		$(PARSE_PATH)utils/ft_substr.c \
+		$(PARSE_PATH)utils/ft_strcmp.c \
+		$(PARSE_PATH)linked_list_utils/add_back_lst.c \
 		$(PARSE_PATH)linked_list_utils/add_front_lst.c \
 		$(PARSE_PATH)linked_list_utils/create_node.c \
 		$(PARSE_PATH)linked_list_utils/lst_clear.c\
@@ -68,16 +71,8 @@ all: $(NAME)
 $(NAME): $(OBG)
 	@stty -echoctl
 	@$(CC) $(CFLAGS) -lreadline $(OBG) -L ~/homebrew/Cellar/readline/8.2.1/lib -o $(NAME)
-	@echo "$(Red)"
-	@echo "##     ## #### ##    ## ####  ######  ##     ## ######## ##       ##      ";
-	@echo "###   ###  ##  ###   ##  ##  ##    ## ##     ## ##       ##       ##      ";
-	@echo "#### ####  ##  ####  ##  ##  ##       ##     ## ##       ##       ##      ";
-	@echo "## ### ##  ##  ## ## ##  ##   ######  ######### ######   ##       ##      ";
-	@echo "##     ##  ##  ##  ####  ##        ## ##     ## ##       ##       ##      ";
-	@echo "##     ##  ##  ##   ###  ##  ##    ## ##     ## ##       ##       ##      ";
-	@echo "##     ## #### ##    ## ####  ######  ##     ## ######## ######## ########";
-	@echo "$(Yellow)                      by ybel-hac & bahbibe © "
-	@echo "$(Off)"
+	@echo "$(Green)minishell compiled ✅$(Off)"
+	@./minishell
 
 clean:
 	rm -rf $(OBG)

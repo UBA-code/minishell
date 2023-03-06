@@ -6,7 +6,7 @@
 /*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/06 00:48:16 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/06 04:48:31 by bahbibe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ void	minishell(char *line, char **env)
 			return (tab_free(args));
 	i = -1;
 	while (args[++i])
-	{	
 		init_lexer_node(&head, args[i], env);
-		// free(args[i]);
-	}
 	free(args);
 	if (parser_utils(&head))
 	{
@@ -52,7 +49,7 @@ int	main(int ac, char **av, char **env)
 		g_global.open_heredoc = 0;
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, sig_handler);
-		line = readline("\e[1;32mMinishell~> \e[0m");
+		line = readline("\e[1;32mminishell~> \e[0m");
 		signal(SIGINT, SIG_IGN);
 		if (!line)
 		{
