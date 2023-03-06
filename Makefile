@@ -6,7 +6,7 @@
 #    By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 01:57:19 by bahbibe           #+#    #+#              #
-#    Updated: 2023/03/06 18:11:17 by bahbibe          ###   ########.fr        #
+#    Updated: 2023/03/06 21:09:49 by bahbibe          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ EXECUTION_PATH = ./src/execution/
 OBG = $(SRCS:.c=.o)
 CFLAGS = -Wall -Werror -Wextra
 # CFLAGS += -fsanitize=address -g3
-SRCS = main.c $(PARSE_PATH)get_next_line/get_next_line.c \
+SRCS = main.c \
+		$(PARSE_PATH)get_next_line/get_next_line.c \
 		$(PARSE_PATH)get_next_line/get_next_line_utils.c \
 		$(PARSE_PATH)utils/ft_calloc.c \
 		$(PARSE_PATH)utils/ft_split.c \
