@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:59:14 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/06 00:38:33 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/07 19:01:26 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	*open_files(t_lexer_node *head)
 		else if (current->type == 'O')
 			fd[1] = open_file(current->file, 'O');
 		else if (current->type == 'I')
-			fd[1] = open_file(current->file, 'I');
+			fd[0] = open_file(current->file, 'I');
 		if (fd[1] == -2)
 			return (free(fd), NULL);
 		current = current->next;

@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/06 18:54:24 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:02:51 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int ac, char **av, char **env)
 		line = readline("\e[1;32mminishell~> \e[0m");
 		signal(SIGINT, SIG_IGN);
 		if (!line)
-			return (printf("exit\n"), 0);
+			return (printf("exit\n"), g_global.error);
 		g_global.save = save_();
 		if (ft_strlen(line) && check_empty(line))
 		{
