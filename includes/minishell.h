@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:46:57 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 22:09:38 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/08 21:53:20 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void			init_lexer_node(t_lexer_node **head, char *line, char **env);
 void			init_lexer_node(t_lexer_node **head, char *line, char **env);
 void			ft_error(char *str, int error);
 int				check_quotes(char *str);
-int				parser_utils(t_lexer_node **lexer_head);
+int				parser_utils(t_lexer_node **lexer_head, char *line);
 void			files_add_back_lst(t_files *head, t_files *node);
 t_lexer_node	*lexer_create_node(t_lexer_node **head);
 void			env_add_back_lst(t_mini_env *head, t_mini_env *node);

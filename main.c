@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 22:44:17 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/07 19:02:51 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/08 21:53:12 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	minishell(char *line, char **env)
 	int				i;
 	t_lexer_node	*head;
 
-	if (!check_syntax(line))
-		return (ft_error("minishell: syntax error\n", 258));
 	head = 0;
 	i = -1;
 	args = ft_split_costom(line);
@@ -30,7 +28,7 @@ void	minishell(char *line, char **env)
 	while (args[++i])
 		init_lexer_node(&head, args[i], env);
 	free(args);
-	if (parser_utils(&head))
+	if (parser_utils(&head, line))
 	{
 		g_global.head = head;
 		executor(head);

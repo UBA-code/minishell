@@ -6,7 +6,7 @@
 /*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 20:17:45 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 22:11:01 by ybel-hac         ###   ########.fr       */
+/*   Updated: 2023/03/08 21:58:43 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	init_help(t_lexer_node *lexer_head)
 	}
 }
 
-int	parser_utils(t_lexer_node **lexer_head)
+int	parser_utils(t_lexer_node **lexer_head, char *line)
 {
 	t_lexer_node	*current;
 
@@ -112,5 +112,8 @@ int	parser_utils(t_lexer_node **lexer_head)
 			*current->cmd_struct.cmd = get_cmd_path(*current->cmd_struct.cmd);
 		current = current->next;
 	}
+	if (!check_syntax(line))
+		return (ft_error("minishell: syntax error\n", 258),
+			parse_free(*lexer_head), 0);
 	return (1);
 }
