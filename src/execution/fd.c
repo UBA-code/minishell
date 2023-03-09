@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 21:11:31 by bahbibe           #+#    #+#             */
-/*   Updated: 2023/03/06 22:35:20 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/09 09:35:57 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	heredoc_prompt(char *limit, int fd[2], int flag)
 {
 	char	*line;
+	char	*temp;
 
 	line = readline("> ");
 	if (!line)
@@ -27,7 +28,11 @@ void	heredoc_prompt(char *limit, int fd[2], int flag)
 	if (!flag)
 		ft_putstr(line, fd[1]);
 	else if (ft_strlen(line))
-		ft_putstr(smart_get_variable(line, 1), fd[1]);
+	{
+		temp = smart_get_variable(line, 1);
+		ft_putstr(temp, fd[1]);
+		free(temp);
+	}
 	ft_putstr("\n", fd[1]);
 	free(line);
 }
