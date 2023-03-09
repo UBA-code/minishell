@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bahbibe <bahbibe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybel-hac <ybel-hac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 11:43:19 by ybel-hac          #+#    #+#             */
-/*   Updated: 2023/03/06 21:54:10 by bahbibe          ###   ########.fr       */
+/*   Updated: 2023/03/09 09:46:06 by ybel-hac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	exit_error(char *str)
 {
+	ft_error("exit\n", 1);
 	ft_error("Minishell: ", 255);
 	ft_error(str, 255);
 	ft_error(": numeric argument required\n", 255);
@@ -59,5 +60,8 @@ void	exit_cmd(char **args)
 		exit(EXIT_SUCCESS);
 	}
 	else
+	{
+		ft_error("exit\n", 1);
 		ft_error("exit: too many arguments\n", 1);
+	}
 }
